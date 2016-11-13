@@ -22,7 +22,7 @@ class IPacketStreamer {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     IPacketStreamer() {
         _factory = NULL;
@@ -30,7 +30,7 @@ public:
     }
 
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     IPacketStreamer(IPacketFactory *factory) {
         _factory = factory;
@@ -38,47 +38,47 @@ public:
     }
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     virtual ~IPacketStreamer() {}
 
     /*
-     * µÃµ½°üÍ·ĞÅÏ¢
+     * å¾—åˆ°åŒ…å¤´ä¿¡æ¯
      *
-     * @param input  Ô´buffer
-     * @param header ½á¹ûheader
-     * @return ÊÇ·ñ³É¹¦
+     * @param input  æºbuffer
+     * @param header ç»“æœheader
+     * @return æ˜¯å¦æˆåŠŸ
      */
     virtual bool getPacketInfo(DataBuffer *input, PacketHeader *header, bool *broken) = 0;
 
     /*
-     * ¶Ô°üµÄ½âÂë
+     * å¯¹åŒ…çš„è§£ç 
      *
      * @param input
      * @param header
-     * @return ½âÂëºóµÄÊı¾İ°ü
+     * @return è§£ç åçš„æ•°æ®åŒ…
      */
     virtual Packet *decode(DataBuffer *input, PacketHeader *header) = 0;
 
     /*
-     * ¶ÔPacketµÄ×é×°
+     * å¯¹Packetçš„ç»„è£…
      *
-     * @param packet Êı¾İ°ü
-     * @param output ×é×°ºóµÄÊı¾İÁ÷
-     * @return ÊÇ·ñ³É¹¦
+     * @param packet æ•°æ®åŒ…
+     * @param output ç»„è£…åçš„æ•°æ®æµ
+     * @return æ˜¯å¦æˆåŠŸ
      */
     virtual bool encode(Packet *packet, DataBuffer *output) = 0;
 
     /*
-     * ÊÇ·ñÓĞÊı¾İ°üÍ·
+     * æ˜¯å¦æœ‰æ•°æ®åŒ…å¤´
      */
     bool existPacketHeader() {
         return _existPacketHeader;
     }
 
 protected:
-    IPacketFactory *_factory;   // ²úÉúpacket
-    bool _existPacketHeader;    // ÊÇ·ñÓĞpacket header, ÈçhttpÓĞ×Ô¼ºĞ­Òé¾Í²»ĞèÒªÊä³öÍ·ĞÅÏ¢
+    IPacketFactory *_factory;   // äº§ç”Ÿpacket
+    bool _existPacketHeader;    // æ˜¯å¦æœ‰packet header, å¦‚httpæœ‰è‡ªå·±åè®®å°±ä¸éœ€è¦è¾“å‡ºå¤´ä¿¡æ¯
 };
 }
 

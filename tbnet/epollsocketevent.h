@@ -20,59 +20,60 @@ namespace tbnet {
 
 class EPollSocketEvent : public SocketEvent {
 
-public:
-    /*
-     * ¹¹Ôìº¯Êı
-     */
-    EPollSocketEvent();
+ public:
+  /*
+   * æ„é€ å‡½æ•°
+   */
+  EPollSocketEvent();
 
-    /*
-     * ÎöÔìº¯Êı
-     */
-    ~EPollSocketEvent();
+  /*
+   * æé€ å‡½æ•°
+   */
+  ~EPollSocketEvent();
 
-    /*
-     * Ôö¼ÓSocketµ½ÊÂ¼şÖĞ
-     *
-     * @param socket ±»¼ÓµÄsocket
-     * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
-     * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
-     * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
-     */
-    bool addEvent(Socket *socket, bool enableRead, bool enableWrite);
+  /*
+   * å¢åŠ Socketåˆ°äº‹ä»¶ä¸­
+   *
+   * @param socket è¢«åŠ çš„socket
+   * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+   * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+   * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
+   */
+  bool addEvent(Socket *socket, bool enableRead, bool enableWrite);
 
-    /*
-     * ÉèÖÃÉ¾³ıSocketµ½ÊÂ¼şÖĞ
-     *
-     * @param socket ±»¼ÓµÄsocket
-     * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
-     * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
-     * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
-     */
-    bool setEvent(Socket *socket, bool enableRead, bool enableWrite);
+  /*
+   * è®¾ç½®åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
+   *
+   * @param socket è¢«åŠ çš„socket
+   * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+   * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+   * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
+   */
+  bool setEvent(Socket *socket, bool enableRead, bool enableWrite);
 
-    /*
-     * É¾³ıSocketµ½ÊÂ¼şÖĞ
-     *
-     * @param socket ±»É¾³ısocket
-     * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
-     */
-    bool removeEvent(Socket *socket);
+  /*
+   * åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
+   *
+   * @param socket è¢«åˆ é™¤socket
+   * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
+   */
+  bool removeEvent(Socket *socket);
 
-    /*
-     * µÃµ½¶ÁĞ´ÊÂ¼ş¡£
-     *
-     * @param timeout  ³¬Ê±Ê±¼ä(µ¥Î»:ms)
-     * @param events  ÊÂ¼şÊı×é
-     * @param cnt   eventsµÄÊı×é´óĞ¡
-     * @return ÊÂ¼şÊı, 0Îª³¬Ê±
-     */
-    int getEvents(int timeout, IOEvent *events, int cnt);
+  /*
+   * å¾—åˆ°è¯»å†™äº‹ä»¶ã€‚
+   *
+   * @param timeout  è¶…æ—¶æ—¶é—´(å•ä½:ms)
+   * @param events  äº‹ä»¶æ•°ç»„
+   * @param cnt   eventsçš„æ•°ç»„å¤§å°
+   * @return äº‹ä»¶æ•°, 0ä¸ºè¶…æ—¶
+   */
+  int getEvents(int timeout, IOEvent *events, int cnt);
 
-private:
-    int _iepfd;    // epollµÄfd
-//    tbsys::CThreadMutex _mutex;  // ¶Ôfd²Ù×÷¼ÓËø
+ private:
+  int _iepfd;    // epollçš„fd
+//    tbsys::CThreadMutex _mutex;  // å¯¹fdæ“ä½œåŠ é”
 };
 }
 
 #endif /*EPOLLSOCKETEVENT_H_*/
+

@@ -17,7 +17,7 @@
 
 namespace tbsys {
     /** 
-     * ´´½¨¶à¼¶Ä¿Â¼, ÔÚ¸¸Ä¿Â¼²»´æÔÚÒ»Í¬´´½¨
+     * åˆ›å»ºå¤šçº§ç›®å½•, åœ¨çˆ¶ç›®å½•ä¸å­˜åœ¨ä¸€åŒåˆ›å»º
      */
     bool CFileUtil::mkdirs(char *szDirPath) 
     {
@@ -55,7 +55,7 @@ namespace tbsys {
         return true;
     }
 
-    // ÊÇ·ñÎªÄ¿Â¼
+    // æ˜¯å¦ä¸ºç›®å½•
     bool CFileUtil::isDirectory(const char *szDirPath)
     {
         struct stat stats;
@@ -64,7 +64,7 @@ namespace tbsys {
         return false;
     }
 
-    // ÊÇ·ñÎªislnk
+    // æ˜¯å¦ä¸ºislnk
     bool CFileUtil::isSymLink(const char *szDirPath)
     {
         struct stat stats;

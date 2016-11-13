@@ -22,38 +22,38 @@ class TCPConnection : public Connection {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     TCPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~TCPConnection();
 
     /*
-     * Ğ´³öÊı¾İ
+     * å†™å‡ºæ•°æ®
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool writeData();
 
     /*
-     * ¶ÁÈëÊı¾İ
+     * è¯»å…¥æ•°æ®
      *
-     * @return ¶ÁÈëÊı¾İ
+     * @return è¯»å…¥æ•°æ®
      */
     bool readData();
 
     /*
-     * ÉèÖÃĞ´ÍêÊÇ·ñÖ÷¶¯¹Ø±Õ
+     * è®¾ç½®å†™å®Œæ˜¯å¦ä¸»åŠ¨å…³é—­
      */
     void setWriteFinishClose(bool v) {
         _writeFinishClose = v;
     }
 
     /*
-     * Çå¿ÕoutputµÄbuffer
+     * æ¸…ç©ºoutputçš„buffer
      */
     void clearOutputBuffer() {
         _output.clear();
@@ -67,16 +67,16 @@ public:
     }
 
     /**
-     * ·¢ËÍsetDisconnState
+     * å‘é€setDisconnState
      */
     void setDisconnState();
 
 private:
-    DataBuffer _output;      // Êä³öµÄbuffer
-    DataBuffer _input;       // ¶ÁÈëµÄbuffer
-    PacketHeader _packetHeader; // ¶ÁÈëµÄpacket header
-    bool _gotHeader;            // packet headerÒÑ¾­È¡¹ı
-    bool _writeFinishClose;     // Ğ´Íê¶Ï¿ª
+    DataBuffer _output;      // è¾“å‡ºçš„buffer
+    DataBuffer _input;       // è¯»å…¥çš„buffer
+    PacketHeader _packetHeader; // è¯»å…¥çš„packet header
+    bool _gotHeader;            // packet headerå·²ç»å–è¿‡
+    bool _writeFinishClose;     // å†™å®Œæ–­å¼€
 };
 
 }

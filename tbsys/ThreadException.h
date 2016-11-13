@@ -21,7 +21,7 @@
 namespace tbutil
 {
 /** 
-* @brief µ÷ÓÃÏß³ÌÏà¹ØµÄÏµÍ³µ÷ÓÃÒì³£Àà 
+* @brief è°ƒç”¨çº¿ç¨‹ç›¸å…³çš„ç³»ç»Ÿè°ƒç”¨å¼‚å¸¸ç±» 
 */
 class ThreadSyscallException : public SyscallException
 {
@@ -38,7 +38,7 @@ private:
 };
 
 /** 
- * @brief µ±Ç°Ïß³ÌÒÑ¾­±»Ëø×¡Òì³£
+ * @brief å½“å‰çº¿ç¨‹å·²ç»è¢«é”ä½å¼‚å¸¸
  */
 class ThreadLockedException : public Exception
 {
@@ -55,7 +55,7 @@ private:
 };
 
 /** 
- * @brief Ïß³ÌStartÊ±µÄÒì³£
+ * @brief çº¿ç¨‹Startæ—¶çš„å¼‚å¸¸
  */
 class ThreadStartedException : public Exception
 {
@@ -72,7 +72,7 @@ private:
 };
 
 /** 
- * @brief Ïß³ÌÃ»ÓĞµ÷ÓÃStartÒì³£
+ * @brief çº¿ç¨‹æ²¡æœ‰è°ƒç”¨Startå¼‚å¸¸
  */
 class ThreadNotStartedException : public Exception
 {
@@ -89,7 +89,7 @@ private:
 };
 
 /** 
- * @brief µ÷ÓÃÏß³Ì¿ØÖÆÏµÍ³µ÷ÓÃÒì³£
+ * @brief è°ƒç”¨çº¿ç¨‹æ§åˆ¶ç³»ç»Ÿè°ƒç”¨å¼‚å¸¸
  */
 class BadThreadControlException : public Exception
 {
@@ -106,7 +106,7 @@ private:
 };
 
 /** 
- * @brief ³¬Ê±Òì³£ 
+ * @brief è¶…æ—¶å¼‚å¸¸ 
  */
 class InvalidTimeoutException : public Exception
 {
@@ -125,7 +125,7 @@ private:
 };
 
 /** 
- * @brief ´´½¨Ïß³ÌÒì³£
+ * @brief åˆ›å»ºçº¿ç¨‹å¼‚å¸¸
  */
 class ThreadCreateException: public Exception
 {

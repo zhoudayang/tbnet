@@ -35,7 +35,7 @@
 
 namespace tbsys {
 /** 
-* @brief °´ipµØÖ·´óĞ¡±È½Ï 
+* @brief æŒ‰ipåœ°å€å¤§å°æ¯”è¾ƒ 
 */
 struct ipaddr_less {
     bool operator()(const uint64_t a, const uint64_t b) const {
@@ -48,33 +48,33 @@ struct ipaddr_less {
 };
 
 /** 
- * @brief IPµØÖ·×ª»»Àà
+ * @brief IPåœ°å€è½¬æ¢ç±»
  */
 class CNetUtil {
 public:
     /**
-     * µÃµ½±¾»úip
+     * å¾—åˆ°æœ¬æœºip
      */
     static uint32_t getLocalAddr(const char *dev_name);
     /**
-     * ipÊÇ±¾»úipµØÖ·, true - ÊÇ, false - ²»ÊÇ
+     * ipæ˜¯æœ¬æœºipåœ°å€, true - æ˜¯, false - ä¸æ˜¯
      */
     static bool isLocalAddr(uint32_t ip, bool loopSkip = true);
     /**
-     * °Ñ×Ö·û´®µÄip×ª³Éint
-     * Èç 10.0.100.89 => 1499725834
+     * æŠŠå­—ç¬¦ä¸²çš„ipè½¬æˆint
+     * å¦‚ 10.0.100.89 => 1499725834
      */
     static uint32_t getAddr(const char *ip);
     /**
-     * °Ñuint64×ª³É×Ö·û´®
+     * æŠŠuint64è½¬æˆå­—ç¬¦ä¸²
      */
     static std::string addrToString(uint64_t ipport);
     /**
-     * °Ñip,port×ª³Éuint64_t
+     * æŠŠip,portè½¬æˆuint64_t
      */
     static uint64_t strToAddr(const char *ip, int port);
     /**
-     * °Ñip,port×ª³Éuint64_t
+     * æŠŠip,portè½¬æˆuint64_t
      */
     static uint64_t ipToAddr(uint32_t ip, int port);
 };

@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 Transport::Transport() {
     _stop = false;
@@ -29,16 +29,16 @@ Transport::Transport() {
 }
 
 /*
- * ÎöÔìº¯Êı
+ * æé€ å‡½æ•°
  */
 Transport::~Transport() {
     destroy();
 }
 
 /*
- * Æğ¶¯ÔËÊä²ã£¬´´½¨Á½¸öÏß³Ì£¬Ò»¸öÓÃÓÚ¶Á£¬Ò»¸öÓÃĞ´¡£
+ * èµ·åŠ¨è¿è¾“å±‚ï¼Œåˆ›å»ºä¸¤ä¸ªçº¿ç¨‹ï¼Œä¸€ä¸ªç”¨äºè¯»ï¼Œä¸€ä¸ªç”¨å†™ã€‚
  *
- * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+ * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
  */
 bool Transport::start() {
     signal(SIGPIPE, SIG_IGN);
@@ -48,9 +48,9 @@ bool Transport::start() {
 }
 
 /*
- * Í£Ö¹£¬Í£µô¶ÁĞ´Ïß³Ì£¬¼°Ïú»Ù¡£
+ * åœæ­¢ï¼Œåœæ‰è¯»å†™çº¿ç¨‹ï¼ŒåŠé”€æ¯ã€‚
  *
- * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+ * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
  */
 bool Transport::stop() {
     _stop = true;
@@ -58,9 +58,9 @@ bool Transport::stop() {
 }
 
 /*
- * µÈ´ıÏß³ÌÍêÈ«ÍË³ö¡£
+ * ç­‰å¾…çº¿ç¨‹å®Œå…¨é€€å‡ºã€‚
  *
- * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+ * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
  */
 bool Transport::wait() {
     _readWriteThread.join();
@@ -70,16 +70,16 @@ bool Transport::wait() {
 }
 
 /*
- * socket event µÄ¼ì²â, ±»runº¯Êıµ÷ÓÃ
+ * socket event çš„æ£€æµ‹, è¢«runå‡½æ•°è°ƒç”¨
  */
 void Transport::eventLoop(SocketEvent *socketEvent) {
     IOEvent events[MAX_SOCKET_EVENTS];
 
     while (!_stop) {
-        // ¼ì²éÊÇ·ñÓĞÊÂ¼ş·¢Éú
+        // æ£€æŸ¥æ˜¯å¦æœ‰äº‹ä»¶å‘ç”Ÿ
         int cnt = socketEvent->getEvents(1000, events, MAX_SOCKET_EVENTS);
         if (cnt < 0) {
-            TBSYS_LOG(INFO, "µÃµ½events³ö´íÁË: %s(%d)\n", strerror(errno), errno);
+            TBSYS_LOG(INFO, "å¾—åˆ°eventså‡ºé”™äº†: %s(%d)\n", strerror(errno), errno);
         }
 
         for (int i = 0; i < cnt; i++) {
@@ -87,13 +87,13 @@ void Transport::eventLoop(SocketEvent *socketEvent) {
             if (ioc == NULL) {
                 continue;
             }
-            if (events[i]._errorOccurred) { // ´íÎó·¢ÉúÁË
+            if (events[i]._errorOccurred) { // é”™è¯¯å‘ç”Ÿäº†
                 removeComponent(ioc);
                 continue;
             }
 
             ioc->addRef();
-            // ¶ÁĞ´
+            // è¯»å†™
             bool rc = true;
             if (events[i]._readOccurred) {
                 rc = ioc->handleReadEvent();
@@ -111,14 +111,14 @@ void Transport::eventLoop(SocketEvent *socketEvent) {
 }
 
 /*
- * ³¬Ê±¼ì²é, ±»runº¯Êıµ÷ÓÃ
+ * è¶…æ—¶æ£€æŸ¥, è¢«runå‡½æ•°è°ƒç”¨
  */
 void Transport::timeoutLoop() {
     IOComponent *mydelHead = NULL;
     IOComponent *mydelTail = NULL;
     std::vector<IOComponent*> mylist;
     while (!_stop) {
-        // ÏÈĞ´¸´ÖÆµ½listÖĞ
+        // å…ˆå†™å¤åˆ¶åˆ°listä¸­
         _iocsMutex.lock();
         if (_iocListChanged) {
             mylist.clear();
@@ -129,7 +129,7 @@ void Transport::timeoutLoop() {
             }
             _iocListChanged = false;
         }
-        // ¼ÓÈëµ½mydelÖĞ
+        // åŠ å…¥åˆ°mydelä¸­
         if (_delListHead != NULL && _delListTail != NULL) {
             if (mydelTail == NULL) {
                 mydelHead = _delListHead;
@@ -138,18 +138,18 @@ void Transport::timeoutLoop() {
                 _delListHead->_prev = mydelTail;
             }
             mydelTail = _delListTail;
-            // Çå¿ÕdelList
+            // æ¸…ç©ºdelList
             _delListHead = _delListTail = NULL;
         }
         _iocsMutex.unlock();
 
-        // ¶ÔÃ¿¸öiocomponent½øĞĞ¼ì²é
+        // å¯¹æ¯ä¸ªiocomponentè¿›è¡Œæ£€æŸ¥
         for (int i=0; i<(int)mylist.size(); i++) {
             IOComponent *ioc = mylist[i];
             ioc->checkTimeout(tbsys::CTimeUtil::getTime());
         }
 
-        // É¾³ıµô
+        // åˆ é™¤æ‰
         IOComponent *tmpList = mydelHead;
         int64_t nowTime = tbsys::CTimeUtil::getTime() - static_cast<int64_t>(900000000); // 15min
         while (tmpList) {
@@ -157,7 +157,7 @@ void Transport::timeoutLoop() {
                 tmpList->subRef();
             }
             if (tmpList->getRef() <= -10 || tmpList->getLastUseTime() < nowTime) {
-                // ´ÓÁ´ÖĞÉ¾³ı
+                // ä»é“¾ä¸­åˆ é™¤
                 if (tmpList == mydelHead) { // head
                     mydelHead = tmpList->_next;
                 }
@@ -179,10 +179,10 @@ void Transport::timeoutLoop() {
             }
         }
 
-        usleep(500000);  // ×îĞ¡¼ä¸ô100ms
+        usleep(500000);  // æœ€å°é—´éš”100ms
     }
 
-    // Ğ´»Øµ½_delListÉÏ,ÈÃdestroyÏú»Ù
+    // å†™å›åˆ°_delListä¸Š,è®©destroyé”€æ¯
     _iocsMutex.lock();
     if (mydelHead != NULL) {
         if (_delListTail == NULL) {
@@ -197,9 +197,9 @@ void Transport::timeoutLoop() {
 }
 
 /*
- * Ïß³ÌµÄÔËĞĞº¯Êı£¬ÊµÏÖRunnable½Ó¿ÚÖĞµÄº¯Êı
+ * çº¿ç¨‹çš„è¿è¡Œå‡½æ•°ï¼Œå®ç°Runnableæ¥å£ä¸­çš„å‡½æ•°
  *
- * @param arg: ÔËĞĞÊ±´«Èë²ÎÊı
+ * @param arg: è¿è¡Œæ—¶ä¼ å…¥å‚æ•°
  */
 void Transport::run(tbsys::CThread *thread, void *arg) {
     if (thread == &_timeoutThread) {
@@ -210,12 +210,12 @@ void Transport::run(tbsys::CThread *thread, void *arg) {
 }
 
 /*
- * °Ñ[upd|tcp]:ip:port·Ö¿ª·ÅÔÚargsÖĞ
+ * æŠŠ[upd|tcp]:ip:portåˆ†å¼€æ”¾åœ¨argsä¸­
  *
- * @param src: Ô´¸ñÊ½
- * @param args: Ä¿±êÊı×é
- * @param   cnt: Êı×éÖĞ×î´ó¸öÊı
- * @return  ·µ»ØµÄÊı×éÖĞ¸öÊı
+ * @param src: æºæ ¼å¼
+ * @param args: ç›®æ ‡æ•°ç»„
+ * @param   cnt: æ•°ç»„ä¸­æœ€å¤§ä¸ªæ•°
+ * @return  è¿”å›çš„æ•°ç»„ä¸­ä¸ªæ•°
  */
 int Transport::parseAddr(char *src, char **args, int cnt) {
     int index = 0;
@@ -226,7 +226,7 @@ int Transport::parseAddr(char *src, char **args, int cnt) {
             *src = '\0';
             args[index++] = prev;
 
-            if (index >= cnt) { // Êı×éÂúÁË,·µ»Ø
+            if (index >= cnt) { // æ•°ç»„æ»¡äº†,è¿”å›
                 return index;
             }
 
@@ -242,12 +242,12 @@ int Transport::parseAddr(char *src, char **args, int cnt) {
 }
 
 /*
- * ÆğÒ»¸ö¼àÌı¶Ë¿Ú¡£
+ * èµ·ä¸€ä¸ªç›‘å¬ç«¯å£ã€‚
  *
- * @param spec: ¸ñÊ½ [upd|tcp]:ip:port
- * @param streamer: Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
- * @param serverAdapter: ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
- * @return IO×é¼şÒ»¸ö¶ÔÏóµÄÖ¸Õë
+ * @param spec: æ ¼å¼ [upd|tcp]:ip:port
+ * @param streamer: æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+ * @param serverAdapter: ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
+ * @return IOç»„ä»¶ä¸€ä¸ªå¯¹è±¡çš„æŒ‡é’ˆ
  */
 IOComponent *Transport::listen(const char *spec, IPacketStreamer *streamer, IServerAdapter *serverAdapter) {
     char tmp[1024];
@@ -279,10 +279,10 @@ IOComponent *Transport::listen(const char *spec, IPacketStreamer *streamer, ISer
             return NULL;
         }
 
-        // ¼ÓÈëµ½iocomponentsÖĞ£¬¼°×¢²á¿É¶Áµ½socketeventÖĞ
+        // åŠ å…¥åˆ°iocomponentsä¸­ï¼ŒåŠæ³¨å†Œå¯è¯»åˆ°socketeventä¸­
         addComponent(acceptor, true, false);
 
-        // ·µ»Ø
+        // è¿”å›
         return acceptor;
     } else if (strcasecmp(args[0], "udp") == 0) {}
 
@@ -290,11 +290,11 @@ IOComponent *Transport::listen(const char *spec, IPacketStreamer *streamer, ISer
 }
 
 /*
- * ´´½¨Ò»¸öConnection£¬Á¬½Óµ½Ö¸¶¨µÄµØÖ·£¬²¢¼ÓÈëµ½SocketµÄ¼àÌıÊÂ¼şÖĞ¡£
+ * åˆ›å»ºä¸€ä¸ªConnectionï¼Œè¿æ¥åˆ°æŒ‡å®šçš„åœ°å€ï¼Œå¹¶åŠ å…¥åˆ°Socketçš„ç›‘å¬äº‹ä»¶ä¸­ã€‚
  *
- * @param spec: ¸ñÊ½ [upd|tcp]:ip:port
- * @param streamer: Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
- * @return  ·µ»ØÒ»¸öConnectoion¶ÔÏóÖ¸Õë
+ * @param spec: æ ¼å¼ [upd|tcp]:ip:port
+ * @param streamer: æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+ * @return  è¿”å›ä¸€ä¸ªConnectoionå¯¹è±¡æŒ‡é’ˆ
  */
 Connection *Transport::connect(const char *spec, IPacketStreamer *streamer, bool autoReconn) {
     char tmp[1024];
@@ -315,21 +315,21 @@ Connection *Transport::connect(const char *spec, IPacketStreamer *streamer, bool
 
         if (!socket->setAddress(host, port)) {
             delete socket;
-            TBSYS_LOG(ERROR, "ÉèÖÃsetAddress´íÎó: %s:%d, %s", host, port, spec);
+            TBSYS_LOG(ERROR, "è®¾ç½®setAddressé”™è¯¯: %s:%d, %s", host, port, spec);
             return NULL;
         }
 
         // TCPComponent
         TCPComponent *component = new TCPComponent(this, socket, streamer, NULL);
-        // ÉèÖÃÊÇ·ñ×Ô¶¯ÖØÁ¬
+        // è®¾ç½®æ˜¯å¦è‡ªåŠ¨é‡è¿
         component->setAutoReconn(autoReconn);
         if (!component->init()) {
             delete component;
-            TBSYS_LOG(ERROR, "³õÊ¼»¯Ê§°ÜTCPComponent: %s:%d", host, port);
+            TBSYS_LOG(ERROR, "åˆå§‹åŒ–å¤±è´¥TCPComponent: %s:%d", host, port);
             return NULL;
         }
 
-        // ¼ÓÈëµ½iocomponentsÖĞ£¬¼°×¢²á¿ÉĞ´µ½socketeventÖĞ
+        // åŠ å…¥åˆ°iocomponentsä¸­ï¼ŒåŠæ³¨å†Œå¯å†™åˆ°socketeventä¸­
         addComponent(component, true, true);
         component->addRef();
 
@@ -340,7 +340,7 @@ Connection *Transport::connect(const char *spec, IPacketStreamer *streamer, bool
 }
 
 /**
- * Ö÷¶¯¶Ï¿ª
+ * ä¸»åŠ¨æ–­å¼€
  */
 bool Transport::disconnect(Connection *conn) {
     IOComponent *ioc = NULL;
@@ -356,21 +356,21 @@ bool Transport::disconnect(Connection *conn) {
 }
 
 /*
- * ¼ÓÈëµ½iocomponentsÖĞ
+ * åŠ å…¥åˆ°iocomponentsä¸­
  *
- * @param  ioc: IO×é¼ş
- * @param  isWrite: ¼ÓÈë¶Á»òĞ´ÊÂ¼şµ½socketEventÖĞ
+ * @param  ioc: IOç»„ä»¶
+ * @param  isWrite: åŠ å…¥è¯»æˆ–å†™äº‹ä»¶åˆ°socketEventä¸­
  */
 void Transport::addComponent(IOComponent *ioc, bool readOn, bool writeOn) {
     assert(ioc != NULL);
 
     _iocsMutex.lock();
     if (ioc->isUsed()) {
-        TBSYS_LOG(ERROR, "ÒÑ¸ø¼Ó¹ıaddComponent: %p", ioc);
+        TBSYS_LOG(ERROR, "å·²ç»™åŠ è¿‡addComponent: %p", ioc);
         _iocsMutex.unlock();
         return;
     }
-    // ¼ÓÈëiocListÉÏ
+    // åŠ å…¥iocListä¸Š
     ioc->_prev = _iocListTail;
     ioc->_next = NULL;
     if (_iocListTail == NULL) {
@@ -379,13 +379,13 @@ void Transport::addComponent(IOComponent *ioc, bool readOn, bool writeOn) {
         _iocListTail->_next = ioc;
     }
     _iocListTail = ioc;
-    // ÉèÖÃÔÚÓÃ
+    // è®¾ç½®åœ¨ç”¨
     ioc->setUsed(true);
     _iocListChanged = true;
     _iocListCount ++;
     _iocsMutex.unlock();
 
-    // ÉèÖÃsocketevent
+    // è®¾ç½®socketevent
     Socket *socket = ioc->getSocket();
     ioc->setSocketEvent(&_socketEvent);
     _socketEvent.addEvent(socket, readOn, writeOn);
@@ -395,23 +395,23 @@ void Transport::addComponent(IOComponent *ioc, bool readOn, bool writeOn) {
 }
 
 /*
- * É¾³ıiocomponet
+ * åˆ é™¤iocomponet
  *
- * @param ioc: IO×é¼ş
+ * @param ioc: IOç»„ä»¶
  */
 void Transport::removeComponent(IOComponent *ioc) {
     assert(ioc != NULL);
 
     tbsys::CThreadGuard guard(&_iocsMutex);
     ioc->close();
-    if (ioc->isAutoReconn()) { // ĞèÒªÖØÁ¬, ²»´ÓiocomponentsÈ¥µô
+    if (ioc->isAutoReconn()) { // éœ€è¦é‡è¿, ä¸ä»iocomponentså»æ‰
         return;
     }
-    if (ioc->isUsed() == false) { // ²»ÔÚiocListÖĞ
+    if (ioc->isUsed() == false) { // ä¸åœ¨iocListä¸­
         return;
     }
 
-    // ´Ó_iocListÉ¾³ı
+    // ä»_iocListåˆ é™¤
     if (ioc == _iocListHead) { // head
         _iocListHead = ioc->_next;
     }
@@ -423,7 +423,7 @@ void Transport::removeComponent(IOComponent *ioc) {
     if (ioc->_next != NULL)
         ioc->_next->_prev = ioc->_prev;
 
-    // ¼ÓÈëµ½_delList
+    // åŠ å…¥åˆ°_delList
     ioc->_prev = _delListTail;
     ioc->_next = NULL;
     if (_delListTail == NULL) {
@@ -433,7 +433,7 @@ void Transport::removeComponent(IOComponent *ioc) {
     }
     _delListTail = ioc;
 
-    // ÒıÓÃ¼ÆÊı¼õÒ»
+    // å¼•ç”¨è®¡æ•°å‡ä¸€
     ioc->setUsed(false);
     _iocListChanged = true;
     _iocListCount --;
@@ -444,13 +444,13 @@ void Transport::removeComponent(IOComponent *ioc) {
 }
 
 /*
- * ÊÍ·Å±äÁ¿
+ * é‡Šæ”¾å˜é‡
  */
 void Transport::destroy() {
     tbsys::CThreadGuard guard(&_iocsMutex);
 
     IOComponent *list, *ioc;
-    // É¾³ıiocList
+    // åˆ é™¤iocList
     list = _iocListHead;
     while (list) {
         ioc = list;
@@ -462,7 +462,7 @@ void Transport::destroy() {
     }
     _iocListHead = _iocListTail = NULL;
     _iocListCount = 0;
-    // É¾³ıdelList
+    // åˆ é™¤delList
     list = _delListHead;
     while (list) {
         ioc = list;
@@ -476,7 +476,7 @@ void Transport::destroy() {
 }
 
 /**
- * ÊÇ·ñÎªstop
+ * æ˜¯å¦ä¸ºstop
  */
 bool* Transport::getStop()
 {

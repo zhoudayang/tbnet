@@ -19,24 +19,24 @@
 namespace tbsys {
 
 /** 
- * @brief Ïß³ÌÖ´ĞĞ¾ßÌåµÄÒµÎñµÄ·â×°Àà,Í¬Ê±ËüÎ¬»¤ÁËÒ»¸öÏß³ÌÊı¾İ£¬Ò²¿ÉÒÔ½«´ËÀà
- * ¿´³ÉÒ»¸öÏß³Ì³ØÀà
+ * @brief çº¿ç¨‹æ‰§è¡Œå…·ä½“çš„ä¸šåŠ¡çš„å°è£…ç±»,åŒæ—¶å®ƒç»´æŠ¤äº†ä¸€ä¸ªçº¿ç¨‹æ•°æ®ï¼Œä¹Ÿå¯ä»¥å°†æ­¤ç±»
+ * çœ‹æˆä¸€ä¸ªçº¿ç¨‹æ± ç±»
  */
 class CDefaultRunnable : public Runnable {
 
 public:
     /**
-     * ¹¹Ôì
+     * æ„é€ 
      */
     CDefaultRunnable(int threadCount = 1);
     
     /**
-     * Îö¹¹
+     * ææ„
      */
     virtual ~CDefaultRunnable();
 
     /**
-     * ÉèÖÃÏß³ÌÊı
+     * è®¾ç½®çº¿ç¨‹æ•°
      */
     void setThreadCount(int threadCount);
     

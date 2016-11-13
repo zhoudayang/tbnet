@@ -22,20 +22,20 @@ class ServerSocket : public Socket {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     ServerSocket();
     /*
-     * acceptÒ»¸öĞÂµÄÁ¬½Ó
+     * acceptä¸€ä¸ªæ–°çš„è¿æ¥
      *
-     * @return Ò»¸öSocket
+     * @return ä¸€ä¸ªSocket
      */
     Socket *accept();
 
     /*
-     * ´ò¿ª¼àÌı
+     * æ‰“å¼€ç›‘å¬
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool listen();
 

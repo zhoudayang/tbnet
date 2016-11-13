@@ -21,36 +21,36 @@ namespace tbnet {
 tbsys::CThreadMutex Socket::_dnsMutex;
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 Socket::Socket() {
     _socketHandle = -1;
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 Socket::~Socket() {
     close();
 }
 
 /*
- * ÉèÖÃµØÖ·
+ * è®¾ç½®åœ°å€
  *
- * @param address  host»òipµØÖ·
- * @param port  ¶Ë¿ÚºÅ
- * @return ÊÇ·ñ³É¹¦
+ * @param address  hostæˆ–ipåœ°å€
+ * @param port  ç«¯å£å·
+ * @return æ˜¯å¦æˆåŠŸ
  */
 
 bool Socket::setAddress (const char *address, const int port) {
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     memset(static_cast<void *>(&_address), 0, sizeof(_address));
 
     _address.sin_family = AF_INET;
     _address.sin_port = htons(static_cast<short>(port));
 
     bool rc = true;
-    // ÊÇ¿Õ×Ö·û£¬ÉèÖÃ³ÉINADDR_ANY
+    // æ˜¯ç©ºå­—ç¬¦ï¼Œè®¾ç½®æˆINADDR_ANY
 
     if (address == NULL || address[0] == '\0') {
         _address.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -61,7 +61,7 @@ bool Socket::setAddress (const char *address, const int port) {
 
         bool isIPAddr = true;
 
-        // ÊÇipµØÖ·¸ñÊ½Âğ?
+        // æ˜¯ipåœ°å€æ ¼å¼å—?
         while ((c = (*p++)) != '\0') {
             if ((c != '.') && (!((c >= '0') && (c <= '9')))) {
                 isIPAddr = false;
@@ -72,7 +72,7 @@ bool Socket::setAddress (const char *address, const int port) {
         if (isIPAddr) {
             _address.sin_addr.s_addr = inet_addr(address);
         } else {
-            // ÊÇÓòÃû£¬½âÎöÒ»ÏÂ
+            // æ˜¯åŸŸåï¼Œè§£æä¸€ä¸‹
             _dnsMutex.lock();
 
             struct hostent *myHostEnt = gethostbyname(address);
@@ -92,7 +92,7 @@ bool Socket::setAddress (const char *address, const int port) {
 }
 
 /*
- * socket ¾ä±úÊÇ·ñ´´½¨
+ * socket å¥æŸ„æ˜¯å¦åˆ›å»º
  */
 bool Socket::checkSocketHandle() {
     if (_socketHandle == -1 && (_socketHandle = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
@@ -102,31 +102,31 @@ bool Socket::checkSocketHandle() {
 }
 
 /*
- * Á¬½Óµ½_addressÉÏ
+ * è¿æ¥åˆ°_addressä¸Š
  *
- * @return ÊÇ·ñ³É¹¦
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool Socket::connect() {
     if (!checkSocketHandle()) {
         return false;
     }
-    TBSYS_LOG(DEBUG, "´ò¿ª, fd=%d, addr=%s", _socketHandle, getAddr().c_str());
+    TBSYS_LOG(DEBUG, "æ‰“å¼€, fd=%d, addr=%s", _socketHandle, getAddr().c_str());
     return (0 == ::connect(_socketHandle, (struct sockaddr *)&_address, sizeof(_address)));
 }
 
 /**
- * ¹Ø±ÕÁ¬½Ó
+ * å…³é—­è¿æ¥
  */
 void Socket::close() {
     if (_socketHandle != -1) {
-        TBSYS_LOG(DEBUG, "¹Ø±Õ, fd=%d, addr=%s", _socketHandle, getAddr().c_str());
+        TBSYS_LOG(DEBUG, "å…³é—­, fd=%d, addr=%s", _socketHandle, getAddr().c_str());
         ::close(_socketHandle);
         _socketHandle = -1;
     }
 }
 
 /*
- * ¹Ø±Õ¶ÁĞ´
+ * å…³é—­è¯»å†™
  */
 void Socket::shutdown() {
     if (_socketHandle != -1) {
@@ -135,9 +135,9 @@ void Socket::shutdown() {
 }
 
 /**
- * Ê¹ÓÃUDPµÄsocket
+ * ä½¿ç”¨UDPçš„socket
  *
- * @return ÊÇ·ñ³É¹¦
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool Socket::createUDP() {
     close();
@@ -146,10 +146,10 @@ bool Socket::createUDP() {
 }
 
 /*
- * °ÑsocketHandle,¼°ipaddressÉèÖÃµ½´ËsocketÖĞ
+ * æŠŠsocketHandle,åŠipaddressè®¾ç½®åˆ°æ­¤socketä¸­
  *
- * @param  socketHandle: socketµÄÎÄ¼ş¾ä±ú
- * @param hostAddress: ·şÎñÆ÷µØÖ·
+ * @param  socketHandle: socketçš„æ–‡ä»¶å¥æŸ„
+ * @param hostAddress: æœåŠ¡å™¨åœ°å€
  */
 
 void Socket::setUp(int socketHandle, struct sockaddr *hostAddress) {
@@ -159,16 +159,16 @@ void Socket::setUp(int socketHandle, struct sockaddr *hostAddress) {
 }
 
 /*
- * ·µ»ØÎÄ¼ş¾ä±ú
+ * è¿”å›æ–‡ä»¶å¥æŸ„
  *
- * @return ÎÄ¼ş¾ä±ú
+ * @return æ–‡ä»¶å¥æŸ„
  */
 int Socket::getSocketHandle() {
     return _socketHandle;
 }
 
 /*
- * ·µ»Øevent attribute
+ * è¿”å›event attribute
  *
  * @return  IOComponent
  */
@@ -177,7 +177,7 @@ IOComponent *Socket::getIOComponent() {
 }
 
 /*
- * ÉèÖÃIOComponent
+ * è®¾ç½®IOComponent
  *
  * @param IOComponent
  */
@@ -186,7 +186,7 @@ void Socket::setIOComponent(IOComponent *ioc) {
 }
 
 /*
- * Ğ´Êı¾İ
+ * å†™æ•°æ®
  */
 int Socket::write (const void *data, int len) {
     if (_socketHandle == -1) {
@@ -197,7 +197,7 @@ int Socket::write (const void *data, int len) {
     do {
         res = ::write(_socketHandle, data, len);
         if (res > 0) {
-            //TBSYS_LOG(INFO, "Ğ´³öÊı¾İ, fd=%d, addr=%d", _socketHandle, res);
+            //TBSYS_LOG(INFO, "å†™å‡ºæ•°æ®, fd=%d, addr=%d", _socketHandle, res);
             TBNET_COUNT_DATA_WRITE(res);
         }
     } while (res < 0 && errno == EINTR);
@@ -205,7 +205,7 @@ int Socket::write (const void *data, int len) {
 }
 
 /*
- * ¶ÁÊı¾İ
+ * è¯»æ•°æ®
  */
 int Socket::read (void *data, int len) {
     if (_socketHandle == -1) {
@@ -216,7 +216,7 @@ int Socket::read (void *data, int len) {
     do {
         res = ::read(_socketHandle, data, len);
         if (res > 0) {
-            //TBSYS_LOG(INFO, "¶ÁÈëÊı¾İ, fd=%d, addr=%d", _socketHandle, res);
+            //TBSYS_LOG(INFO, "è¯»å…¥æ•°æ®, fd=%d, addr=%d", _socketHandle, res);
             TBNET_COUNT_DATA_READ(res);
         }
     } while (res < 0 && errno == EINTR);
@@ -224,7 +224,7 @@ int Socket::read (void *data, int len) {
 }
 
 /*
- * ÉèÖÃintÀàĞÍµÄoption
+ * è®¾ç½®intç±»å‹çš„option
  */
 bool Socket::setIntOption (int option, int value) {
     bool rc=false;
@@ -236,7 +236,7 @@ bool Socket::setIntOption (int option, int value) {
 }
 
 /*
- * ÉèÖÃtimeÀàĞÍµÄoption
+ * è®¾ç½®timeç±»å‹çš„option
  */
 bool Socket::setTimeOption(int option, int milliseconds) {
     bool rc=false;
@@ -284,7 +284,7 @@ bool Socket::setTcpQuickAck(bool quickAck) {
 }
 
 /*
- * ÊÇ·ñ×èÈû
+ * æ˜¯å¦é˜»å¡
  */
 bool Socket::setSoBlocking(bool blockingEnabled) {
     bool rc=false;
@@ -308,7 +308,7 @@ bool Socket::setSoBlocking(bool blockingEnabled) {
 }
 
 /*
- * µÃµ½ipµØÖ·, Ğ´µ½tmpÉÏ
+ * å¾—åˆ°ipåœ°å€, å†™åˆ°tmpä¸Š
  */
 std::string Socket::getAddr() {
     char dest[32];
@@ -323,7 +323,7 @@ std::string Socket::getAddr() {
 }
 
 /*
- * µÃµ½64Î»Êı×ÖµÄipµØÖ·
+ * å¾—åˆ°64ä½æ•°å­—çš„ipåœ°å€
  */
 uint64_t Socket::getId() {
     uint64_t ip = ntohs(_address.sin_port);
@@ -345,7 +345,7 @@ uint64_t Socket::getPeerId() {
 }
 
 /**
- * µÃµ½±¾µØ¶Ë¿Ú
+ * å¾—åˆ°æœ¬åœ°ç«¯å£
  */
 int Socket::getLocalPort() {
     if (_socketHandle == -1) {
@@ -362,7 +362,7 @@ int Socket::getLocalPort() {
 }
 
 /*
- * µÃµ½socket´íÎó
+ * å¾—åˆ°socketé”™è¯¯
  */
 int Socket::getSoError () {
     if (_socketHandle == -1) {

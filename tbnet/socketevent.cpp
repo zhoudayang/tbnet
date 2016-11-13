@@ -18,12 +18,12 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 SocketEvent::SocketEvent() {
 }
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 SocketEvent::~SocketEvent() {}
 }

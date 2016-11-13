@@ -23,19 +23,19 @@
 namespace tbsys {
         
 	/** 
-	 * @brief Queue ÔËĞĞÏß³Ì³Ø
+	 * @brief Queue è¿è¡Œçº¿ç¨‹æ± 
 	 */
     class CQueueThread : public CDefaultRunnable {
         public:
-            /* ¹¹Ôìº¯Êı */
+            /* æ„é€ å‡½æ•° */
             CQueueThread(int threadCount, IQueueHandler *handler, void *args);
-            /* Îö¹¹º¯Êı */
+            /* ææ„å‡½æ•° */
             ~CQueueThread(void);
-            /* Ğ´ÈëÊı¾İ */
+            /* å†™å…¥æ•°æ® */
             int writeData(void *data, int len);
-            /* Í£Ö¹ */
+            /* åœæ­¢ */
             void stop();
-            /* ÔËĞĞÈë¿Úº¯Êı */
+            /* è¿è¡Œå…¥å£å‡½æ•° */
             void run(CThread *thread, void *args);
                    
         private:
@@ -47,11 +47,11 @@ namespace tbsys {
             std::queue<data_pair*> _queue;            
             
         protected:
-            // Ïß³ÌËø
+            // çº¿ç¨‹é”
             CThreadCond _mutex;
-            // ´¦Àíº¯Êı
+            // å¤„ç†å‡½æ•°
             IQueueHandler *_handler;
-            // º¯Êı²ÎÊı
+            // å‡½æ•°å‚æ•°
             void *_args;
     };
 }

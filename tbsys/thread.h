@@ -21,13 +21,13 @@
 namespace tbsys {
 
 /** 
- * @brief ¶ÔlinuxÏß³Ì¼òµ¥·â×° 
+ * @brief å¯¹linuxçº¿ç¨‹ç®€å•å°è£… 
  */
 class CThread {
 
 public:
     /**
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     CThread() {
         tid = 0;
@@ -35,7 +35,7 @@ public:
     }
 
     /**
-     * ÆğÒ»¸öÏß³Ì£¬¿ªÊ¼ÔËĞĞ
+     * èµ·ä¸€ä¸ªçº¿ç¨‹ï¼Œå¼€å§‹è¿è¡Œ
      */
     bool start(Runnable *r, void *a) {
         runnable = r;
@@ -44,7 +44,7 @@ public:
     }
 
     /**
-     * µÈ´ıÏß³ÌÍË³ö
+     * ç­‰å¾…çº¿ç¨‹é€€å‡º
      */
     void join() {
         if (tid) {
@@ -55,7 +55,7 @@ public:
     }
 
     /**
-     * µÃµ½Runnable¶ÔÏó
+     * å¾—åˆ°Runnableå¯¹è±¡
      * 
      * @return Runnable
      */
@@ -64,7 +64,7 @@ public:
     }
 
     /**
-     * µÃµ½»Øµ÷²ÎÊı
+     * å¾—åˆ°å›è°ƒå‚æ•°
      * 
      * @return args
      */
@@ -73,14 +73,14 @@ public:
     }
     
     /***
-     * µÃµ½Ïß³ÌµÄ½ø³ÌID
+     * å¾—åˆ°çº¿ç¨‹çš„è¿›ç¨‹ID
      */
     int getpid() {
         return pid;
     }
 
     /**
-     * Ïß³ÌµÄ»Øµ÷º¯Êı
+     * çº¿ç¨‹çš„å›è°ƒå‡½æ•°
      * 
      */
 
@@ -97,7 +97,7 @@ public:
     
 private:    
     /**
-     * µÃµ½tidºÅ
+     * å¾—åˆ°tidå·
      */
     #ifdef _syscall0
     static _syscall0(pid_t,gettid)
@@ -107,7 +107,7 @@ private:
 
 private:
     pthread_t tid;      // pthread_self() id
-    int pid;            // Ïß³ÌµÄ½ø³ÌID
+    int pid;            // çº¿ç¨‹çš„è¿›ç¨‹ID
     Runnable *runnable;
     void *args;
 };

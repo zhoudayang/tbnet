@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 TCPConnection::TCPConnection(Socket *socket, IPacketStreamer *streamer,
                              IServerAdapter *serverAdapter) : Connection(socket, streamer, serverAdapter) {
@@ -32,15 +32,15 @@ TCPConnection::~TCPConnection() {
 }
 
 /*
- * Ğ´³öÊı¾İ
+ * å†™å‡ºæ•°æ®
  *
- * @return ÊÇ·ñ³É¹¦
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool TCPConnection::writeData() {
-    // °Ñ _outputQueue copyµ½ _myQueueÖĞ
+    // æŠŠ _outputQueue copyåˆ° _myQueueä¸­
     _outputCond.lock();
     _outputQueue.moveTo(&_myQueue);
-    if (_myQueue.size() == 0 && _output.getDataLen() == 0) { // ·µ»Ø
+    if (_myQueue.size() == 0 && _output.getDataLen() == 0) { // è¿”å›
         _iocomponent->enableWrite(false);
         _outputCond.unlock();
         return true;
@@ -53,9 +53,9 @@ bool TCPConnection::writeData() {
     int myQueueSize = _myQueue.size();
 
     do {
-        // Ğ´Âúµ½
+        // å†™æ»¡åˆ°
         while (_output.getDataLen() < READ_WRITE_SIZE) {
-            // ¶ÓÁĞ¿ÕÁË¾ÍÍË³ö
+            // é˜Ÿåˆ—ç©ºäº†å°±é€€å‡º
 
             if (myQueueSize == 0)
                 break;
@@ -81,7 +81,7 @@ bool TCPConnection::writeData() {
         writeCnt ++;
     } while (ret > 0 && _output.getDataLen() == 0 && myQueueSize>0 && writeCnt < 10);
 
-    // ½ôËõ
+    // ç´§ç¼©
     _output.shrink();
 
     _outputCond.lock();
@@ -91,11 +91,11 @@ bool TCPConnection::writeData() {
     }
     _outputCond.unlock();
     if (_writeFinishClose) {
-        TBSYS_LOG(ERROR, "Ö÷¶¯¶Ï¿ª.");
+        TBSYS_LOG(ERROR, "ä¸»åŠ¨æ–­å¼€.");
         return false;
     }
 
-    // Èç¹ûÊÇclient, ²¢ÇÒÓĞqueue³¤¶ÈµÄÏŞÖÆ
+    // å¦‚æœæ˜¯client, å¹¶ä¸”æœ‰queueé•¿åº¦çš„é™åˆ¶
     if (!_isServer && _queueLimit > 0 &&  _queueTotalSize > _queueLimit) {
         _outputCond.lock();
         _queueTotalSize = queueSize + _channelPool.getUseListCount();
@@ -109,9 +109,9 @@ bool TCPConnection::writeData() {
 }
 
 /*
- * ¶ÁÈëÊı¾İ
+ * è¯»å…¥æ•°æ®
  *
- * @return ¶ÁÈëÊı¾İ
+ * @return è¯»å…¥æ•°æ®
  */
 bool TCPConnection::readData() {
     _input.ensureFree(READ_WRITE_SIZE);
@@ -129,7 +129,7 @@ bool TCPConnection::readData() {
                 _gotHeader = _streamer->getPacketInfo(&_input, &_packetHeader, &broken);
                 if (broken) break;
             }
-            // Èç¹ûÓĞ×ã¹»µÄÊı¾İ, decode, ²¢ÇÒµ÷ÓÃhandlepacket
+            // å¦‚æœæœ‰è¶³å¤Ÿçš„æ•°æ®, decode, å¹¶ä¸”è°ƒç”¨handlepacket
             if (_gotHeader && _input.getDataLen() >= _packetHeader._dataLen) {
                 handlePacket(&_input, &_packetHeader);
                 _gotHeader = false;
@@ -156,7 +156,7 @@ bool TCPConnection::readData() {
 
     _socket->setTcpQuickAck(true);
 
-    // ÊÇ·ñÎªÅúÁ¿»Øµ÷
+    // æ˜¯å¦ä¸ºæ‰¹é‡å›è°ƒ
     if (_isServer && _serverAdapter->_batchPushPacket && _inputQueue.size() > 0) {
         _serverAdapter->handleBatchPacket(this, _inputQueue);
         _inputQueue.clear();
@@ -177,7 +177,7 @@ bool TCPConnection::readData() {
 }
 
 /**
- * ·¢ËÍsetDisconnState
+ * å‘é€setDisconnState
  */
 void TCPConnection::setDisconnState() {
     disconnect();

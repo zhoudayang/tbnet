@@ -18,33 +18,33 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 EPollSocketEvent::EPollSocketEvent() {
     _iepfd = epoll_create(MAX_SOCKET_EVENTS);
 }
 
 /*
- * ÎöÔìº¯Êı
+ * æé€ å‡½æ•°
  */
 EPollSocketEvent::~EPollSocketEvent() {
     close(_iepfd);
 }
 
 /*
- * Ôö¼ÓSocketµ½ÊÂ¼şÖĞ
+ * å¢åŠ Socketåˆ°äº‹ä»¶ä¸­
  *
- * @param socket ±»¼ÓµÄsocket
- * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
- * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
- * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+ * @param socket è¢«åŠ çš„socket
+ * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+ * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+ * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
  */
 bool EPollSocketEvent::addEvent(Socket *socket, bool enableRead, bool enableWrite) {
 
     struct epoll_event ev;
     memset(&ev, 0, sizeof(ev));
     ev.data.ptr = socket->getIOComponent();
-    // ÉèÖÃÒª´¦ÀíµÄÊÂ¼şÀàĞÍ
+    // è®¾ç½®è¦å¤„ç†çš„äº‹ä»¶ç±»å‹
     ev.events = 0;
 
     if (enableRead) {
@@ -62,19 +62,19 @@ bool EPollSocketEvent::addEvent(Socket *socket, bool enableRead, bool enableWrit
 }
 
 /*
- * ÉèÖÃÉ¾³ıSocketµ½ÊÂ¼şÖĞ
+ * è®¾ç½®åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
  *
- * @param socket ±»¼ÓµÄsocket
- * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
- * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
- * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+ * @param socket è¢«åŠ çš„socket
+ * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+ * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+ * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
  */
 bool EPollSocketEvent::setEvent(Socket *socket, bool enableRead, bool enableWrite) {
 
     struct epoll_event ev;
     memset(&ev, 0, sizeof(ev));
     ev.data.ptr = socket->getIOComponent();
-    // ÉèÖÃÒª´¦ÀíµÄÊÂ¼şÀàĞÍ
+    // è®¾ç½®è¦å¤„ç†çš„äº‹ä»¶ç±»å‹
     ev.events = 0;
 
     if (enableRead) {
@@ -92,17 +92,17 @@ bool EPollSocketEvent::setEvent(Socket *socket, bool enableRead, bool enableWrit
 }
 
 /*
- * É¾³ıSocketµ½ÊÂ¼şÖĞ
+ * åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
  *
- * @param socket ±»É¾³ısocket
- * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+ * @param socket è¢«åˆ é™¤socket
+ * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
  */
 bool EPollSocketEvent::removeEvent(Socket *socket) {
 
     struct epoll_event ev;
     memset(&ev, 0, sizeof(ev));
     ev.data.ptr = socket->getIOComponent();
-    // ÉèÖÃÒª´¦ÀíµÄÊÂ¼şÀàĞÍ
+    // è®¾ç½®è¦å¤„ç†çš„äº‹ä»¶ç±»å‹
     ev.events = 0;
     //_mutex.lock();
     bool rc = (epoll_ctl(_iepfd, EPOLL_CTL_DEL, socket->getSocketHandle(), &ev) == 0);
@@ -112,12 +112,12 @@ bool EPollSocketEvent::removeEvent(Socket *socket) {
 }
 
 /*
- * µÃµ½¶ÁĞ´ÊÂ¼ş¡£
+ * å¾—åˆ°è¯»å†™äº‹ä»¶ã€‚
  *
- * @param timeout  ³¬Ê±Ê±¼ä(µ¥Î»:ms)
- * @param events  ÊÂ¼şÊı×é
- * @param cnt   eventsµÄÊı×é´óĞ¡
- * @return ÊÂ¼şÊı, 0Îª³¬Ê±, -1Îª³ö´íÁË
+ * @param timeout  è¶…æ—¶æ—¶é—´(å•ä½:ms)
+ * @param events  äº‹ä»¶æ•°ç»„
+ * @param cnt   eventsçš„æ•°ç»„å¤§å°
+ * @return äº‹ä»¶æ•°, 0ä¸ºè¶…æ—¶, -1ä¸ºå‡ºé”™äº†
  */
 int EPollSocketEvent::getEvents(int timeout, IOEvent *ioevents, int cnt) {
 
@@ -129,12 +129,12 @@ int EPollSocketEvent::getEvents(int timeout, IOEvent *ioevents, int cnt) {
 
     int res = epoll_wait(_iepfd, events, cnt , timeout);
 
-    // ³õÊ¼»¯
+    // åˆå§‹åŒ–
     if (res > 0) {
         memset(ioevents, 0, sizeof(IOEvent) * res);
     }
 
-    // °ÑeventsµÄÊÂ¼ş×ª»¯³ÉIOEventµÄÊÂ¼ş
+    // æŠŠeventsçš„äº‹ä»¶è½¬åŒ–æˆIOEventçš„äº‹ä»¶
     for (int i = 0; i < res; i++) {
         ioevents[i]._ioc = (IOComponent*)events[i].data.ptr;
         if (events[i].events & (EPOLLERR | EPOLLHUP)) {
@@ -151,3 +151,4 @@ int EPollSocketEvent::getEvents(int timeout, IOEvent *ioevents, int cnt) {
     return res;
 }
 }
+

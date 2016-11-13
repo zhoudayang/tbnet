@@ -20,27 +20,27 @@
 
 namespace tbsys {
 	/** 
-	 * @brief File Queue ÔËĞĞÏß³Ì³Ø
+	 * @brief File Queue è¿è¡Œçº¿ç¨‹æ± 
 	 */
     class CFileQueueThread : public CDefaultRunnable {
         public:
-            /** ¹¹Ôìº¯Êı */
+            /** æ„é€ å‡½æ•° */
             CFileQueueThread(CFileQueue *queue, int threadCount, IQueueHandler *handler, void *args);
-            /** Îö¹¹º¯Êı */
+            /** ææ„å‡½æ•° */
             ~CFileQueueThread(void);
-            /** Ğ´ÈëÊı¾İ */
+            /** å†™å…¥æ•°æ® */
             int writeData(void *data, int len);
-            /** Í£Ö¹ */
+            /** åœæ­¢ */
             void stop();
-            /** ÔËĞĞÈë¿Úº¯Êı */
+            /** è¿è¡Œå…¥å£å‡½æ•° */
             void run(CThread *thread, void *args);
             
         private:
-            /** Ïß³ÌËø*/
+            /** çº¿ç¨‹é”*/
             CThreadCond _mutex;
-            /** ´¦Àíº¯Êı*/
+            /** å¤„ç†å‡½æ•°*/
             IQueueHandler *_handler;
-            /** º¯Êı²ÎÊı*/
+            /** å‡½æ•°å‚æ•°*/
             void *_args;
             /** file queue*/
             CFileQueue *_queue;

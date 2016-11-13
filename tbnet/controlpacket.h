@@ -35,12 +35,12 @@ public:
 
 public:
     /*
-     * ¹¹Ôìº¯Êı, ´«°üÀàĞÍ
+     * æ„é€ å‡½æ•°, ä¼ åŒ…ç±»å‹
      */
     ControlPacket(int c) : _command(c) {}
 
     /*
-     * ÊÇ·ñÊı¾İ°ü
+     * æ˜¯å¦æ•°æ®åŒ…
      */
     bool isRegularPacket() {
         return false;
@@ -49,12 +49,12 @@ public:
     void free() {}
 
     /*
-     * ¼ÆËã³öÊı¾İ°üµÄ³¤¶È
+     * è®¡ç®—å‡ºæ•°æ®åŒ…çš„é•¿åº¦
      */
     void countDataLen() {}
 
     /*
-     * ×é×°
+     * ç»„è£…
      */
     bool encode(DataBuffer *output) {
       UNUSED(output);
@@ -62,7 +62,7 @@ public:
     }
 
     /*
-     * ½â¿ª
+     * è§£å¼€
      */
     bool decode(DataBuffer *input, PacketHeader *header) {
       UNUSED(input);
@@ -71,7 +71,7 @@ public:
     }
 
     /*
-     * µÃµ½ÀàĞÍ
+     * å¾—åˆ°ç±»å‹
      */
     int getCommand() {
         return _command;

@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 HttpResponsePacket::HttpResponsePacket() {
     _status = true;
@@ -29,7 +29,7 @@ HttpResponsePacket::HttpResponsePacket() {
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 HttpResponsePacket::~HttpResponsePacket() {
     if (_body) {
@@ -42,7 +42,7 @@ HttpResponsePacket::~HttpResponsePacket() {
 }
 
 /*
- * ×é×°
+ * ç»„è£…
  */
 bool HttpResponsePacket::encode(DataBuffer *output) {
     if (_statusMessage) {
@@ -53,7 +53,7 @@ bool HttpResponsePacket::encode(DataBuffer *output) {
     } else { // HTTP/1.1 404 Not Found
         output->writeBytes(TBNET_HTTP_STATUS_NOTFOUND, strlen(TBNET_HTTP_STATUS_NOTFOUND));
     }
-    //¹Ì¶¨×Ö¶Î
+    //å›ºå®šå­—æ®µ
     if (_isKeepAlive) {
         output->writeBytes(TBNET_HTTP_KEEP_ALIVE, strlen(TBNET_HTTP_KEEP_ALIVE));
     } else {
@@ -66,7 +66,7 @@ bool HttpResponsePacket::encode(DataBuffer *output) {
     int len = sprintf(tmp, TBNET_HTTP_CONTENT_LENGTH, _bodyLen);
     output->writeBytes(tmp, len);
 
-    // ÓÃ»§×Ô¶¨Òå³¤¶È
+    // ç”¨æˆ·è‡ªå®šä¹‰é•¿åº¦
     for (STRING_MAP_ITER it=_headerMap.begin(); it!=_headerMap.end(); it++) {
         output->writeBytes(it->first.c_str(), strlen(it->first.c_str()));
         output->writeBytes(": ", 2);
@@ -74,7 +74,7 @@ bool HttpResponsePacket::encode(DataBuffer *output) {
         output->writeBytes("\r\n", 2);
     }
 
-    // ¿ÕĞĞ
+    // ç©ºè¡Œ
     output->writeBytes("\r\n", 2);
     // bodyLen
     output->writeBytes(_body, _bodyLen);
@@ -84,14 +84,14 @@ bool HttpResponsePacket::encode(DataBuffer *output) {
 }
 
 /*
- * ½â¿ª
+ * è§£å¼€
  */
 bool HttpResponsePacket::decode(DataBuffer *input, PacketHeader *header) {
     return true;
 }
 
 /*
- * ÉèÖÃheader
+ * è®¾ç½®header
  */
 void HttpResponsePacket::setHeader(const char *name, const char *value) {
     if (name[0] == 'C') {
@@ -103,7 +103,7 @@ void HttpResponsePacket::setHeader(const char *name, const char *value) {
 }
 
 /*
- * ÉèÖÃ×´Ì¬
+ * è®¾ç½®çŠ¶æ€
  */
 void HttpResponsePacket::setStatus(bool status, const char *statusMessage) {
     _status = status;
@@ -117,7 +117,7 @@ void HttpResponsePacket::setStatus(bool status, const char *statusMessage) {
 }
 
 /*
- * ÉèÖÃÄÚÈİ
+ * è®¾ç½®å†…å®¹
  */
 void HttpResponsePacket::setBody(const char *body, int len) {
     if (body) {
@@ -128,7 +128,7 @@ void HttpResponsePacket::setBody(const char *body, int len) {
 }
 
 /*
- * ÊÇ·ñkeepalive
+ * æ˜¯å¦keepalive
  */
 void HttpResponsePacket::setKeepAlive(bool keepAlive) {
     _isKeepAlive = keepAlive;

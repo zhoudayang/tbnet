@@ -23,17 +23,17 @@ namespace tbsys {
 /*
  * author cjxrobot
  *
- * LinuxÏß³ÌËø
+ * Linuxçº¿ç¨‹é”
  */
 
 /** 
-* @brief linuxÏß³ÌËø»¥³âËø¼òµ¥·â×° 
+* @brief linuxçº¿ç¨‹é”äº’æ–¥é”ç®€å•å°è£… 
 */
 class CThreadMutex {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     CThreadMutex() {
         //assert(pthread_mutex_init(&_mutex, NULL) == 0);
@@ -43,14 +43,14 @@ public:
     }
 
     /*
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     ~CThreadMutex() {
         pthread_mutex_destroy(&_mutex);
     }
 
     /**
-     * ¼ÓËø
+     * åŠ é”
      */
 
     void lock () {
@@ -58,7 +58,7 @@ public:
     }
 
     /**
-     * trylock¼ÓËø
+     * trylockåŠ é”
      */
 
     int trylock () {
@@ -66,7 +66,7 @@ public:
     }    
 
     /**
-     * ½âËø
+     * è§£é”
      */
     void unlock() {
         pthread_mutex_unlock(&_mutex);
@@ -78,7 +78,7 @@ protected:
 };
 
 /** 
- * @brief Ïß³ÌµÄGuard
+ * @brief çº¿ç¨‹çš„Guard
  */
 class CThreadGuard
 {

@@ -19,19 +19,19 @@
 namespace tbsys {
 
 /** 
- * @brief RunnableÊÇÒ»¸ö³éÏóÀà£¬ËüÓµÓĞÒ»¸örun´¿Ğé·½·¨
- * Ö÷ÒªÓÃÓÚThreadÀà  
+ * @brief Runnableæ˜¯ä¸€ä¸ªæŠ½è±¡ç±»ï¼Œå®ƒæ‹¥æœ‰ä¸€ä¸ªrunçº¯è™šæ–¹æ³•
+ * ä¸»è¦ç”¨äºThreadç±»  
  */
 class Runnable {
 
 public:
     /*
-     * Îö¹¹
+     * ææ„
      */
     virtual ~Runnable() {
     }
     /**
-     * ÔËĞĞÈë¿Úº¯Êı
+     * è¿è¡Œå…¥å£å‡½æ•°
      */
     virtual void run(CThread *thread, void *arg) = 0;
 };

@@ -25,24 +25,24 @@
 namespace tbsys {
 
 	/** 
-	 * @brief linuxÊ±¼ä²Ù×÷¼òµ¥µÄ·â×°
+	 * @brief linuxæ—¶é—´æ“ä½œç®€å•çš„å°è£…
 	 */
 class CTimeUtil {
 public:
     /**
-     * µÃµ½µ±Ç°Ê±¼ä
+     * å¾—åˆ°å½“å‰æ—¶é—´
      */
     static int64_t getTime();
     /**
-     * µÃµ½µ¥µ÷µİÔöµÄÊ±¼ä
+     * å¾—åˆ°å•è°ƒé€’å¢çš„æ—¶é—´
      */
     static int64_t getMonotonicTime();
     /**
-     * °Ñint×ª³É20080101101010µÄ¸ñÊ½
+     * æŠŠintè½¬æˆ20080101101010çš„æ ¼å¼
      */ 
     static char *timeToStr(time_t t, char *dest);
     /**
-     * °Ñ×Ö½Ú´®×ª³ÉÊ±¼ä(µ±µØÊ±¼ä)
+     * æŠŠå­—èŠ‚ä¸²è½¬æˆæ—¶é—´(å½“åœ°æ—¶é—´)
      */
     static int strToTime(char *str);
 };

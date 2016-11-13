@@ -17,23 +17,23 @@
 
 namespace tbnet {
 /*
- * ¹¹Ôìº¯Êý
+ * æž„é€ å‡½æ•°
  */
 HttpPacketStreamer::HttpPacketStreamer() {
     _httpPacketCode = 1;
-    _existPacketHeader = false; // ²»ÒªÊä³öÍ·ÐÅÏ¢
+    _existPacketHeader = false; // ä¸è¦è¾“å‡ºå¤´ä¿¡æ¯
 }
 /*
- * ¹¹Ôìº¯Êý
+ * æž„é€ å‡½æ•°
  */
 
 HttpPacketStreamer::HttpPacketStreamer(IPacketFactory *factory) : DefaultPacketStreamer(factory) {
     _httpPacketCode = 1;
-    _existPacketHeader = false; // ²»ÒªÊä³öÍ·ÐÅÏ¢
+    _existPacketHeader = false; // ä¸è¦è¾“å‡ºå¤´ä¿¡æ¯
 }
 
 /*
- * Êý¾Ý°üÐÅÏ¢µÄÉèÖÃ
+ * æ•°æ®åŒ…ä¿¡æ¯çš„è®¾ç½®
  */
 bool HttpPacketStreamer::getPacketInfo(DataBuffer *input, PacketHeader *header, bool *broken) {
     if (input->getDataLen() == 0) {

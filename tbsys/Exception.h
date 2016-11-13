@@ -26,7 +26,7 @@
 namespace tbutil
 {
 /** 
-* @brief ExceptionÊÇ¶Ôstd::exceptionµÄØÔ×° 
+* @brief Exceptionæ˜¯å¯¹std::exceptionçš„å¦è£… 
 */
 class Exception : public std::exception
 {
@@ -54,7 +54,7 @@ private:
 std::ostream& operator << (std::ostream& out, const Exception& ex);
 
 /** 
- * @brief HandleÎª¿ÕÒì³£Àà
+ * @brief Handleä¸ºç©ºå¼‚å¸¸ç±»
  */
 class NullHandleException : public Exception
 {
@@ -71,7 +71,7 @@ private:
 };
 
 /** 
- * @brief ²»ºÏ·¨²ÎÊıÒì³£Àà
+ * @brief ä¸åˆæ³•å‚æ•°å¼‚å¸¸ç±»
  */
 class IllegalArgumentException : public Exception
 {
@@ -94,7 +94,7 @@ private:
 };
 
 /** 
- * @brief ÏµÍ³µ÷ÓÃÒì³£Àà
+ * @brief ç³»ç»Ÿè°ƒç”¨å¼‚å¸¸ç±»
  */
 class SyscallException : public Exception
 {

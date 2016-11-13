@@ -24,11 +24,11 @@
 namespace tbutil
 {
 /** 
-* @brief ¼à¿ØÆ÷ÊÇÒ»¸öÄ£°åÀà£¬ËüÐèÒªMutex»ò¶¼RecMutex×÷Ä£°å²ÎÊý,¼à¿ØÆ÷ÊÇÒ»ÖÖ
-* ÓÃÓÚ±£»¤ÁÙ½çÇøµÄÍ¬²½»úÖÆ,ºÍ»¥³âÌåÒ»Ñù£¬ÔÚÁÙ½çÇøÄÚÖ»ÄÜÒ»¸öÏß³ÌÔÚ»î¶¯
-* ¼à¿ØÆ÷ÔÊÐíÄãÔÚÁÙ½çÇøÄÚ¹ÒÆðÏß³Ì,ÕâÑùÁíÍâÒ»¸öÏß³Ì¾ÍÄÜ½øÈëÁÙ½çÇø£¬µÚ¶þ¸öÏß³Ì¾Í
-* ÄÜÍË³öÁÙ½çÇø,»òÕßÔÚÁÙ½çÇøÄÚ¹ÒÆð×Ô¼º,ÎÞÂÛÄÄÖÖÇé¿öÔ­À´µÄÏß³Ì¶¼»á±»»½ÐÑ£¬¼ÌÐø
-* Ö´ÐÐÔ­À´µÄÈÎÎñ
+* @brief ç›‘æŽ§å™¨æ˜¯ä¸€ä¸ªæ¨¡æ¿ç±»ï¼Œå®ƒéœ€è¦Mutexæˆ–éƒ½RecMutexä½œæ¨¡æ¿å‚æ•°,ç›‘æŽ§å™¨æ˜¯ä¸€ç§
+* ç”¨äºŽä¿æŠ¤ä¸´ç•ŒåŒºçš„åŒæ­¥æœºåˆ¶,å’Œäº’æ–¥ä½“ä¸€æ ·ï¼Œåœ¨ä¸´ç•ŒåŒºå†…åªèƒ½ä¸€ä¸ªçº¿ç¨‹åœ¨æ´»åŠ¨
+* ç›‘æŽ§å™¨å…è®¸ä½ åœ¨ä¸´ç•ŒåŒºå†…æŒ‚èµ·çº¿ç¨‹,è¿™æ ·å¦å¤–ä¸€ä¸ªçº¿ç¨‹å°±èƒ½è¿›å…¥ä¸´ç•ŒåŒºï¼Œç¬¬äºŒä¸ªçº¿ç¨‹å°±
+* èƒ½é€€å‡ºä¸´ç•ŒåŒº,æˆ–è€…åœ¨ä¸´ç•ŒåŒºå†…æŒ‚èµ·è‡ªå·±,æ— è®ºå“ªç§æƒ…å†µåŽŸæ¥çš„çº¿ç¨‹éƒ½ä¼šè¢«å”¤é†’ï¼Œç»§ç»­
+* æ‰§è¡ŒåŽŸæ¥çš„ä»»åŠ¡
 */
 template <class T>
 class Monitor
@@ -42,49 +42,49 @@ public:
     ~Monitor();
 
     /** 
-     * @brief Õâ¸öº¯Êý³¢ÊÔËø×¡¼à¿ØÆ÷¡£Èç¹û¼à¿ØÆ÷ÒÑ±»ÁíÍâµÄÏß³ÌËø×¡£¬·¢³ö
-     * µ÷ÓÃµÄÏß³Ì¾Í»á¹ÒÆð£¬Ö±µ½¼à¿ØÆ÷¿ÉÓÃÎªÖ¹¡£ÔÚµ÷ÓÃ·µ»ØÊ±£¬¼à¿ØÆ÷ÒÑ±»ËüËø×¡
+     * @brief è¿™ä¸ªå‡½æ•°å°è¯•é”ä½ç›‘æŽ§å™¨ã€‚å¦‚æžœç›‘æŽ§å™¨å·²è¢«å¦å¤–çš„çº¿ç¨‹é”ä½ï¼Œå‘å‡º
+     * è°ƒç”¨çš„çº¿ç¨‹å°±ä¼šæŒ‚èµ·ï¼Œç›´åˆ°ç›‘æŽ§å™¨å¯ç”¨ä¸ºæ­¢ã€‚åœ¨è°ƒç”¨è¿”å›žæ—¶ï¼Œç›‘æŽ§å™¨å·²è¢«å®ƒé”ä½
      */
     void lock() const;
     /** 
-     * @brief Õâ¸öº¯Êý½â³ý¼à¿ØÆ÷µÄ¼ÓËø¡£Èç¹ûÓÐÁíÍâµÄÏß³ÌÔÚµÈ´ý½øÈë¼à¿ØÆ÷
-     * (Ò²¾ÍÊÇ×èÈûÔÚlock µ÷ÓÃÖÐ)£¬ÆäÖÐÒ»¸öÏß³Ì»á±»»½ÐÑ£¬²¢Ëø×¡¼à¿ØÆ÷
+     * @brief è¿™ä¸ªå‡½æ•°è§£é™¤ç›‘æŽ§å™¨çš„åŠ é”ã€‚å¦‚æžœæœ‰å¦å¤–çš„çº¿ç¨‹åœ¨ç­‰å¾…è¿›å…¥ç›‘æŽ§å™¨
+     * (ä¹Ÿå°±æ˜¯é˜»å¡žåœ¨lock è°ƒç”¨ä¸­)ï¼Œå…¶ä¸­ä¸€ä¸ªçº¿ç¨‹ä¼šè¢«å”¤é†’ï¼Œå¹¶é”ä½ç›‘æŽ§å™¨
      * 
      * @return 
      */
     void unlock() const;
     /** 
-     * @brief Õâ¸öº¯Êý³¢ÊÔËø×¡¼à¿ØÆ÷¡£Èç¹û¼à¿ØÆ÷¿ÉÓÃ£¬µ÷ÓÃ¾ÍËø×¡¼à¿ØÆ÷£¬
-     * ·µ»Øtrue¡£Èç¹û¼à¿ØÆ÷ÒÑ±»ÁíÍâµÄÏß³ÌËø×¡£¬µ÷ÓÃ·µ»Øfalse 
+     * @brief è¿™ä¸ªå‡½æ•°å°è¯•é”ä½ç›‘æŽ§å™¨ã€‚å¦‚æžœç›‘æŽ§å™¨å¯ç”¨ï¼Œè°ƒç”¨å°±é”ä½ç›‘æŽ§å™¨ï¼Œ
+     * è¿”å›žtrueã€‚å¦‚æžœç›‘æŽ§å™¨å·²è¢«å¦å¤–çš„çº¿ç¨‹é”ä½ï¼Œè°ƒç”¨è¿”å›žfalse 
      */
     bool tryLock() const;
 
     /** 
-     * @brief Õâ¸öº¯Êý¹ÒÆð·¢³öµ÷ÓÃµÄÏß³Ì£¬Í¬Ê±ÊÍ·Å¼à¿ØÆ÷ÉÏµÄËø¡£ÆäËûÏß³Ì¿ÉÄÜµ÷ÓÃnotify
-     * »ònotifyAll À´»½ÐÑÔÚwait µ÷ÓÃÖÐ¹ÒÆðµÄÏß³Ì.µ±wait µ÷ÓÃ·µ»ØÊ±£¬¼à¿ØÆ÷ÖØ±»Ëø×¡,
-     * ¶ø¹ÒÆðµÄÏß³Ì»á»Ö¸´Ö´ÐÐ 
+     * @brief è¿™ä¸ªå‡½æ•°æŒ‚èµ·å‘å‡ºè°ƒç”¨çš„çº¿ç¨‹ï¼ŒåŒæ—¶é‡Šæ”¾ç›‘æŽ§å™¨ä¸Šçš„é”ã€‚å…¶ä»–çº¿ç¨‹å¯èƒ½è°ƒç”¨notify
+     * æˆ–notifyAll æ¥å”¤é†’åœ¨wait è°ƒç”¨ä¸­æŒ‚èµ·çš„çº¿ç¨‹.å½“wait è°ƒç”¨è¿”å›žæ—¶ï¼Œç›‘æŽ§å™¨é‡è¢«é”ä½,
+     * è€ŒæŒ‚èµ·çš„çº¿ç¨‹ä¼šæ¢å¤æ‰§è¡Œ 
      * @return 
      */
     bool wait() const;
     /** 
-     * @brief Õâ¸öº¯Êý¹ÒÆðµ÷ÓÃËüµÄÏß³Ì£¬Ö±µ½Ö¸¶¨µÄÊ±¼äÁ÷ÊÅ¡£Èç¹ûÓÐÁíÍâµÄ
-     * Ïß³Ìµ÷ÓÃnotify »ònotifyAll£¬ÔÚ·¢Éú³¬Ê±Ö®Ç°»½ÐÑ¹ÒÆðµÄÏß³Ì£¬
-     * Õâ¸öµ÷ÓÃ·µ»Øtrue£¬¼à¿ØÆ÷ÖØ±»Ëø×¡£¬¹ÒÆðµÄÏß³Ì»Ö¸´Ö´ÐÐ¡£¶øÈç¹û
-     * ·¢Éú³¬Ê±£¬º¯Êý·µ»Øfalse
+     * @brief è¿™ä¸ªå‡½æ•°æŒ‚èµ·è°ƒç”¨å®ƒçš„çº¿ç¨‹ï¼Œç›´åˆ°æŒ‡å®šçš„æ—¶é—´æµé€ã€‚å¦‚æžœæœ‰å¦å¤–çš„
+     * çº¿ç¨‹è°ƒç”¨notify æˆ–notifyAllï¼Œåœ¨å‘ç”Ÿè¶…æ—¶ä¹‹å‰å”¤é†’æŒ‚èµ·çš„çº¿ç¨‹ï¼Œ
+     * è¿™ä¸ªè°ƒç”¨è¿”å›žtrueï¼Œç›‘æŽ§å™¨é‡è¢«é”ä½ï¼ŒæŒ‚èµ·çš„çº¿ç¨‹æ¢å¤æ‰§è¡Œã€‚è€Œå¦‚æžœ
+     * å‘ç”Ÿè¶…æ—¶ï¼Œå‡½æ•°è¿”å›žfalse
      * @param Time
      * 
      * @return 
      */
     bool timedWait(const Time&) const;
     /** 
-     * @brief Õâ¸öº¯Êý»½ÐÑÄ¿Ç°ÔÚwait µ÷ÓÃÖÐ¹ÒÆðµÄÒ»¸öÏß³Ì¡£Èç¹ûÔÚµ÷ÓÃ
-     * notify Ê±Ã»ÓÐÕâÑùµÄÏß³Ì£¬Í¨Öª¾Í»á¶ªÊ§(Ò²¾ÍÊÇËµ£¬Èç¹ûÃ»ÓÐÏß³Ì
-     * ÄÜ±»»½ÐÑ£¬¶Ônotify µÄµ÷ÓÃ²»»á±»¼Ç×¡)
+     * @brief è¿™ä¸ªå‡½æ•°å”¤é†’ç›®å‰åœ¨wait è°ƒç”¨ä¸­æŒ‚èµ·çš„ä¸€ä¸ªçº¿ç¨‹ã€‚å¦‚æžœåœ¨è°ƒç”¨
+     * notify æ—¶æ²¡æœ‰è¿™æ ·çš„çº¿ç¨‹ï¼Œé€šçŸ¥å°±ä¼šä¸¢å¤±(ä¹Ÿå°±æ˜¯è¯´ï¼Œå¦‚æžœæ²¡æœ‰çº¿ç¨‹
+     * èƒ½è¢«å”¤é†’ï¼Œå¯¹notify çš„è°ƒç”¨ä¸ä¼šè¢«è®°ä½)
      */
     void notify();
     /** 
-     * @brief Õâ¸öº¯Êý»½ÐÑÄ¿Ç°ÔÚwait µ÷ÓÃÖÐ¹ÒÆðµÄËùÓÐÏß³Ì¡£ºÍnotify Ò»
-     * Ñù£¬Èç¹ûÕâÊ±Ã»ÓÐ¹ÒÆðµÄÏß³Ì£¬¶ÔnotifyAll µÄµ÷ÓÃ¾Í»á¶ªÊ§ 
+     * @brief è¿™ä¸ªå‡½æ•°å”¤é†’ç›®å‰åœ¨wait è°ƒç”¨ä¸­æŒ‚èµ·çš„æ‰€æœ‰çº¿ç¨‹ã€‚å’Œnotify ä¸€
+     * æ ·ï¼Œå¦‚æžœè¿™æ—¶æ²¡æœ‰æŒ‚èµ·çš„çº¿ç¨‹ï¼Œå¯¹notifyAll çš„è°ƒç”¨å°±ä¼šä¸¢å¤± 
      */
     void notifyAll();
 

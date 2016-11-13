@@ -27,17 +27,17 @@ class Connection {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     Connection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     virtual ~Connection();
 
     /*
-     * ÉèÖÃÊÇ·ñÎª·şÎñÆ÷¶Ë
+     * è®¾ç½®æ˜¯å¦ä¸ºæœåŠ¡å™¨ç«¯
      */
     void setServer(bool isServer) {
         _isServer = isServer;
@@ -51,72 +51,72 @@ public:
         return _iocomponent;
     }
     /*
-     * ÉèÖÃÄ¬ÈÏµÄpacketHandler
+     * è®¾ç½®é»˜è®¤çš„packetHandler
      */
     void setDefaultPacketHandler(IPacketHandler *ph) {
         _defaultPacketHandler = ph;
     }
 
     /*
-     * ·¢ËÍpacketµ½·¢ËÍ¶ÓÁĞ
+     * å‘é€packetåˆ°å‘é€é˜Ÿåˆ—
      *
-     * @param packet: Êı¾İ°ü
-     * @param packetHandler: packet¾ä±ú
-     * @param args: ²ÎÊı
-     * @param timeout: ³¬Ê±Ê±¼ä
+     * @param packet: æ•°æ®åŒ…
+     * @param packetHandler: packetå¥æŸ„
+     * @param args: å‚æ•°
+     * @param timeout: è¶…æ—¶æ—¶é—´
      */
     bool postPacket(Packet *packet, IPacketHandler *packetHandler = NULL, void *args = NULL, bool noblocking = true);
 
     /*
-     * µ±Êı¾İÊÕµ½Ê±µÄ´¦Àíº¯Êı
+     * å½“æ•°æ®æ”¶åˆ°æ—¶çš„å¤„ç†å‡½æ•°
      */
     bool handlePacket(DataBuffer *input, PacketHeader *header);
 
     /*
-     * ¼ì²é³¬Ê±
+     * æ£€æŸ¥è¶…æ—¶
      */
     bool checkTimeout(int64_t now);
 
     /*
-     * Ğ´³öÊı¾İ
+     * å†™å‡ºæ•°æ®
      */
     virtual bool writeData() = 0;
 
     /*
-     * ¶ÁÈëÊı¾İ
+     * è¯»å…¥æ•°æ®
      */
     virtual bool readData() = 0;
 
     /*
-     * ÉèÖÃĞ´ÍêÊÇ·ñ¹Ø±Õ, Ö»TCPÒªÓÃ
+     * è®¾ç½®å†™å®Œæ˜¯å¦å…³é—­, åªTCPè¦ç”¨
      */
     virtual void setWriteFinishClose(bool v) {
       UNUSED(v);
     }
 
     /*
-     * ÉèÖÃ¶ÔÁĞµÄ³¬Ê±Ê±¼ä
+     * è®¾ç½®å¯¹åˆ—çš„è¶…æ—¶æ—¶é—´
      */
     void setQueueTimeout(int queueTimeout) {
         _queueTimeout = queueTimeout;
     }
 
     /*
-     * Çå¿ÕoutputµÄbuffer
+     * æ¸…ç©ºoutputçš„buffer
      */
     virtual void clearOutputBuffer() {
         ;
     }
 
     /*
-     * ÉèÖÃqueue×î´ó³¤¶È, 0 - ²»ÏŞÖÆ
+     * è®¾ç½®queueæœ€å¤§é•¿åº¦, 0 - ä¸é™åˆ¶
      */
     void setQueueLimit(int limit) {
         _queueLimit = limit;
     }
 
     /**
-     * Á¬½Ó×´Ì¬
+     * è¿æ¥çŠ¶æ€
      */
     bool isConnectState();
 
@@ -151,21 +151,21 @@ protected:
     void disconnect();
 
 protected:
-    IPacketHandler *_defaultPacketHandler;  // connectionµÄÄ¬ÈÏµÄpacket handler
-    bool _isServer;                         // ÊÇ·şÎñÆ÷¶Ë
+    IPacketHandler *_defaultPacketHandler;  // connectionçš„é»˜è®¤çš„packet handler
+    bool _isServer;                         // æ˜¯æœåŠ¡å™¨ç«¯
     IOComponent *_iocomponent;
-    Socket *_socket;                        // Socket¾ä±ú
-    IPacketStreamer *_streamer;             // Packet½âÎö
-    IServerAdapter *_serverAdapter;         // ·şÎñÆ÷ÊÊÅäÆ÷
+    Socket *_socket;                        // Socketå¥æŸ„
+    IPacketStreamer *_streamer;             // Packetè§£æ
+    IServerAdapter *_serverAdapter;         // æœåŠ¡å™¨é€‚é…å™¨
 
-    PacketQueue _outputQueue;               // ·¢ËÍ¶ÓÁĞ
-    PacketQueue _inputQueue;                // ·¢ËÍ¶ÓÁĞ
-    PacketQueue _myQueue;                   // ÔÚwriteÖĞ´¦ÀíÊ±ÔİÊ±ÓÃ
-    tbsys::CThreadCond _outputCond;         // ·¢ËÍ¶ÓÁĞµÄÌõ¼ş±äÁ¿
+    PacketQueue _outputQueue;               // å‘é€é˜Ÿåˆ—
+    PacketQueue _inputQueue;                // å‘é€é˜Ÿåˆ—
+    PacketQueue _myQueue;                   // åœ¨writeä¸­å¤„ç†æ—¶æš‚æ—¶ç”¨
+    tbsys::CThreadCond _outputCond;         // å‘é€é˜Ÿåˆ—çš„æ¡ä»¶å˜é‡
     ChannelPool _channelPool;               // channel pool
-    int _queueTimeout;                      // ¶ÓÁĞ³¬Ê±Ê±¼ä
-    int _queueTotalSize;                    // ¶ÓÁĞ×Ü³¤¶È
-    int _queueLimit;                        // ¶ÓÁĞ×î³¤³¤¶È, Èç¹û³¬¹ıÕâ¸öÖµpost½øÀ´¾Í»á±»wait
+    int _queueTimeout;                      // é˜Ÿåˆ—è¶…æ—¶æ—¶é—´
+    int _queueTotalSize;                    // é˜Ÿåˆ—æ€»é•¿åº¦
+    int _queueLimit;                        // é˜Ÿåˆ—æœ€é•¿é•¿åº¦, å¦‚æœè¶…è¿‡è¿™ä¸ªå€¼postè¿›æ¥å°±ä¼šè¢«wait
 };
 }
 

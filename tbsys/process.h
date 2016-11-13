@@ -29,16 +29,16 @@
 namespace tbsys {
     
 	/** 
-	 * @brief ½ø³ÌÒÔdaemon·½·¨Æô¶¯Ê±¼òµ¥·â×°
+	 * @brief è¿›ç¨‹ä»¥daemonæ–¹æ³•å¯åŠ¨æ—¶ç®€å•å°è£…
 	 */
     class CProcess {
 
     public:
-        // ÆğÒ»¸ödaemon
+        // èµ·ä¸€ä¸ªdaemon
         static int startDaemon(const char *szPidFile, const char *szLogFile);
-        // ½ø³ÌÊÇ²»ÊÇ´æÔÚ
+        // è¿›ç¨‹æ˜¯ä¸æ˜¯å­˜åœ¨
         static int existPid(const char *szPidFile);
-        // Ğ´PIDÎÄ¼ş
+        // å†™PIDæ–‡ä»¶
         static void writePidFile(const char *szPidFile);
     };
 }

@@ -29,7 +29,7 @@ namespace tbsys
     };
 
     /** 
-     * @brief linux线程 读写锁中的读锁的封装
+     * @brief linux绾跨▼ 璇诲啓閿佷腑鐨勮閿佺殑灏佽
      */
     class CRLock
     {
@@ -38,19 +38,19 @@ namespace tbsys
         ~CRLock() {}
         
         /** 
-         * @brief 加锁
+         * @brief 鍔犻攣
          * 
          * @return 
          */
         int lock() const;
         /** 
-         * @brief 尝试加锁
+         * @brief 灏濊瘯鍔犻攣
          * 
          * @return 
          */
         int tryLock() const;
         /** 
-         * @brief 解锁
+         * @brief 瑙ｉ攣
          * 
          * @return 
          */
@@ -61,7 +61,7 @@ namespace tbsys
     };
 
     /** 
-     * @brief linux 线程读写锁中的写锁的封装
+     * @brief linux 绾跨▼璇诲啓閿佷腑鐨勫啓閿佺殑灏佽
      */
     class CWLock
     {
@@ -93,7 +93,7 @@ namespace tbsys
     };
 
     /** 
-     * @brief 对linux线程锁中的读写锁封装
+     * @brief 瀵筶inux绾跨▼閿佷腑鐨勮鍐欓攣灏佽
      */
     class CRWSimpleLock
     {
@@ -112,7 +112,7 @@ namespace tbsys
     };
 
     /** 
-     * @brief linux 线程锁中读锁的助手类
+     * @brief linux 绾跨▼閿佷腑璇婚攣鐨勫姪鎵嬬被
      */
     class CRLockGuard
     {
@@ -130,7 +130,7 @@ namespace tbsys
     };
     
     /** 
-     * @brief linux 线程锁中写锁的助手类
+     * @brief linux 绾跨▼閿佷腑鍐欓攣鐨勫姪鎵嬬被
      */
     class CWLockGuard
     {

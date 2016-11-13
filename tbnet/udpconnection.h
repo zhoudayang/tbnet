@@ -20,26 +20,26 @@ namespace tbnet {
 
 class UDPConnection : public Connection {
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     UDPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     ~UDPConnection();
 
     /*
-     * Ğ´³öÊı¾İ
+     * å†™å‡ºæ•°æ®
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool writeData();
 
     /*
-     * ¶ÁÈëÊı¾İ
+     * è¯»å…¥æ•°æ®
      *
-     * @return ¶ÁÈëÊı¾İ
+     * @return è¯»å…¥æ•°æ®
      */
     bool readData();
 

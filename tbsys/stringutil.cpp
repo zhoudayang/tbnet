@@ -18,7 +18,7 @@
 namespace tbsys {
 
     /**
-     * ÊÇÕûÊı
+     * æ˜¯æ•´æ•°
      */
     int CStringUtil::isInt(const char *p) {
         if (p == NULL || (*p) == '\0') 
@@ -32,7 +32,7 @@ namespace tbsys {
     }
     
     /**
-     * °Ñstring×ª³Éint, dÊÇÄ¬ÈÏÖµ
+     * æŠŠstringè½¬æˆint, dæ˜¯é»˜è®¤å€¼
      */
     int CStringUtil::strToInt(const char *str, int d)
     {
@@ -44,7 +44,7 @@ namespace tbsys {
     }
     
     /**
-     * ×ª³ÉĞ¡Ğ´
+     * è½¬æˆå°å†™
      */
     char *CStringUtil::strToLower(char *pszBuf)
     {
@@ -63,7 +63,7 @@ namespace tbsys {
     }
 
     /**
-     * ×ª³É´óĞ´
+     * è½¬æˆå¤§å†™
      */
     char *CStringUtil::strToUpper(char *pszBuf)
     {
@@ -82,7 +82,7 @@ namespace tbsys {
     }
     
     /**
-     * È¥Ç°ºó¿Õ¸ñ
+     * å»å‰åç©ºæ ¼
      */
     char *CStringUtil::trim(char *str, const char *what, int mode) 
     {
@@ -96,7 +96,7 @@ namespace tbsys {
             mask[*p] = '\1';
             p ++;
         }
-        if (mode & 1) { // Ç°Ãæ
+        if (mode & 1) { // å‰é¢
             p = ret; 
             while(*p) {
                 if (!mask[*p]) {
@@ -106,7 +106,7 @@ namespace tbsys {
                 p ++;   
             }
         }
-        if (mode & 2) { // ºóÃæ
+        if (mode & 2) { // åé¢
             p = ret + strlen((const char*)ret) - 1;
             while(p>=ret) {
                 if (!mask[*p]) {
@@ -121,7 +121,7 @@ namespace tbsys {
     }
     
     /**
-     * µÃµ½strµÄhashÖµ
+     * å¾—åˆ°strçš„hashå€¼
      */
     int CStringUtil::hashCode(const char *str)
     {
@@ -134,7 +134,7 @@ namespace tbsys {
     }
     
     /** 
-     * µÃµ½Ò»¸östrµÄhashÖµµÄËØÊı
+     * å¾—åˆ°ä¸€ä¸ªstrçš„hashå€¼çš„ç´ æ•°
      */
     int CStringUtil::getPrimeHash(const char *str)
     {
@@ -147,7 +147,7 @@ namespace tbsys {
     }
     
     /**
-     * °ÑstringÒÔdelim·Ö¸ô¿ª,·Åµ½listÖĞ
+     * æŠŠstringä»¥delimåˆ†éš”å¼€,æ”¾åˆ°listä¸­
      */
     void CStringUtil::split(char *str, const char *delim, std::vector<char*> &list) 
     {
@@ -188,7 +188,7 @@ namespace tbsys {
 	}
 
     /**
-     * °Ñurldecode
+     * æŠŠurldecode
      */   
     char *CStringUtil::urlDecode(const char *src, char *dest)
     {
@@ -228,7 +228,7 @@ namespace tbsys {
     }
     
     /**
-     * ±È½ÏºÃµÄhashËã·¨
+     * æ¯”è¾ƒå¥½çš„hashç®—æ³•
      * http://murmurhash.googlepages.com/
      */
     unsigned int CStringUtil::murMurHash(const void *key, int len)
@@ -267,7 +267,7 @@ namespace tbsys {
     }
     
     /**
-     * ¸ñÊ½»¯
+     * æ ¼å¼åŒ–
      */
     std::string CStringUtil::formatByteSize(double bytes)
     {

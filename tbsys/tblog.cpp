@@ -320,11 +320,6 @@ void CLogger::checkFile()
     }
 }
 
-CLogger& getLogger()
-{
-  static CLogger logger;
-  return logger;
-}
 
 void CLogger::setMaxFileSize( int64_t maxFileSize)
 {
@@ -345,6 +340,12 @@ void CLogger::setMaxFileIndex( int maxFileIndex )
     }
     _maxFileIndex = maxFileIndex;
 }
+
+CLogger &CLogger::getLogger() {
+  static CLogger logger;
+  return logger;
+}
+
 }
 
 /////////////

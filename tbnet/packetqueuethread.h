@@ -18,7 +18,7 @@
 
 namespace tbnet {
 
-// packet queueµÄ´¦ÀíÏß³Ì
+// packet queueçš„å¤„ç†çº¿ç¨‹
 class IPacketQueueHandler {
 public:
     virtual ~IPacketQueueHandler() {}
@@ -27,16 +27,16 @@ public:
 
 class PacketQueueThread : public tbsys::CDefaultRunnable {
 public:
-    // ¹¹Ôì
+    // æ„é€ 
     PacketQueueThread();
 
-    // ¹¹Ôì
+    // æ„é€ 
     PacketQueueThread(int threadCount, IPacketQueueHandler *handler, void *args);
 
-    // Îö¹¹
+    // ææ„
     ~PacketQueueThread();
 
-    // ²ÎÊıÉèÖÃ
+    // å‚æ•°è®¾ç½®
     void setThreadParameter(int threadCount, IPacketQueueHandler *handler, void *args);
 
     // stop
@@ -48,13 +48,13 @@ public:
     // pushQueue
     void pushQueue(PacketQueue &packetQueue, int maxQueueLen = 0);
 
-    // Runnable ½Ó¿Ú
+    // Runnable æ¥å£
     void run(tbsys::CThread *thread, void *arg);
 
-    // ÊÇ·ñ¼ÆËã´¦ÀíËÙ¶È
+    // æ˜¯å¦è®¡ç®—å¤„ç†é€Ÿåº¦
     void setStatSpeed();
 
-    // ÉèÖÃÏŞËÙ
+    // è®¾ç½®é™é€Ÿ
     void setWaitTime(int t);
 
     Packet *head()
@@ -79,15 +79,15 @@ private:
     tbsys::CThreadCond _cond;
     tbsys::CThreadCond _pushcond;
     void *_args;
-    bool _waitFinish;       // µÈ´ıÍê³É
+    bool _waitFinish;       // ç­‰å¾…å®Œæˆ
 
-    // ÏŞÖÆ·¢ËÍËÙ¶È
+    // é™åˆ¶å‘é€é€Ÿåº¦
     int _waitTime;
     int64_t _speed_t1;
     int64_t _speed_t2;
     int64_t _overage;
 
-    // ÊÇ·ñÕıÔÚµÈ´ı
+    // æ˜¯å¦æ­£åœ¨ç­‰å¾…
     bool _waiting;
 };
 }

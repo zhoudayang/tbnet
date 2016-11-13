@@ -21,9 +21,9 @@
 namespace tbutil 
 {
 /**
- * @brief LockTÊÇ¼òµ¥µÄÄ£°åÀà£¬ÓÉ¹¹ÔìÆ÷ºÍÎö¹¹Æ÷¹¹³É
- * ¹¹ÔìÆ÷Õë¶ÔËüµÄ²ÎÊýµ÷ÓÃlock,Îö¹¹Æ÷µ÷ÓÃunlock,
- * Í¨¹ýÊµÀý»¯ÀàÐÍÎªLockµÄ¾Ö²¿±äÁ¿,¿ÉÒÔÍêÈ«½â¾öËÀËøÎÊÌâ
+ * @brief LockTæ˜¯ç®€å•çš„æ¨¡æ¿ç±»ï¼Œç”±æž„é€ å™¨å’Œæžæž„å™¨æž„æˆ
+ * æž„é€ å™¨é’ˆå¯¹å®ƒçš„å‚æ•°è°ƒç”¨lock,æžæž„å™¨è°ƒç”¨unlock,
+ * é€šè¿‡å®žä¾‹åŒ–ç±»åž‹ä¸ºLockçš„å±€éƒ¨å˜é‡,å¯ä»¥å®Œå…¨è§£å†³æ­»é”é—®é¢˜
  */
 template <typename T>
 class LockT
@@ -113,9 +113,9 @@ private:
 };
 
 /** 
- * @brief TryLockTÊÇ¼òµ¥µÄÄ£°åÀà£¬ÓÉ¹¹ÔìÆ÷ºÍÎö¹¹Æ÷¹¹³É
- * ¹¹ÔìÆ÷Õë¶ÔËüµÄ²ÎÊýµ÷ÓÃlock,Îö¹¹Æ÷µ÷ÓÃunlock,
- * Í¨¹ýÊµÀý»¯ÀàÐÍÎªTryLockµÄ¾Ö²¿±äÁ¿,¿ÉÒÔÍêÈ«½â¾öËÀËøÎÊÌâ
+ * @brief TryLockTæ˜¯ç®€å•çš„æ¨¡æ¿ç±»ï¼Œç”±æž„é€ å™¨å’Œæžæž„å™¨æž„æˆ
+ * æž„é€ å™¨é’ˆå¯¹å®ƒçš„å‚æ•°è°ƒç”¨lock,æžæž„å™¨è°ƒç”¨unlock,
+ * é€šè¿‡å®žä¾‹åŒ–ç±»åž‹ä¸ºTryLockçš„å±€éƒ¨å˜é‡,å¯ä»¥å®Œå…¨è§£å†³æ­»é”é—®é¢˜
  */
 template <typename T>
 class TryLockT : public LockT<T>

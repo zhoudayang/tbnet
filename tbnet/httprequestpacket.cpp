@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 HttpRequestPacket::HttpRequestPacket() {
     _strHeader = NULL;
@@ -28,7 +28,7 @@ HttpRequestPacket::HttpRequestPacket() {
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 HttpRequestPacket::~HttpRequestPacket() {
     if (_strHeader) {
@@ -37,14 +37,14 @@ HttpRequestPacket::~HttpRequestPacket() {
 }
 
 /*
- * ×é×°
+ * ç»„è£…
  */
 bool HttpRequestPacket::encode(DataBuffer *output) {
     return true;
 }
 
 /*
- * ½â¿ª
+ * è§£å¼€
  */
 bool HttpRequestPacket::decode(DataBuffer *input, PacketHeader *header) {
     int len = header->_dataLen;
@@ -57,13 +57,13 @@ bool HttpRequestPacket::decode(DataBuffer *input, PacketHeader *header) {
     char *p, *name = NULL, *value;
     p = value = _strHeader;
     while (*p) {
-        // ÕÒÃ¿Ò»ĞĞ
+        // æ‰¾æ¯ä¸€è¡Œ
         if (*p == '\r' && *(p+1) == '\n') {
-            if (value == p && line > 0) { // header ½áÊøÁË
+            if (value == p && line > 0) { // header ç»“æŸäº†
                 break;
             }
             *p = '\0';
-            // È¥Ç°¿Õ¸ñ
+            // å»å‰ç©ºæ ¼
             while (*value == ' ') value ++;
             if (line > 0) {
                 if (strcmp(name, "Connection") == 0 && strcasecmp(value, "Keep-Alive") == 0) {
@@ -77,10 +77,10 @@ bool HttpRequestPacket::decode(DataBuffer *input, PacketHeader *header) {
             value = p + 2;
             line ++;
             first = 1;
-        } else if (line == 0 && *p == ' ') { // Ê×ĞĞ
+        } else if (line == 0 && *p == ' ') { // é¦–è¡Œ
             if (_method) {
                 *p = '\0';
-            } else if (strncmp(value, "GET ", 4) == 0) {    // ÊÇGET ·½·¨
+            } else if (strncmp(value, "GET ", 4) == 0) {    // æ˜¯GET æ–¹æ³•
                 _method = 1;
                 value = p + 1;
             }
@@ -97,21 +97,21 @@ bool HttpRequestPacket::decode(DataBuffer *input, PacketHeader *header) {
 }
 
 /*
- * ²éÑ¯´®
+ * æŸ¥è¯¢ä¸²
  */
 char *HttpRequestPacket::getQuery() {
     return _strQuery;
 }
 
 /*
- * ÊÇ·ñkeepalive
+ * æ˜¯å¦keepalive
  */
 bool HttpRequestPacket::isKeepAlive() {
     return _isKeepAlive;
 }
 
 /*
- * Ñ°ÕÒÆäËûÍ·ĞÅÏ¢
+ * å¯»æ‰¾å…¶ä»–å¤´ä¿¡æ¯
  */
 const char *HttpRequestPacket::findHeader(const char *name) {
     PSTR_MAP_ITER it = _headerMap.find(name);

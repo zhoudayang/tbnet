@@ -22,73 +22,73 @@ class PacketQueue {
     friend class PacketQueueThread;
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     PacketQueue();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~PacketQueue();
 
     /*
-     * ³öÁ´
+     * å‡ºé“¾
      */
     Packet *pop();
 
     /*
-     * Çå¿Õ
+     * æ¸…ç©º
      */
     void clear();
 
     /*
-     * ÈëÁ´
+     * å…¥é“¾
      */
     void push(Packet *packet);
 
     /*
-     * ³¤¶È
+     * é•¿åº¦
      */
     int size();
 
     /*
-     * ÊÇ·ñÎª¿Õ
+     * æ˜¯å¦ä¸ºç©º
      */
     bool empty();
 
     /*
-     * ÒÆ¶¯µ½ÆäËû¶ÓÁĞÉÏ
+     * ç§»åŠ¨åˆ°å…¶ä»–é˜Ÿåˆ—ä¸Š
      */
     void moveTo(PacketQueue *destQueue);
 
     /*
-     * µÃµ½³¬Ê±µÄpacket
+     * å¾—åˆ°è¶…æ—¶çš„packet
      */
     Packet *getTimeoutList(int64_t now);
 
     /*
-     * È¡µ½packet list
+     * å–åˆ°packet list
      */
     Packet *getPacketList();
 
     /*
-     *È¡µÃ¶ÓÁĞÍ·Ö¸Õë
+     *å–å¾—é˜Ÿåˆ—å¤´æŒ‡é’ˆ
      */
     Packet *head()
     {
         return _head;
     }
     /*
-     *È¡µÃ¶ÓÁĞÎ²Ö¸Õë
+     *å–å¾—é˜Ÿåˆ—å°¾æŒ‡é’ˆ
      */
     Packet* tail()
     {
         return _tail;
     }
 protected:
-    Packet *_head;  // Á´Í·
-    Packet *_tail;  // Á´Î²
-    int _size;      // ÔªËØÊıÁ¿
+    Packet *_head;  // é“¾å¤´
+    Packet *_tail;  // é“¾å°¾
+    int _size;      // å…ƒç´ æ•°é‡
 };
 
 }

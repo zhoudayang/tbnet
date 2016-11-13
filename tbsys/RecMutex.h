@@ -22,14 +22,14 @@ namespace tbutil
 {
 class Cond;
 /** 
- * @brief RecMutex ÊµÏÖµÄÊÇµÝ¹é»¥³âÌå
- * ·ÇµÝ¹é»¥³âÌåµÄÊ¹ÓÃÒ»Ñù£¬ÔÚÊ¹ÓÃµÝ¹é»¥³âÌåÊ±£¬Äã±ØÐë×ñÊØÒ»Ð©¼ò
- * µ¥µÄ¹æÔò:
- * 1.³ý·Ç·¢³öµ÷ÓÃµÄÏß³Ì³ÖÓÐËø£¬·ñÔò²»ÒªÕë¶ÔÄ³¸ö»¥³âÌåµ÷ÓÃunlock
- * 2.ÒªÈÃ»¥³âÌåÄÜ¹»±»ÆäËûÏß³Ì»ñÈ¡£¬Äãµ÷ÓÃunlock µÄ´ÎÊý±ØÐëºÍÄãµ÷ÓÃ
- * lock µÄ´ÎÊýÏàÍ¬£¨ÔÚµÝ¹é»¥³âÌåµÄÄÚ²¿ÊµÏÖÖÐ£¬ÓÐÒ»¸ö³õÊ¼»¯³ÉÁãµÄ
- * ¼ÆÊýÆ÷¡£Ã¿´Îµ÷ÓÃlock£¬¼ÆÊýÆ÷¾Í»á¼ÓÒ»£¬Ã¿´Îµ÷ÓÃunlock£¬¼ÆÊý
- * Æ÷¾Í»á¼õÒ»£» µ±¼ÆÊýÆ÷»Øµ½ÁãÊ±£¬ÁíÍâµÄÏß³Ì¾Í¿ÉÒÔ»ñÈ¡»¥³âÌåÁË£©
+ * @brief RecMutex å®žçŽ°çš„æ˜¯é€’å½’äº’æ–¥ä½“
+ * éžé€’å½’äº’æ–¥ä½“çš„ä½¿ç”¨ä¸€æ ·ï¼Œåœ¨ä½¿ç”¨é€’å½’äº’æ–¥ä½“æ—¶ï¼Œä½ å¿…é¡»éµå®ˆä¸€äº›ç®€
+ * å•çš„è§„åˆ™:
+ * 1.é™¤éžå‘å‡ºè°ƒç”¨çš„çº¿ç¨‹æŒæœ‰é”ï¼Œå¦åˆ™ä¸è¦é’ˆå¯¹æŸä¸ªäº’æ–¥ä½“è°ƒç”¨unlock
+ * 2.è¦è®©äº’æ–¥ä½“èƒ½å¤Ÿè¢«å…¶ä»–çº¿ç¨‹èŽ·å–ï¼Œä½ è°ƒç”¨unlock çš„æ¬¡æ•°å¿…é¡»å’Œä½ è°ƒç”¨
+ * lock çš„æ¬¡æ•°ç›¸åŒï¼ˆåœ¨é€’å½’äº’æ–¥ä½“çš„å†…éƒ¨å®žçŽ°ä¸­ï¼Œæœ‰ä¸€ä¸ªåˆå§‹åŒ–æˆé›¶çš„
+ * è®¡æ•°å™¨ã€‚æ¯æ¬¡è°ƒç”¨lockï¼Œè®¡æ•°å™¨å°±ä¼šåŠ ä¸€ï¼Œæ¯æ¬¡è°ƒç”¨unlockï¼Œè®¡æ•°
+ * å™¨å°±ä¼šå‡ä¸€ï¼› å½“è®¡æ•°å™¨å›žåˆ°é›¶æ—¶ï¼Œå¦å¤–çš„çº¿ç¨‹å°±å¯ä»¥èŽ·å–äº’æ–¥ä½“äº†ï¼‰
  */
 class RecMutex
 {
@@ -42,21 +42,21 @@ public:
     ~RecMutex();
 
     /** 
-     * @brief lock º¯Êý³¢ÊÔ»ñÈ¡»¥³âÌå¡£Èç¹û»¥³âÌåÒÑ±»ÁíÒ»¸öÏß³ÌËø×¡£¬Ëü¾Í
-     * »á¹ÒÆð·¢³öµ÷ÓÃµÄÏß³Ì£¬Ö±µ½»¥³âÌå±äµÃ¿ÉÓÃÎªÖ¹¡£Èç¹û»¥³âÌå¿ÉÓÃ¡¢
-     * »òÕßÒÑ¾­±»·¢³öµ÷ÓÃµÄÏß³ÌËø×¡£¬Õâ¸öµ÷ÓÃ¾Í»áËø×¡»¥³âÌå£¬²¢Á¢¼´·µ»Ø
+     * @brief lock å‡½æ•°å°è¯•èŽ·å–äº’æ–¥ä½“ã€‚å¦‚æžœäº’æ–¥ä½“å·²è¢«å¦ä¸€ä¸ªçº¿ç¨‹é”ä½ï¼Œå®ƒå°±
+     * ä¼šæŒ‚èµ·å‘å‡ºè°ƒç”¨çš„çº¿ç¨‹ï¼Œç›´åˆ°äº’æ–¥ä½“å˜å¾—å¯ç”¨ä¸ºæ­¢ã€‚å¦‚æžœäº’æ–¥ä½“å¯ç”¨ã€
+     * æˆ–è€…å·²ç»è¢«å‘å‡ºè°ƒç”¨çš„çº¿ç¨‹é”ä½ï¼Œè¿™ä¸ªè°ƒç”¨å°±ä¼šé”ä½äº’æ–¥ä½“ï¼Œå¹¶ç«‹å³è¿”å›ž
      */
     void lock() const;
 
     /** 
-     * @brief tryLockº¯ÊýµÄ¹¦ÄÜÓëlockÀàËÆ£¬µ«Èç¹û»¥³âÌåÒÑ±»ÁíÒ»¸öÏß³ÌËø×¡,
-     * Ëü²»»á×èÈûµ÷ÓÃÕß£¬¶ø»á·µ»Øfalse¡£·ñÔò·µ»ØÖµÊÇtrue
+     * @brief tryLockå‡½æ•°çš„åŠŸèƒ½ä¸Žlockç±»ä¼¼ï¼Œä½†å¦‚æžœäº’æ–¥ä½“å·²è¢«å¦ä¸€ä¸ªçº¿ç¨‹é”ä½,
+     * å®ƒä¸ä¼šé˜»å¡žè°ƒç”¨è€…ï¼Œè€Œä¼šè¿”å›žfalseã€‚å¦åˆ™è¿”å›žå€¼æ˜¯true
      * @return 
      */
     bool tryLock() const;
 
     /** 
-     * @brief unlock º¯Êý½â³ý»¥³âÌåµÄ¼ÓËø
+     * @brief unlock å‡½æ•°è§£é™¤äº’æ–¥ä½“çš„åŠ é”
      */
     void unlock() const;
 

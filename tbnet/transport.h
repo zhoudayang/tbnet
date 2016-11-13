@@ -24,125 +24,125 @@ class Transport : public tbsys::Runnable {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     Transport();
 
     /*
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     ~Transport();
 
     /*
-     * Æğ¶¯ÔËÊä²ã£¬´´½¨Á½¸öÏß³Ì£¬Ò»¸öÓÃÓÚ¶Á£¬Ò»¸öÓÃĞ´¡£
+     * èµ·åŠ¨è¿è¾“å±‚ï¼Œåˆ›å»ºä¸¤ä¸ªçº¿ç¨‹ï¼Œä¸€ä¸ªç”¨äºè¯»ï¼Œä¸€ä¸ªç”¨å†™ã€‚
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool start();
 
     /*
-     * Í£Ö¹£¬Í£µô¶ÁĞ´Ïß³Ì£¬¼°Ïú»Ù¡£
+     * åœæ­¢ï¼Œåœæ‰è¯»å†™çº¿ç¨‹ï¼ŒåŠé”€æ¯ã€‚
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool stop();
 
     /*
-     * µÈ´ıÏß³ÌÍêÈ«ÍË³ö¡£
+     * ç­‰å¾…çº¿ç¨‹å®Œå…¨é€€å‡ºã€‚
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool wait();
 
     /*
-     * Ïß³ÌµÄÔËĞĞº¯Êı£¬ÊµÏÖRunnable½Ó¿ÚÖĞµÄº¯Êı
+     * çº¿ç¨‹çš„è¿è¡Œå‡½æ•°ï¼Œå®ç°Runnableæ¥å£ä¸­çš„å‡½æ•°
      *
-     * @param arg: ÔËĞĞÊ±´«Èë²ÎÊı
+     * @param arg: è¿è¡Œæ—¶ä¼ å…¥å‚æ•°
      */
     void run(tbsys::CThread *thread, void *arg);
 
     /*
-     * ÆğÒ»¸ö¼àÌı¶Ë¿Ú¡£
+     * èµ·ä¸€ä¸ªç›‘å¬ç«¯å£ã€‚
      *
-     * @param spec: ¸ñÊ½ [upd|tcp]:ip:port
-     * @param streamer: Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-     * @param serverAdapter: ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
-     * @return IO×é¼şÒ»¸ö¶ÔÏóµÄÖ¸Õë
+     * @param spec: æ ¼å¼ [upd|tcp]:ip:port
+     * @param streamer: æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+     * @param serverAdapter: ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
+     * @return IOç»„ä»¶ä¸€ä¸ªå¯¹è±¡çš„æŒ‡é’ˆ
      */
     IOComponent *listen(const char *spec, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * ´´½¨Ò»¸öConnection£¬Á¬½Óµ½Ö¸¶¨µÄµØÖ·£¬²¢¼ÓÈëµ½SocketµÄ¼àÌıÊÂ¼şÖĞ¡£
+     * åˆ›å»ºä¸€ä¸ªConnectionï¼Œè¿æ¥åˆ°æŒ‡å®šçš„åœ°å€ï¼Œå¹¶åŠ å…¥åˆ°Socketçš„ç›‘å¬äº‹ä»¶ä¸­ã€‚
      *
-     * @param spec: ¸ñÊ½ [upd|tcp]:ip:port
-     * @param streamer: Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-     * @param autoReconn: ÊÇ·ñÖØÁ¬
-     * @return  ·µ»ØÒ»¸öConnectoion¶ÔÏóÖ¸Õë
+     * @param spec: æ ¼å¼ [upd|tcp]:ip:port
+     * @param streamer: æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+     * @param autoReconn: æ˜¯å¦é‡è¿
+     * @return  è¿”å›ä¸€ä¸ªConnectoionå¯¹è±¡æŒ‡é’ˆ
      */
     Connection *connect(const char *spec, IPacketStreamer *streamer, bool autoReconn = false);
 
     /*
-     * Ö÷¶¯¶Ï¿ª
+     * ä¸»åŠ¨æ–­å¼€
      */
     bool disconnect(Connection *conn);
 
     /*
-     * ¼ÓÈëµ½iocomponentsÖĞ
+     * åŠ å…¥åˆ°iocomponentsä¸­
      *
-     * @param  ioc: IO×é¼ş
-     * @param  readOn: ³õÊ¼»¯°Ñ¶ÁÊÂ¼ş´ò¿ª
-     * @param  writeOn: ³õÊ¼»¯°ÑĞ´ÊÂ¼ş´ò¿ª
+     * @param  ioc: IOç»„ä»¶
+     * @param  readOn: åˆå§‹åŒ–æŠŠè¯»äº‹ä»¶æ‰“å¼€
+     * @param  writeOn: åˆå§‹åŒ–æŠŠå†™äº‹ä»¶æ‰“å¼€
      */
     void addComponent(IOComponent *ioc, bool readOn, bool writeOn);
 
     /*
-     * ´ÓiocomponentsÖĞÉ¾³ıµô
+     * ä»iocomponentsä¸­åˆ é™¤æ‰
      *
-     * @param ioc: IO×é¼ş
+     * @param ioc: IOç»„ä»¶
      */
     void removeComponent(IOComponent *ioc);
     
     /**
-     * ÊÇ·ñÎªstop
+     * æ˜¯å¦ä¸ºstop
      */
     bool* getStop();
 
 private:
     /*
-     * °Ñ[upd|tcp]:ip:port·Ö¿ª·ÅÔÚargsÖĞ
+     * æŠŠ[upd|tcp]:ip:portåˆ†å¼€æ”¾åœ¨argsä¸­
      *
-     * @param src: Ô´¸ñÊ½
-     * @param args: Ä¿±êÊı×é
-     * @param   cnt: Êı×éÖĞ×î´ó¸öÊı
-     * @return  ·µ»ØµÄÊı×éÖĞ¸öÊı
+     * @param src: æºæ ¼å¼
+     * @param args: ç›®æ ‡æ•°ç»„
+     * @param   cnt: æ•°ç»„ä¸­æœ€å¤§ä¸ªæ•°
+     * @return  è¿”å›çš„æ•°ç»„ä¸­ä¸ªæ•°
      */
     int parseAddr(char *src, char **args, int cnt);
 
     /*
-     * socket event µÄ¼ì²â
+     * socket event çš„æ£€æµ‹
      */
     void eventLoop(SocketEvent *socketEvent);
 
     /*
-     * ³¬Ê±¼ì²é
+     * è¶…æ—¶æ£€æŸ¥
      */
     void timeoutLoop();
 
     /*
-     * ÊÍ·Å±äÁ¿
+     * é‡Šæ”¾å˜é‡
      */
     void destroy();
 
 private:
 
-    EPollSocketEvent _socketEvent;      // ¶ÁĞ´socketÊÂ¼ş
-    tbsys::CThread _readWriteThread;    // ¶ÁĞ´´¦ÀíÏß³Ì
-    tbsys::CThread _timeoutThread;      // ³¬Ê±¼ì²éÏß³Ì
-    bool _stop;                         // ÊÇ·ñ±»Í£Ö¹
+    EPollSocketEvent _socketEvent;      // è¯»å†™socketäº‹ä»¶
+    tbsys::CThread _readWriteThread;    // è¯»å†™å¤„ç†çº¿ç¨‹
+    tbsys::CThread _timeoutThread;      // è¶…æ—¶æ£€æŸ¥çº¿ç¨‹
+    bool _stop;                         // æ˜¯å¦è¢«åœæ­¢
 
-    IOComponent *_delListHead, *_delListTail;  // µÈ´ıÉ¾³ıµÄIOComponent¼¯ºÏ
-    IOComponent *_iocListHead, *_iocListTail;   // IOComponent¼¯ºÏ
-    bool _iocListChanged;                       // IOComponent¼¯ºÏ±»¸Ä¹ı
+    IOComponent *_delListHead, *_delListTail;  // ç­‰å¾…åˆ é™¤çš„IOComponenté›†åˆ
+    IOComponent *_iocListHead, *_iocListTail;   // IOComponenté›†åˆ
+    bool _iocListChanged;                       // IOComponenté›†åˆè¢«æ”¹è¿‡
     int _iocListCount;
     tbsys::CThreadMutex _iocsMutex;
 };

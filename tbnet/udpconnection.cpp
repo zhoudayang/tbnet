@@ -18,29 +18,29 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 UDPConnection::UDPConnection(Socket *socket, IPacketStreamer *streamer,
                              IServerAdapter *serverAdapter) : Connection(socket, streamer, serverAdapter) {}
 
 /*
- * ÎöÔìº¯Êı
+ * æé€ å‡½æ•°
  */
 UDPConnection::~UDPConnection() {}
 
 /*
- * Ğ´³öÊı¾İ
+ * å†™å‡ºæ•°æ®
  *
- * @return ÊÇ·ñ³É¹¦
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool UDPConnection::writeData() {
     return true;
 }
 
 /*
- * ¶ÁÈëÊı¾İ
+ * è¯»å…¥æ•°æ®
  *
- * @return ¶ÁÈëÊı¾İ
+ * @return è¯»å…¥æ•°æ®
  */
 bool UDPConnection::readData() {
     return true;

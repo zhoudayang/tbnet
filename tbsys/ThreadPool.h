@@ -33,7 +33,7 @@
 namespace tbutil 
 {
 /** 
-* @brief ThreadPool ÊÇÒ»¸öÏß³Ì³ØÀà,ËüÊµÏÖÒ»¸öÁìµ¼Õß/¸úËæÕßÄ£ĞÍ 
+* @brief ThreadPool æ˜¯ä¸€ä¸ªçº¿ç¨‹æ± ç±»,å®ƒå®ç°ä¸€ä¸ªé¢†å¯¼è€…/è·Ÿéšè€…æ¨¡å‹ 
 */
 class ThreadPool : public Monitor<Mutex>
 {
@@ -47,27 +47,27 @@ public:
     void destroy();
 
     /** 
-     * @brief Ôö¼ÓÒ»¸öÈÎÎñ
+     * @brief å¢åŠ ä¸€ä¸ªä»»åŠ¡
      * 
-     * @param workItem: ĞÂÔö¼ÓµÄÈÎÎñ
+     * @param workItem: æ–°å¢åŠ çš„ä»»åŠ¡
      * 
      * @return 
      */
     int  execute(ThreadPoolWorkItem* workItem);
     /** 
-     * @brief Ñ¡ÔñĞÂµÄÁìµ¼Õß
+     * @brief é€‰æ‹©æ–°çš„é¢†å¯¼è€…
      * 
      * @param thid
      */
     inline void promoteFollower(pthread_t thid);
 
     /** 
-     * @brief µÈ´ıËùÓĞÏß³ÌÍË³ö
+     * @brief ç­‰å¾…æ‰€æœ‰çº¿ç¨‹é€€å‡º
      */
     void joinWithAllThreads();
 
     /** 
-     * @brief ÊÇ·ñ´ïµ½Ïß³Ì¶ÓÁĞµÄ×î´óÏŞÖÆ
+     * @brief æ˜¯å¦è¾¾åˆ°çº¿ç¨‹é˜Ÿåˆ—çš„æœ€å¤§é™åˆ¶
      * 
      * @return 
      */

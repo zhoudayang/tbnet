@@ -36,30 +36,30 @@
 #define PROFILER_SET_STATUS(st) tbsys::util::Profiler::m_profiler.status = (st)
 
 /**
- * ���߳�����ͳ�ƹ���
+ * 多线程性能统计工具
  *
- * ʹ�÷�����
- * PROFILER_START("test"); // ��ʼ��һ��ͳ��ʵ��
+ * 使用方法：
+ * PROFILER_START("test"); // 初始化一个统计实例
  *
- * PROFILER_BEGIN("entry a"); // ��ʼһ����ʱ��Ԫ
- * PROFILER_END(); // ��������ļ�ʱ��Ԫ
+ * PROFILER_BEGIN("entry a"); // 开始一个计时单元
+ * PROFILER_END(); // 结束最近的计时单元
  *
  * PROFILER_BEGIN("entry b");
- * PROFILER_BEGIN("sub entry b1"); // ֧��Ƕ�׵ļ�ʱ��Ԫ
+ * PROFILER_BEGIN("sub entry b1"); // 支持嵌套的计时单元
  * PROFILER_END();
  * PROFILER_END()
  *
- * PROFILER_DUMP(); // dump��ʱ��¼
- * PROFILER_STOP(); // �������ͳ��ʵ��
+ * PROFILER_DUMP(); // dump计时记录
+ * PROFILER_STOP(); // 结束这个统计实例
  *
- * ���ò�����
- * PROFILER_SET_STATUS(status); // ���ü�������״̬���������1������ü��������й��ܣ���ʱ��������κο�����Ĭ��Ϊ1
- * PROFILER_SET_THRESHOLD(threshold); // ����dump�ķ�ֵ����һ������ʵ�����ܼ�ʱ���������ֵʱ�Ż�dump��Ϣ����λΪus��Ĭ��Ϊ10000us(10ms)
+ * 配置参数：
+ * PROFILER_SET_STATUS(status); // 设置计数器的状态，如果不是1，则禁用计数器所有功能，此时不会产生任何开销，默认为1
+ * PROFILER_SET_THRESHOLD(threshold); // 设置dump的阀值，当一个计数实例的总计时超过这个阀值时才会dump信息，单位为us，默认为10000us(10ms)
  */
 namespace tbsys { namespace util {
 
 /** 
- * @brief �߳��ض����ݵĴ�������ȡ������
+ * @brief 线程特定数据的创建，获取，设置
  */
 template<class T>
 class ThreadLocal {
@@ -76,7 +76,7 @@ private:
 };
 
 /** 
- * @brief ͳ���߳�ִ��ʱ���ʱ�䵥Ԫ
+ * @brief 统计线程执行时间的时间单元
  */
 class Entry
 {
@@ -233,7 +233,7 @@ class Entry
 
 
 /** 
- * @brief ���߳�����ͳ�ƹ���
+ * @brief 多线程性能统计工具
  */
 class Profiler
 {

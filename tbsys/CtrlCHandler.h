@@ -23,15 +23,15 @@ namespace tbutil
 typedef void (*CtrlCHandlerCallback)(int);
 
 /** 
- * @brief CtrlCHanler ÓÃÓÚ´¦ÀíCtrl+C ¼°ÆäËûÀàËÆµÄ·¢¸øC++ ½ø³ÌµÄĞÅºÅ
- * ÔÚÈÎÒ»Ê±¿Ì£¬ÔÚÒ»¸ö½ø³ÌÖĞÖ»ÄÜÓĞ Ò»¸öCtrlCHandler ÊµÀı
+ * @brief CtrlCHanler ç”¨äºå¤„ç†Ctrl+C åŠå…¶ä»–ç±»ä¼¼çš„å‘ç»™C++ è¿›ç¨‹çš„ä¿¡å·
+ * åœ¨ä»»ä¸€æ—¶åˆ»ï¼Œåœ¨ä¸€ä¸ªè¿›ç¨‹ä¸­åªèƒ½æœ‰ ä¸€ä¸ªCtrlCHandler å®ä¾‹
  */
 class CtrlCHandler
 {
 public:
 
 /** 
-* @brief ÓÃÒ»¸ö»Øµ÷º¯Êı¹¹ÔìÒ»¸öÊµÀı
+* @brief ç”¨ä¸€ä¸ªå›è°ƒå‡½æ•°æ„é€ ä¸€ä¸ªå®ä¾‹
 * 
 * @param CtrlCHandlerCallback
 */
@@ -39,13 +39,13 @@ public:
     ~CtrlCHandler();
 
     /** 
-     * @brief ÉèÖÃĞÂµÄ»Øµ÷º¯Êı
+     * @brief è®¾ç½®æ–°çš„å›è°ƒå‡½æ•°
      * 
      * @param callback 
      */
     void setCallback(CtrlCHandlerCallback callback);
     /** 
-     * @brief »ñµÃµ±Ç°»Øµ÷º¯Êı
+     * @brief è·å¾—å½“å‰å›è°ƒå‡½æ•°
      * 
      * @return 
      */
@@ -54,7 +54,7 @@ public:
 
 
 /** 
- * @brief CtrlCHandlerÊµÀıÈç¹ûÒÑ¾­´æÔÚ¾Í»áÅ×³öÒì³£
+ * @brief CtrlCHandlerå®ä¾‹å¦‚æœå·²ç»å­˜åœ¨å°±ä¼šæŠ›å‡ºå¼‚å¸¸
  */
 class CtrlCHandlerException : public Exception
 { 

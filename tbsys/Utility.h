@@ -40,14 +40,14 @@ int getAbsPath(const char *pszPath, char *pszBuf, int iBufLen);
 int checkCreateDir(const char *pszPath);
 int checkCreateLink(const char *pszPath, const char *pszLink, int iRecreate);
 int strJoin(char *pszDst, size_t sizeDst, char **ppszField, size_t sizeField, const char *pszSep);
-// ²»ÄÜ¶àÏß³Ìµ÷ÓÃ
+// ä¸èƒ½å¤šçº¿ç¨‹è°ƒç”¨
 int getHostIP(char *pszAddr, unsigned uiAddrLen);
 int getExe(char *pszExe, unsigned uiExeLen);
 int getExeRoot(char *pszExeRoot, unsigned uiExePathLen);
 
 /**
- * »ñÈ¡´óÓÚÄ³¸öÖµµÃ×îĞ¡µÄ2µÄn´Î·½µÄÕûÊı
- * @param uiValue(uint32_t): ÒªÇóµÄÖµµÄÏÂÏŞ
+ * è·å–å¤§äºæŸä¸ªå€¼å¾—æœ€å°çš„2çš„næ¬¡æ–¹çš„æ•´æ•°
+ * @param uiValue(uint32_t): è¦æ±‚çš„å€¼çš„ä¸‹é™
  * @see 
  * @return result
  */
@@ -62,10 +62,10 @@ static inline uint32_t guint32p2(uint32_t uiValue)
 }
 
 /**
- * °Ñ64Î»Ö÷»ú×Ö½ÚĞòÕûÊı×ª»»³É64Î»ÍøÂç×Ö½ÚĞòÕûÊı
- * @param ull(uint64_t): 64Î»Ö÷»ú×Ö½ÚĞòÕûÊı
+ * æŠŠ64ä½ä¸»æœºå­—èŠ‚åºæ•´æ•°è½¬æ¢æˆ64ä½ç½‘ç»œå­—èŠ‚åºæ•´æ•°
+ * @param ull(uint64_t): 64ä½ä¸»æœºå­—èŠ‚åºæ•´æ•°
  * @see 
- * @return 64Î»ÍøÂç×Ö½ÚĞòÕûÊı
+ * @return 64ä½ç½‘ç»œå­—èŠ‚åºæ•´æ•°
  */
 static inline uint64_t htonll(uint64_t ull)
 {
@@ -88,10 +88,10 @@ static inline uint64_t htonll(uint64_t ull)
 }
 
 /**
- * °Ñ64Î»ÍøÂç×Ö½ÚĞòÕûÊı×ª»»³É64Î»Ö÷»ú×Ö½ÚĞòÕûÊı
- * @param ull(uint64_t): 64Î»ÍøÂç×Ö½ÚĞòÕûÊı
+ * æŠŠ64ä½ç½‘ç»œå­—èŠ‚åºæ•´æ•°è½¬æ¢æˆ64ä½ä¸»æœºå­—èŠ‚åºæ•´æ•°
+ * @param ull(uint64_t): 64ä½ç½‘ç»œå­—èŠ‚åºæ•´æ•°
  * @see 
- * @return 64Î»Ö÷»ú×Ö½ÚĞòÕûÊı
+ * @return 64ä½ä¸»æœºå­—èŠ‚åºæ•´æ•°
  */
 static inline uint64_t ntohll(uint64_t ull)
 {
@@ -114,12 +114,12 @@ static inline uint64_t ntohll(uint64_t ull)
 }
 
 /**
- * °ÑÏà¶ÔÏÖÔÚµÄÒ»¸öÊ±¼äÆ¬¶Ï×ª»»³É½«À´µÄ¾ø¶ÔÊ±¼ä
- * @param pts(struct timespec *): Êä³ö²ÎÊı£¬½«À´µÄ¾ø¶ÔÊ±¼ä
- * @param uiUSec(unsigned): Ïà¶ÔÓÚÏÖÔÚµÄÎ´À´µÄÎ¢ÃëÊı
+ * æŠŠç›¸å¯¹ç°åœ¨çš„ä¸€ä¸ªæ—¶é—´ç‰‡æ–­è½¬æ¢æˆå°†æ¥çš„ç»å¯¹æ—¶é—´
+ * @param pts(struct timespec *): è¾“å‡ºå‚æ•°ï¼Œå°†æ¥çš„ç»å¯¹æ—¶é—´
+ * @param uiUSec(unsigned): ç›¸å¯¹äºç°åœ¨çš„æœªæ¥çš„å¾®ç§’æ•°
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 static inline int getFutureAbsTS(struct timespec *pts, unsigned uiUSec)
 {

@@ -20,9 +20,9 @@
 namespace tbsys
 {
 /**
- * °Ñnew¹Ø¼ü×Ö×ª»»³Éº¯Êı
+ * æŠŠnewå…³é”®å­—è½¬æ¢æˆå‡½æ•°
  * @see 
- * @return ĞÂ´´½¨µÄTypeÀàµÄ¶ÔÏó(³É¹¦)/NULL(Ê§°Ü)
+ * @return æ–°åˆ›å»ºçš„Typeç±»çš„å¯¹è±¡(æˆåŠŸ)/NULL(å¤±è´¥)
  */
 template <typename Type> inline Type *gNew()
 {
@@ -43,10 +43,10 @@ template <typename Type> inline Type *gNew()
 }
 
 /**
- * °Ñnew []¹Ø¼ü×Ö×ª»»³Éº¯Êı
- * @param uiItemNum(unsigned): ¶ÔÏóÊı×éµÄ´óĞ¡
+ * æŠŠnew []å…³é”®å­—è½¬æ¢æˆå‡½æ•°
+ * @param uiItemNum(unsigned): å¯¹è±¡æ•°ç»„çš„å¤§å°
  * @see 
- * @return °üº¬uiItemNum¸öÀà¶ÔÏóµÄ¶ÔÏóÊı×é(³É¹¦)/NULL(Ê§°Ü)
+ * @return åŒ…å«uiItemNumä¸ªç±»å¯¹è±¡çš„å¯¹è±¡æ•°ç»„(æˆåŠŸ)/NULL(å¤±è´¥)
  */
 template <typename Type> inline Type *gNewA(unsigned uiItemNum)
 {
@@ -69,10 +69,10 @@ template <typename Type> inline Type *gNewA(unsigned uiItemNum)
 // if not use the default construct, please use this macro, but is can't reference
 #ifdef _NO_EXCEPTION
 /**
- * µ÷ÓÃÓĞ²ÎÊıµÄ¹¹Ôìº¯Êı´´½¨Àà¶ÔÏó
- * @param Pointer: Êä³ö²ÎÊı£¬±»¸³ÖµÎªĞÂ´´½¨µÄClassÀàµÄ¶ÔÏó
- * @param Class: Ğè´´½¨¶ÔÏóµÄÀàÃû
- * @param ...: ¹¹Ôìº¯Êı²ÎÊıÁĞ±í
+ * è°ƒç”¨æœ‰å‚æ•°çš„æ„é€ å‡½æ•°åˆ›å»ºç±»å¯¹è±¡
+ * @param Pointer: è¾“å‡ºå‚æ•°ï¼Œè¢«èµ‹å€¼ä¸ºæ–°åˆ›å»ºçš„Classç±»çš„å¯¹è±¡
+ * @param Class: éœ€åˆ›å»ºå¯¹è±¡çš„ç±»å
+ * @param ...: æ„é€ å‡½æ•°å‚æ•°åˆ—è¡¨
  * @see 
  * @return void
  */
@@ -99,10 +99,10 @@ template <typename Type> inline Type *gNewA(unsigned uiItemNum)
 #endif
 
 /**
- * °Ñplacement new×ª»»³Éº¯Êı
- * @param p(void *): ¹¹Ôì¶ÔÏóµÄÄÚ´æµØÖ·
+ * æŠŠplacement newè½¬æ¢æˆå‡½æ•°
+ * @param p(void *): æ„é€ å¯¹è±¡çš„å†…å­˜åœ°å€
  * @see 
- * @return TypeÀàĞÍ¶ÔÏó(³É¹¦)/NULL(Ê§°Ü)
+ * @return Typeç±»å‹å¯¹è±¡(æˆåŠŸ)/NULL(å¤±è´¥)
  */
 template <typename Type> inline Type *gConstruct(void *p)
 {
@@ -127,11 +127,11 @@ template <typename Type> inline Type *gConstruct(void *p)
  */
 #ifdef _NO_EXCEPTION
 /**
- * ·â×°¹¹Ôìº¯ÊıµÄÒì³££¬²¢Ìá¹©¹¹Ôì²ÎÊı
- * @param Pointer: Êä³ö²ÎÊı£¬±»¸³ÖµÎªĞÂ´´½¨µÄClassÀàµÄ¶ÔÏó
- * @param Class: Ğè´´½¨¶ÔÏóµÄÀàÃû
- * @param Memory: ¹¹Ôì¶ÔÏóµÄÄÚ´æµØÖ·
- * @param ...: ¹¹Ôì¶ÔÏóµÄ²ÎÊıÁĞ±í
+ * å°è£…æ„é€ å‡½æ•°çš„å¼‚å¸¸ï¼Œå¹¶æä¾›æ„é€ å‚æ•°
+ * @param Pointer: è¾“å‡ºå‚æ•°ï¼Œè¢«èµ‹å€¼ä¸ºæ–°åˆ›å»ºçš„Classç±»çš„å¯¹è±¡
+ * @param Class: éœ€åˆ›å»ºå¯¹è±¡çš„ç±»å
+ * @param Memory: æ„é€ å¯¹è±¡çš„å†…å­˜åœ°å€
+ * @param ...: æ„é€ å¯¹è±¡çš„å‚æ•°åˆ—è¡¨
  * @see 
  * @return 
  */
@@ -159,9 +159,9 @@ template <typename Type> inline Type *gConstruct(void *p)
 
 #ifdef _NO_EXCEPTION
 /**
- * µ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯Êı¹¹Ôì¶ÔÏó£¬·â×°Òì³£
- * @param Pointer: Êä³ö²ÎÊı£¬±»¸³ÖµÎªĞÂ´´½¨µÄClassÀàµÄ¶ÔÏó
- * @param Class: Ğè´´½¨¶ÔÏóµÄÀàÃû
+ * è°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°æ„é€ å¯¹è±¡ï¼Œå°è£…å¼‚å¸¸
+ * @param Pointer: è¾“å‡ºå‚æ•°ï¼Œè¢«èµ‹å€¼ä¸ºæ–°åˆ›å»ºçš„Classç±»çš„å¯¹è±¡
+ * @param Class: éœ€åˆ›å»ºå¯¹è±¡çš„ç±»å
  * @see 
  * @return 
  */
@@ -189,10 +189,10 @@ template <typename Type> inline Type *gConstruct(void *p)
 
 #ifdef _NO_EXCEPTION
 /**
- * µ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯Êı´´½¨¶ÔÏóÊı×é£¬·â×°Òì³£
- * @param Pointer: Êä³ö²ÎÊı£¬±»¸³ÖµÎªĞÂ´´½¨µÄClassÀàµÄ¶ÔÏóÊı×é
- * @param Class: Ğè´´½¨¶ÔÏóÊı×éµÄÀàÃû
- * @param Num: Ğè´´½¨¶ÔÏóÊı×éµÄ³¤¶È
+ * è°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°åˆ›å»ºå¯¹è±¡æ•°ç»„ï¼Œå°è£…å¼‚å¸¸
+ * @param Pointer: è¾“å‡ºå‚æ•°ï¼Œè¢«èµ‹å€¼ä¸ºæ–°åˆ›å»ºçš„Classç±»çš„å¯¹è±¡æ•°ç»„
+ * @param Class: éœ€åˆ›å»ºå¯¹è±¡æ•°ç»„çš„ç±»å
+ * @param Num: éœ€åˆ›å»ºå¯¹è±¡æ•°ç»„çš„é•¿åº¦
  * @see 
  * @return void
  */
@@ -219,8 +219,8 @@ template <typename Type> inline Type *gConstruct(void *p)
 #endif
 
 /**
- * °Ñdelete¹Ø¼ü×Ö×ª»»³Éº¯Êı£¬²¢·â×°Òì³£
- * @param p(Type *): ÒªÊÍ·ÅµÄ¶ÔÏóµØÖ·
+ * æŠŠdeleteå…³é”®å­—è½¬æ¢æˆå‡½æ•°ï¼Œå¹¶å°è£…å¼‚å¸¸
+ * @param p(Type *): è¦é‡Šæ”¾çš„å¯¹è±¡åœ°å€
  * @see 
  * @return void
  */
@@ -247,8 +247,8 @@ template <typename Type> inline void gDelete(Type *&rp)
 }
 
 /**
- * °Ñdelete []¹Ø¼ü×Ö×ª»»³Éº¯Êı£¬²¢·â×°Òì³£
- * @param p(Type *): ÒªÊÍ·ÅµÄ¶ÔÏóÊı×éµØÖ·
+ * æŠŠdelete []å…³é”®å­—è½¬æ¢æˆå‡½æ•°ï¼Œå¹¶å°è£…å¼‚å¸¸
+ * @param p(Type *): è¦é‡Šæ”¾çš„å¯¹è±¡æ•°ç»„åœ°å€
  * @see 
  * @return void
  */
@@ -275,8 +275,8 @@ template <typename Type> inline void gDeleteA(Type *&rp)
 }
 
 /**
- * °Ñ¶ÔÏóµÄÎö¹¹º¯Êı×ª»»³ÉÍ¨ÓÃº¯Êı²¢·â×°Òì³£
- * @param p(Type *): ĞèÒª±»Îö¹¹µÄ¶ÔÏóµØÖ·
+ * æŠŠå¯¹è±¡çš„ææ„å‡½æ•°è½¬æ¢æˆé€šç”¨å‡½æ•°å¹¶å°è£…å¼‚å¸¸
+ * @param p(Type *): éœ€è¦è¢«ææ„çš„å¯¹è±¡åœ°å€
  * @see 
  * @return void
  */
@@ -298,7 +298,7 @@ template <typename Type> inline void gDestruct(Type *p)
 
 /**
  * 
- * @param p(Type *): ĞèÒªÊÍ·ÅµÄÄÚ´æ¿éµØÖ·
+ * @param p(Type *): éœ€è¦é‡Šæ”¾çš„å†…å­˜å—åœ°å€
  * @see 
  * @return void
  */
@@ -313,8 +313,8 @@ template <typename Type> inline void gFree(Type *&rp)
 
 #ifdef _NO_EXCEPTION
 /**
- * ÊÍ·Å¶ÔÏó£¬·â×°Òì³£
- * @param Pointer: ĞèÒª±»ÊÍ·ÅµÄ¶ÔÏóµØÖ·
+ * é‡Šæ”¾å¯¹è±¡ï¼Œå°è£…å¼‚å¸¸
+ * @param Pointer: éœ€è¦è¢«é‡Šæ”¾çš„å¯¹è±¡åœ°å€
  * @see 
  * @return void
  */
@@ -351,8 +351,8 @@ template <typename Type> inline void gFree(Type *&rp)
 
 #ifdef _NO_EXCEPTION
 /**
- * ÊÍ·Å¶ÔÏóÊı×é£¬·â×°Òì³£
- * @param Pointer: ĞèÒª±»ÊÍ·ÅµÄ¶ÔÏóÊı×éµØÖ·
+ * é‡Šæ”¾å¯¹è±¡æ•°ç»„ï¼Œå°è£…å¼‚å¸¸
+ * @param Pointer: éœ€è¦è¢«é‡Šæ”¾çš„å¯¹è±¡æ•°ç»„åœ°å€
  * @see 
  * @return void
  */

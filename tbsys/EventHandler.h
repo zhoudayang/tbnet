@@ -20,8 +20,8 @@ namespace tbutil
 {
 class ThreadPool;
 /** 
- * @brief ThreadPoolWorkItem 线程任务队列Item基类,它拥有execute纯虚方法
- * 要实例化ThreadPoolWorkItem类，必须继承并实现execute方法
+ * @brief ThreadPoolWorkItem 绾跨▼浠诲姟闃熷垪Item鍩虹被,瀹冩嫢鏈塭xecute绾櫄鏂规硶
+ * 瑕佸疄渚嬪寲ThreadPoolWorkItem绫伙紝蹇呴』缁ф壙骞跺疄鐜癳xecute鏂规硶
  */
 class ThreadPoolWorkItem 
 {

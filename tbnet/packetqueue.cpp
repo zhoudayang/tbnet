@@ -19,7 +19,7 @@ namespace tbnet {
 
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 PacketQueue::PacketQueue() {
     _head = NULL;
@@ -27,14 +27,14 @@ PacketQueue::PacketQueue() {
     _size = 0;
 }
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 PacketQueue::~PacketQueue() {
     clear();
 }
 
 /*
- * ³öÁ´±í
+ * å‡ºé“¾è¡¨
  */
 Packet *PacketQueue::pop() {
     if (_head == NULL) {
@@ -50,7 +50,7 @@ Packet *PacketQueue::pop() {
 }
 
 /*
- * Çå¿Õ
+ * æ¸…ç©º
  */
 void PacketQueue::clear() {
     if (_head == NULL) {
@@ -66,7 +66,7 @@ void PacketQueue::clear() {
 }
 
 /*
- * ÈëÁ´±í
+ * å…¥é“¾è¡¨
  */
 void PacketQueue::push(Packet *packet) {
     if (packet == NULL) {
@@ -84,24 +84,24 @@ void PacketQueue::push(Packet *packet) {
 }
 
 /*
- * ³¤¶È
+ * é•¿åº¦
  */
 int PacketQueue::size() {
     return _size;
 }
 
 /*
- * ÊÇ·ñÎª¿Õ
+ * æ˜¯å¦ä¸ºç©º
  */
 bool PacketQueue::empty() {
     return (_size == 0);
 }
 
 /*
- * ÒÆ¶¯µ½ÆäËû¶ÓÁĞÉÏ
+ * ç§»åŠ¨åˆ°å…¶ä»–é˜Ÿåˆ—ä¸Š
  */
 void PacketQueue::moveTo(PacketQueue *destQueue) {
-    if (_head == NULL) { // ÊÇ¿ÕÁ´
+    if (_head == NULL) { // æ˜¯ç©ºé“¾
         return;
     }
     if (destQueue->_tail == NULL) {
@@ -116,7 +116,7 @@ void PacketQueue::moveTo(PacketQueue *destQueue) {
 }
 
 /*
- * µÃµ½³¬Ê±µÄpacket
+ * å¾—åˆ°è¶…æ—¶çš„packet
  */
 Packet *PacketQueue::getTimeoutList(int64_t now) {
     Packet *list, *tail;
@@ -144,7 +144,7 @@ Packet *PacketQueue::getTimeoutList(int64_t now) {
 }
 
 /*
- * È¡µ½packet list
+ * å–åˆ°packet list
  */
 Packet *PacketQueue::getPacketList() {
     return _head;

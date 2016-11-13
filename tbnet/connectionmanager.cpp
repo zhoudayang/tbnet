@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 ConnectionManager::ConnectionManager(Transport *transport, IPacketStreamer *streamer, IPacketHandler *packetHandler) {
     assert(transport != NULL);
@@ -32,7 +32,7 @@ ConnectionManager::ConnectionManager(Transport *transport, IPacketStreamer *stre
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 ConnectionManager::~ConnectionManager() {
 }
@@ -49,7 +49,7 @@ void ConnectionManager::cleanup() {
 }
 
 /**
- * Á¬½Ó·şÎñÆ÷
+ * è¿æ¥æœåŠ¡å™¨
  */
 Connection *ConnectionManager::getConnection(uint64_t serverId) {
     if (_status == 1) {
@@ -67,12 +67,12 @@ Connection *ConnectionManager::getConnection(uint64_t serverId) {
         return it->second;
     }
 
-    // ´ÓtransportÖĞ»ñÈ¡
+    // ä»transportä¸­è·å–
     char spec[64];
     sprintf(spec, "tcp:%s", tbsys::CNetUtil::addrToString(serverId).c_str());
     Connection *conn = _transport->connect(spec, _streamer, true);
     if (!conn) {
-        TBSYS_LOG(WARN, "Á¬½Óµ½·şÎñÆ÷Ê§°Ü: %s", spec);
+        TBSYS_LOG(WARN, "è¿æ¥åˆ°æœåŠ¡å™¨å¤±è´¥: %s", spec);
         return NULL;
     } else {
         conn->setDefaultPacketHandler(_packetHandler);
@@ -84,7 +84,7 @@ Connection *ConnectionManager::getConnection(uint64_t serverId) {
 }
 
 /**
- * ´ò¿ªÁ¬½Ó
+ * æ‰“å¼€è¿æ¥
  */
 Connection *ConnectionManager::connect(uint64_t serverId,
                                        IPacketHandler *packetHandler, int queueLimit, int queueTimeout) {
@@ -98,7 +98,7 @@ Connection *ConnectionManager::connect(uint64_t serverId,
 }
 
 /**
- * ¹Ø±ÕÁ¬½Ó
+ * å…³é—­è¿æ¥
  */
 void ConnectionManager::disconnect(uint64_t serverId) {
     _mutex.lock();
@@ -113,7 +113,7 @@ void ConnectionManager::disconnect(uint64_t serverId) {
 }
 
 /**
- * ÉèÖÃ _queueLimit
+ * è®¾ç½® _queueLimit
  */
 void ConnectionManager::setDefaultQueueLimit(uint64_t serverId, int queueLimit) {
     if (serverId) {
@@ -127,7 +127,7 @@ void ConnectionManager::setDefaultQueueLimit(uint64_t serverId, int queueLimit) 
 }
 
 /**
- * ÉèÖÃ _queueTimeout
+ * è®¾ç½® _queueTimeout
  */
 void ConnectionManager::setDefaultQueueTimeout(uint64_t serverId, int queueTimeout) {
     if (serverId) {
@@ -141,7 +141,7 @@ void ConnectionManager::setDefaultQueueTimeout(uint64_t serverId, int queueTimeo
 }
 
 /**
- * ÉèÖÃpacketHandler
+ * è®¾ç½®packetHandler
  */
 void ConnectionManager::setDefaultPacketHandler(uint64_t serverId, IPacketHandler *packetHandler) {
     if (serverId) {
@@ -155,7 +155,7 @@ void ConnectionManager::setDefaultPacketHandler(uint64_t serverId, IPacketHandle
 }
 
 /**
- * ·¢ËÍÊı¾İ°ü
+ * å‘é€æ•°æ®åŒ…
  */
 bool ConnectionManager::sendPacket(uint64_t serverId, Packet *packet, IPacketHandler *packetHandler, void *args, bool noblocking) {
     Connection *conn = getConnection(serverId);
@@ -165,7 +165,7 @@ bool ConnectionManager::sendPacket(uint64_t serverId, Packet *packet, IPacketHan
     return false;
 }
 
-// ÊÇ·ñÄÜ±»Á¬½Ó
+// æ˜¯å¦èƒ½è¢«è¿æ¥
 bool ConnectionManager::isAlive(uint64_t serverId) {
     tbnet::Socket socket;
     char ip[32];

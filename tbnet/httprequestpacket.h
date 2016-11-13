@@ -29,62 +29,62 @@ typedef PSTR_MAP::iterator PSTR_MAP_ITER;
 class HttpRequestPacket : public Packet {
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     HttpRequestPacket();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~HttpRequestPacket();
 
     /*
-     * ¼ÆËã³öÊı¾İ°üµÄ³¤¶È
+     * è®¡ç®—å‡ºæ•°æ®åŒ…çš„é•¿åº¦
      */
     void countDataLen();
     /*
-     * ×é×°
+     * ç»„è£…
      */
     bool encode(DataBuffer *output);
 
     /*
-     * ½â¿ª
+     * è§£å¼€
      */
     bool decode(DataBuffer *input, PacketHeader *header);
 
     /*
-     * ²éÑ¯´®
+     * æŸ¥è¯¢ä¸²
      */
     char *getQuery();
 
     /*
-     * ÊÇ·ñkeepalive
+     * æ˜¯å¦keepalive
      */
     bool isKeepAlive();
 
     /*
-     * Ñ°ÕÒÆäËûÍ·ĞÅÏ¢
+     * å¯»æ‰¾å…¶ä»–å¤´ä¿¡æ¯
      */
     const char *findHeader(const char *name);
 
     /*
-     * È¡»ØConnection
+     * å–å›Connection
      */
     Connection *getConnection();
 
     /*
-     * ÉèÖÃconnection
+     * è®¾ç½®connection
      */
     void setConnection(Connection *connection);
 
 private:
-    char *_strHeader;       // ±£´æÍ·ÄÚÈİµÄbuffer
-    char *_strQuery;        // ²éÑ¯´®
-    bool _isKeepAlive;      // ÊÇ·ñÖ§³Ökeepalive
+    char *_strHeader;       // ä¿å­˜å¤´å†…å®¹çš„buffer
+    char *_strQuery;        // æŸ¥è¯¢ä¸²
+    bool _isKeepAlive;      // æ˜¯å¦æ”¯æŒkeepalive
     int _method;            // get - 1
-    PSTR_MAP _headerMap;    // ÆäËûÍ·ĞÅÏ¢µÄmap
+    PSTR_MAP _headerMap;    // å…¶ä»–å¤´ä¿¡æ¯çš„map
 
-    tbnet::Connection *_connection; // ´æconnection
+    tbnet::Connection *_connection; // å­˜connection
 };
 
 }

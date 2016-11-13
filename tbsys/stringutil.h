@@ -28,31 +28,31 @@
 namespace tbsys {
 
 	/** 
-	 * @brief ×Ö·û´®²Ù×÷£¬ÒÔ¼°×ª»»µÄ·â×°
+	 * @brief å­—ç¬¦ä¸²æ“ä½œï¼Œä»¥åŠè½¬æ¢çš„å°è£…
 	 */
     class CStringUtil {
         public:
-            // °Ñstring×ª³Éint
+            // æŠŠstringè½¬æˆint
             static int strToInt(const char *str, int d);
-            // ÊÇÕûÊı
+            // æ˜¯æ•´æ•°
             static int isInt(const char *str);
-            // ×ª³ÉĞ¡Ğ´
+            // è½¬æˆå°å†™
             static char *strToLower(char *str);
-            // ×ª³É´óĞ´
+            // è½¬æˆå¤§å†™
             static char *strToUpper(char *str);
             // trim
             static char *trim(char *str, const char *what = " ", int mode = 3);
             // hash_value
             static int hashCode(const char *str);
-            // µÃµ½Ò»¸östrµÄhashÖµµÄËØÊı
+            // å¾—åˆ°ä¸€ä¸ªstrçš„hashå€¼çš„ç´ æ•°
             static int getPrimeHash(const char *str);
-            // °ÑstringÒÔdelim·Ö¸ô¿ª,·Åµ½listÖĞ
+            // æŠŠstringä»¥delimåˆ†éš”å¼€,æ”¾åˆ°listä¸­
             static void split(char *str, const char *delim, std::vector<char*> &list);
             // urldecode
             static char *urlDecode(const char *src, char *dest);
             // http://murmurhash.googlepages.com/
             static unsigned int murMurHash(const void *key, int len);
-            // °Ñbytes×ª³É¿É¶ÁµÄ, Èç 10K 12M µÈ
+            // æŠŠbytesè½¬æˆå¯è¯»çš„, å¦‚ 10K 12M ç­‰
             static std::string formatByteSize(double bytes);
     };   
 }

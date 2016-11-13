@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 IOComponent::IOComponent(Transport *owner, Socket *socket) {
     assert(socket);
@@ -27,15 +27,15 @@ IOComponent::IOComponent(Transport *owner, Socket *socket) {
     _socket->setIOComponent(this);
     _socketEvent = NULL;
     atomic_set(&_refcount, 0);
-    _state = TBNET_UNCONNECTED; // ÕıÔÚÁ¬½Ó
-    _autoReconn = false; // ²»Òª×Ô¶¯ÖØÁ¬
+    _state = TBNET_UNCONNECTED; // æ­£åœ¨è¿æ¥
+    _autoReconn = false; // ä¸è¦è‡ªåŠ¨é‡è¿
     _prev = _next = NULL;
     _lastUseTime = tbsys::CTimeUtil::getTime();
     _inUsed = false;
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 IOComponent::~IOComponent() {
     if (_socket) {

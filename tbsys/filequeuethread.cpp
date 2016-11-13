@@ -17,7 +17,7 @@
 
 namespace tbsys {
 
-    /* ¹¹Ôìº¯Êı */
+    /* æ„é€ å‡½æ•° */
     CFileQueueThread::CFileQueueThread(CFileQueue *queue, int threadCount, IQueueHandler *handler, void *args) : 
         CDefaultRunnable(threadCount)
     {
@@ -27,13 +27,13 @@ namespace tbsys {
         _args = args;
     }
     
-    /* Îö¹¹º¯Êı */
+    /* ææ„å‡½æ•° */
     CFileQueueThread::~CFileQueueThread(void)
     {
         stop();
     }
 
-    /* Ğ´ÈëÊı¾İ */
+    /* å†™å…¥æ•°æ® */
     int CFileQueueThread::writeData(void *data, int len)
     {
         if (data == NULL || len <= 0) {
@@ -46,7 +46,7 @@ namespace tbsys {
         return EXIT_SUCCESS;
     }
     
-    /* Í£Ö¹ */
+    /* åœæ­¢ */
     void CFileQueueThread::stop()
     {
         _mutex.lock();
@@ -55,7 +55,7 @@ namespace tbsys {
         _mutex.unlock();
     }
     
-    /* ÔËĞĞÈë¿Úº¯Êı */
+    /* è¿è¡Œå…¥å£å‡½æ•° */
     void CFileQueueThread::run(CThread *thread, void *args)
     {
         int threadIndex = (int)((long)(args));

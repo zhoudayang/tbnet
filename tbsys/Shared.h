@@ -19,7 +19,7 @@
 namespace tbutil
 {
 /** 
-* @brief SimpleSharedÀàÌá¹©¼òµ¥µÄÒıÓÃ¼ÆÊı
+* @brief SimpleSharedç±»æä¾›ç®€å•çš„å¼•ç”¨è®¡æ•°
 */
 class SimpleShared
 {
@@ -73,8 +73,8 @@ private:
 };
 
 /** 
- * @brief Shared Ìá¹©¼òµ¥µÄÒıÓÃ¼ÆÊı,Ö÷ÒªÓÃÓÚÖÇÄÜÖ¸Õë
- * Èç¹ûÒªÓÃÓÚÖÇÄÜÖ¸Õë£¬ÓÃ»§µÄÀàĞèÒª¼Ì³Ğ´ËÀà 
+ * @brief Shared æä¾›ç®€å•çš„å¼•ç”¨è®¡æ•°,ä¸»è¦ç”¨äºæ™ºèƒ½æŒ‡é’ˆ
+ * å¦‚æœè¦ç”¨äºæ™ºèƒ½æŒ‡é’ˆï¼Œç”¨æˆ·çš„ç±»éœ€è¦ç»§æ‰¿æ­¤ç±» 
  */
 class Shared
 {
@@ -93,23 +93,23 @@ public:
     }
 
     /** 
-     * @brief Ôö¼ÓÒıÓÃ¼ÆÊı
+     * @brief å¢åŠ å¼•ç”¨è®¡æ•°
      */
     virtual void __incRef();
     /** 
-     * @brief ¼õÉÙÒıÓÃ¼ÆÊı
+     * @brief å‡å°‘å¼•ç”¨è®¡æ•°
      */
     virtual void __decRef();
     /** 
-     * @brief »ñÈ¡µ±Ç°ÒıÓÃ¼ÆÊı
+     * @brief è·å–å½“å‰å¼•ç”¨è®¡æ•°
      * 
      * @return 
      */
     virtual int __getRef() const;
     /** 
-     * @brief ÉèÖÃ__noDelete±êÖ¾
-     * true: µ±ÒıÓÃ¼ÆÊıÎª0Ê±²»É¾³ıËü¹ÜÀíµÄ¶ÔÏó
-     * false: µ±ÒıÓÃ¼ÆÊıÎª0Ê±É¾³ıËü¹ÜÀíµÄ¶ÔÏó 
+     * @brief è®¾ç½®__noDeleteæ ‡å¿—
+     * true: å½“å¼•ç”¨è®¡æ•°ä¸º0æ—¶ä¸åˆ é™¤å®ƒç®¡ç†çš„å¯¹è±¡
+     * false: å½“å¼•ç”¨è®¡æ•°ä¸º0æ—¶åˆ é™¤å®ƒç®¡ç†çš„å¯¹è±¡ 
      * @param bool
      */
     virtual void __setNoDelete(bool);

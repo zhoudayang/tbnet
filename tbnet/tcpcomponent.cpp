@@ -17,13 +17,13 @@
 
 namespace tbnet {
 /**
-  * ¹¹Ôìº¯Êý£¬ÓÉTransportµ÷ÓÃ¡£
+  * æž„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
   *
-  * @param  owner:    ÔËÊä²ã¶ÔÏó
-  * @param  host:   ¼àÌýipµØÖ·»òhostname
-  * @param port:   ¼àÌý¶Ë¿Ú
-  * @param streamer:   Êý¾Ý°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-  * @param serverAdapter:  ÓÃÔÚ·þÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+  * @param  owner:    è¿è¾“å±‚å¯¹è±¡
+  * @param  host:   ç›‘å¬ipåœ°å€æˆ–hostname
+  * @param port:   ç›‘å¬ç«¯å£
+  * @param streamer:   æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+  * @param serverAdapter:  ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›žè°ƒæ—¶ç”¨
   */
 TCPComponent::TCPComponent(Transport *owner, Socket *socket,
                            IPacketStreamer *streamer, IServerAdapter *serverAdapter) : IOComponent(owner, socket) {
@@ -34,7 +34,7 @@ TCPComponent::TCPComponent(Transport *owner, Socket *socket,
 }
 
 /*
- * Îö¹¹º¯Êý
+ * æžæž„å‡½æ•°
  */
 TCPComponent::~TCPComponent() {
     if (_connection) {
@@ -45,10 +45,10 @@ TCPComponent::~TCPComponent() {
 }
 
 /*
- * Á¬½Óµ½Ö¸¶¨µÄ»úÆ÷
+ * è¿žæŽ¥åˆ°æŒ‡å®šçš„æœºå™¨
  *
- * @param  isServer: ÊÇ·ñ³õÊ¼»¯Ò»¸ö·þÎñÆ÷µÄConnection
- * @return ÊÇ·ñ³É¹¦
+ * @param  isServer: æ˜¯å¦åˆå§‹åŒ–ä¸€ä¸ªæœåŠ¡å™¨çš„Connection
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool TCPComponent::init(bool isServer) {
     _socket->setSoBlocking(false);
@@ -72,7 +72,7 @@ bool TCPComponent::init(bool isServer) {
 }
 
 /*
- * Á¬½Óµ½socket
+ * è¿žæŽ¥åˆ°socket
  */
 bool TCPComponent::socketConnect() {
     if (_state == TBNET_CONNECTED || _state == TBNET_CONNECTING) {
@@ -95,7 +95,7 @@ bool TCPComponent::socketConnect() {
         } else {
             _socket->close();
             _state = TBNET_CLOSED;
-            TBSYS_LOG(ERROR, "Á¬½Óµ½ %s Ê§°Ü, %s(%d)", _socket->getAddr().c_str(), strerror(error), error);
+            TBSYS_LOG(ERROR, "è¿žæŽ¥åˆ° %s å¤±è´¥, %s(%d)", _socket->getAddr().c_str(), strerror(error), error);
             return false;
         }
     }
@@ -103,7 +103,7 @@ bool TCPComponent::socketConnect() {
 }
 
 /*
- * ¹Ø±Õ
+ * å…³é—­
  */
 void TCPComponent::close() {
     if (_socket) {
@@ -122,9 +122,9 @@ void TCPComponent::close() {
 }
 
 /*
- * µ±ÓÐÊý¾Ý¿ÉÐ´µ½Ê±±»Transportµ÷ÓÃ
+ * å½“æœ‰æ•°æ®å¯å†™åˆ°æ—¶è¢«Transportè°ƒç”¨
  *
- * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+ * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
  */
 bool TCPComponent::handleWriteEvent() {
     _lastUseTime = tbsys::CTimeUtil::getTime();
@@ -138,7 +138,7 @@ bool TCPComponent::handleWriteEvent() {
             _connection->clearOutputBuffer();
             _state = TBNET_CONNECTED;
         } else {
-            TBSYS_LOG(ERROR, "Á¬½Óµ½ %s Ê§°Ü: %s(%d)", _socket->getAddr().c_str(), strerror(error), error);
+            TBSYS_LOG(ERROR, "è¿žæŽ¥åˆ° %s å¤±è´¥: %s(%d)", _socket->getAddr().c_str(), strerror(error), error);
             if (_socketEvent) {
                 _socketEvent->removeEvent(_socket);
             }
@@ -150,9 +150,9 @@ bool TCPComponent::handleWriteEvent() {
 }
 
 /**
- * µ±ÓÐÊý¾Ý¿É¶ÁÊ±±»Transportµ÷ÓÃ
+ * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
  *
- * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+ * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
  */
 bool TCPComponent::handleReadEvent() {
     _lastUseTime = tbsys::CTimeUtil::getTime();
@@ -164,27 +164,27 @@ bool TCPComponent::handleReadEvent() {
 }
 
 /*
- * ³¬Ê±¼ì²é
+ * è¶…æ—¶æ£€æŸ¥
  *
- * @param    now µ±Ç°Ê±¼ä(µ¥Î»us)
+ * @param    now å½“å‰æ—¶é—´(å•ä½us)
  */
 void TCPComponent::checkTimeout(int64_t now) {
-    // ¼ì²éÊÇ·ñÁ¬½Ó³¬Ê±
+    // æ£€æŸ¥æ˜¯å¦è¿žæŽ¥è¶…æ—¶
     if (_state == TBNET_CONNECTING) {
-        if (_startConnectTime > 0 && _startConnectTime < (now - static_cast<int64_t>(2000000))) { // Á¬½Ó³¬Ê± 2 Ãë
+        if (_startConnectTime > 0 && _startConnectTime < (now - static_cast<int64_t>(2000000))) { // è¿žæŽ¥è¶…æ—¶ 2 ç§’
             _state = TBNET_CLOSED;
-            TBSYS_LOG(ERROR, "Á¬½Óµ½ %s ³¬Ê±.", _socket->getAddr().c_str());
+            TBSYS_LOG(ERROR, "è¿žæŽ¥åˆ° %s è¶…æ—¶.", _socket->getAddr().c_str());
             _socket->shutdown();
         }
-    } else if (_state == TBNET_CONNECTED && _isServer == true && _autoReconn == false) { // Á¬½ÓµÄÊ±ºò, Ö»ÓÃÔÚ·þÎñÆ÷¶Ë
+    } else if (_state == TBNET_CONNECTED && _isServer == true && _autoReconn == false) { // è¿žæŽ¥çš„æ—¶å€™, åªç”¨åœ¨æœåŠ¡å™¨ç«¯
         int64_t idle = now - _lastUseTime;
-        if (idle > static_cast<int64_t>(900000000)) { // ¿ÕÏÐ15min¶Ï¿ª
+        if (idle > static_cast<int64_t>(900000000)) { // ç©ºé—²15minæ–­å¼€
             _state = TBNET_CLOSED;
-            TBSYS_LOG(INFO, "%s ¿ÕÏÐÁË: %d (s) ±»¶Ï¿ª.", _socket->getAddr().c_str(), (idle/static_cast<int64_t>(1000000)));
+            TBSYS_LOG(INFO, "%s ç©ºé—²äº†: %d (s) è¢«æ–­å¼€.", _socket->getAddr().c_str(), (idle/static_cast<int64_t>(1000000)));
             _socket->shutdown();
         }
     }
-    // ³¬Ê±¼ì²é
+    // è¶…æ—¶æ£€æŸ¥
     _connection->checkTimeout(now);
 }
 

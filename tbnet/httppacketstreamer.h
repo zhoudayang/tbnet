@@ -22,19 +22,19 @@ namespace tbnet {
 class HttpPacketStreamer : public DefaultPacketStreamer {
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     HttpPacketStreamer();
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     HttpPacketStreamer(IPacketFactory *factory);
     /*
-     * Êı¾İ°üĞÅÏ¢µÄÉèÖÃ
+     * æ•°æ®åŒ…ä¿¡æ¯çš„è®¾ç½®
      */
     bool getPacketInfo(DataBuffer *input, PacketHeader *header, bool *broken);
     /*
-     * ÉèÖÃ_httpPacketCode
+     * è®¾ç½®_httpPacketCode
      */
     void setHttpPacketCode(int code) {
         _httpPacketCode = code;
@@ -44,10 +44,10 @@ private:
 };
 
 /**
- * packetµÄfactory, È±Ê¡µÄhttpd packet factory
+ * packetçš„factory, ç¼ºçœçš„httpd packet factory
  *
- * pcode = 1 ÊÇÇëÇó°ü
- * pcode = 0 ÊÇÏìÓ¦°ü
+ * pcode = 1 æ˜¯è¯·æ±‚åŒ…
+ * pcode = 0 æ˜¯å“åº”åŒ…
  */
 class DefaultHttpPacketFactory : public IPacketFactory {
 public:

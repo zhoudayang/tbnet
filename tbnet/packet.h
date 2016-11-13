@@ -22,9 +22,9 @@ namespace tbnet {
 
 class PacketHeader {
 public:
-    uint32_t _chid;         // Í¨µÀID
-    int _pcode;             // Êı¾İ°üÀàĞÍ
-    int _dataLen;           // Êı¾İ°übody³¤¶È(³ıÍ·ĞÅÏ¢Íâ)
+    uint32_t _chid;         // é€šé“ID
+    int _pcode;             // æ•°æ®åŒ…ç±»å‹
+    int _dataLen;           // æ•°æ®åŒ…bodyé•¿åº¦(é™¤å¤´ä¿¡æ¯å¤–)
 };
 
 class Packet {
@@ -32,52 +32,52 @@ class Packet {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı, ´«°üÀàĞÍ
+     * æ„é€ å‡½æ•°, ä¼ åŒ…ç±»å‹
      */
     Packet();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     virtual ~Packet();
 
     /*
-     * ÉèÖÃChannelID
+     * è®¾ç½®ChannelID
      */
     void setChannelId(uint32_t chid) {
         _packetHeader._chid = chid;
     }
 
     /*
-     * µÃµ½Channel ID
+     * å¾—åˆ°Channel ID
      */
     uint32_t getChannelId() const {
         return _packetHeader._chid;
     }
 
     /*
-     * ÉèÖÃPCode
+     * è®¾ç½®PCode
      */
     void setPCode(int pcode) {
         _packetHeader._pcode = pcode;
     }
 
     /*
-     * µÃµ½PCode
+     * å¾—åˆ°PCode
      */
     int getPCode() const {
         return _packetHeader._pcode;
     }
 
     /*
-     * µÃµ½Êı¾İ°üheader info
+     * å¾—åˆ°æ•°æ®åŒ…header info
      */
     PacketHeader *getPacketHeader() {
         return &_packetHeader;
     }
 
     /*
-     * ÉèÖÃÊı¾İ°üheader info
+     * è®¾ç½®æ•°æ®åŒ…header info
      */
     void setPacketHeader(PacketHeader *header) {
         if (header) {
@@ -86,75 +86,75 @@ public:
     }
 
     /*
-     * ÊÍ·Å×Ô¼º
+     * é‡Šæ”¾è‡ªå·±
      */
     virtual void free() {
         delete this;
     }
 
     /*
-     * ÊÇ·ñÊı¾İ°ü
+     * æ˜¯å¦æ•°æ®åŒ…
      */
     virtual bool isRegularPacket() {
         return true;
     }
 
     /*
-     * ×é×°
+     * ç»„è£…
      *
-     * @param output: Ä¿±êbuffer
-     * @return ÊÇ·ñ³É¹¦
+     * @param output: ç›®æ ‡buffer
+     * @return æ˜¯å¦æˆåŠŸ
      */
     virtual bool encode(DataBuffer *output) = 0;
 
     /*
-     * ½â¿ª
+     * è§£å¼€
      *
-     * @param input: Ô´buffer
-     * @param header: Êı¾İ°üheader
-     * @return ÊÇ·ñ³É¹¦
+     * @param input: æºbuffer
+     * @param header: æ•°æ®åŒ…header
+     * @return æ˜¯å¦æˆåŠŸ
      */
     virtual bool decode(DataBuffer *input, PacketHeader *header) = 0;
 
     /*
-     * ³¬Ê±Ê±¼ä
+     * è¶…æ—¶æ—¶é—´
      */
     int64_t getExpireTime() const {
         return _expireTime;
     }
 
     /*
-     * ÉèÖÃ¹ıÆÚÊ±¼ä
+     * è®¾ç½®è¿‡æœŸæ—¶é—´
      *
-     * @param milliseconds ºÁÃëÊı, 0ÎªÓÀ²»¹ıÆÚ
+     * @param milliseconds æ¯«ç§’æ•°, 0ä¸ºæ°¸ä¸è¿‡æœŸ
      */
     void setExpireTime(int milliseconds);
 
     /*
-     * ÉèÖÃChannel
+     * è®¾ç½®Channel
      */
     void setChannel(Channel *channel);
 
     /*
-     * µÃµ½Channel
+     * å¾—åˆ°Channel
      */
     Channel *getChannel() const {
         return _channel;
     }
 
     /*
-     * µÃµ½next
+     * å¾—åˆ°next
      */
     Packet *getNext() const {
         return _next;
     }
 
 protected:
-    PacketHeader _packetHeader; // Êı¾İ°üµÄÍ·ĞÅÏ¢
-    int64_t _expireTime;        // µ½ÆÚÊ±¼ä
+    PacketHeader _packetHeader; // æ•°æ®åŒ…çš„å¤´ä¿¡æ¯
+    int64_t _expireTime;        // åˆ°æœŸæ—¶é—´
     Channel *_channel;
 
-    Packet *_next;              // ÓÃÔÚpacketqueueÁ´±í
+    Packet *_next;              // ç”¨åœ¨packetqueueé“¾è¡¨
 };
 
 }

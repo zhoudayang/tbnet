@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı, ´«°üÀàĞÍ
+ * æ„é€ å‡½æ•°, ä¼ åŒ…ç±»å‹
  */
 Packet::Packet() {
     _next = NULL;
@@ -28,13 +28,13 @@ Packet::Packet() {
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 Packet::~Packet() {
 }
 
 /*
- * ÉèÖÃChannel
+ * è®¾ç½®Channel
  */
 void Packet::setChannel(Channel *channel) {
     if (channel) {
@@ -44,9 +44,9 @@ void Packet::setChannel(Channel *channel) {
 }
 
 /*
- * ÉèÖÃ¹ıÆÚÊ±¼ä
+ * è®¾ç½®è¿‡æœŸæ—¶é—´
  *
- * @param milliseconds ºÁÃëÊı, 0ÎªÒ»ÌìÊ±¼ä
+ * @param milliseconds æ¯«ç§’æ•°, 0ä¸ºä¸€å¤©æ—¶é—´
  */
 void Packet::setExpireTime(int milliseconds) {
     if (milliseconds == 0) {

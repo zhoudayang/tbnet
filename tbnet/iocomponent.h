@@ -33,49 +33,49 @@ public:
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     IOComponent(Transport *owner, Socket *socket);
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     virtual ~IOComponent();
 
     /*
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     virtual bool init(bool isServer = false) = 0;
 
     /*
-     * ¹Ø±Õ
+     * å…³é—­
      */
     virtual void close() {}
 
     /*
-     * µ±ÓĞÊı¾İ¿ÉĞ´µ½Ê±±»Transportµ÷ÓÃ
+     * å½“æœ‰æ•°æ®å¯å†™åˆ°æ—¶è¢«Transportè°ƒç”¨
      *
-    * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+    * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     virtual bool handleWriteEvent() = 0;
 
     /*
-     * µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
+     * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     virtual bool handleReadEvent() = 0;
 
     /*
-     * ³¬Ê±¼ì²é
+     * è¶…æ—¶æ£€æŸ¥
      *
-     * @param    now µ±Ç°Ê±¼ä(µ¥Î»us)
+     * @param    now å½“å‰æ—¶é—´(å•ä½us)
      */
     virtual void checkTimeout(int64_t now) = 0;
 
     /*
-     * µÃµ½socket¾ä±ú
+     * å¾—åˆ°socketå¥æŸ„
      *
      * @return Socket
      */
@@ -84,16 +84,16 @@ public:
     }
 
     /*
-     * ÉèÖÃSocketEvent
+     * è®¾ç½®SocketEvent
      */
     void setSocketEvent(SocketEvent *socketEvent) {
         _socketEvent = socketEvent;
     }
 
     /*
-     * ÉèÖÃÄÜ¶ÁĞ´
+     * è®¾ç½®èƒ½è¯»å†™
      *
-     * @param writeOn Ğ´ÊÇ·ñ´ò¿ª
+     * @param writeOn å†™æ˜¯å¦æ‰“å¼€
      */
     void enableWrite(bool writeOn) {
         if (_socketEvent) {
@@ -102,70 +102,70 @@ public:
     }
 
     /*
-     * Ôö¼ÓÒıÓÃ¼ÆÊı
+     * å¢åŠ å¼•ç”¨è®¡æ•°
      */
     int addRef() {
         return atomic_add_return(1, &_refcount);
     }
 
     /*
-     * ¼õÉÙÒıÓÃ¼ÆÊı
+     * å‡å°‘å¼•ç”¨è®¡æ•°
      */
     void subRef() {
         atomic_dec(&_refcount);
     }
 
     /*
-     * È¡³öÒıÓÃ¼ÆÊı
+     * å–å‡ºå¼•ç”¨è®¡æ•°
      */
     int getRef() {
         return atomic_read(&_refcount);
     }
 
     /*
-     * ÊÇ·ñÁ¬½Ó×´Ì¬, °üÀ¨ÕıÔÚÁ¬½Ó
+     * æ˜¯å¦è¿æ¥çŠ¶æ€, åŒ…æ‹¬æ­£åœ¨è¿æ¥
      */
     bool isConnectState() {
         return (_state == TBNET_CONNECTED || _state == TBNET_CONNECTING);
     }
 
     /*
-     * µÃµ½Á¬½Ó×´Ì¬
+     * å¾—åˆ°è¿æ¥çŠ¶æ€
      */
     int getState() {
         return _state;
     }
 
     /*
-     * ÉèÖÃÊÇ·ñÖØÁ¬
+     * è®¾ç½®æ˜¯å¦é‡è¿
      */
     void setAutoReconn(bool on) {
         _autoReconn = on;
     }
 
     /*
-     * µÃµ½ÖØÁ¬±êÖ¾
+     * å¾—åˆ°é‡è¿æ ‡å¿—
      */
     bool isAutoReconn() {
         return (_autoReconn && !_isServer);
     }
 
     /**
-     * ÊÇ·ñÔÚioclistÖĞ
+     * æ˜¯å¦åœ¨ioclistä¸­
      */
     bool isUsed() {
         return _inUsed;
     }
 
     /**
-     * ÉèÖÃÊÇ·ñ±»ÓÃ
+     * è®¾ç½®æ˜¯å¦è¢«ç”¨
      */
     void setUsed(bool b) {
         _inUsed = b;
     }
 
     /**
-     * ×î½üÊ¹ÓÃ
+     * æœ€è¿‘ä½¿ç”¨
      */
     int64_t getLastUseTime() {
         return _lastUseTime;
@@ -178,18 +178,18 @@ public:
 
 protected:
     Transport *_owner;
-    Socket *_socket;    // Ò»¸öSocketµÄÎÄ¼ş¾ä±ú
+    Socket *_socket;    // ä¸€ä¸ªSocketçš„æ–‡ä»¶å¥æŸ„
     SocketEvent *_socketEvent;
-    int _state;         // Á¬½Ó×´Ì¬
-    atomic_t _refcount; // ÒıÓÃ¼ÆÊı
-    bool _autoReconn;   // ÊÇ·ñÖØÁ¬
-    bool _isServer;     // ÊÇ·ñÎª·şÎñÆ÷¶Ë
-    bool _inUsed;       // ÊÇ·ñÔÚÓÃ
-    int64_t _lastUseTime;   // ×î½üÊ¹ÓÃµÄÏµÍ³Ê±¼ä
+    int _state;         // è¿æ¥çŠ¶æ€
+    atomic_t _refcount; // å¼•ç”¨è®¡æ•°
+    bool _autoReconn;   // æ˜¯å¦é‡è¿
+    bool _isServer;     // æ˜¯å¦ä¸ºæœåŠ¡å™¨ç«¯
+    bool _inUsed;       // æ˜¯å¦åœ¨ç”¨
+    int64_t _lastUseTime;   // æœ€è¿‘ä½¿ç”¨çš„ç³»ç»Ÿæ—¶é—´
 
 private:
-    IOComponent *_prev; // ÓÃÓÚÁ´±í
-    IOComponent *_next; // ÓÃÓÚÁ´±í
+    IOComponent *_prev; // ç”¨äºé“¾è¡¨
+    IOComponent *_next; // ç”¨äºé“¾è¡¨
 };
 }
 

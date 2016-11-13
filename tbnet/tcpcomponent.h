@@ -21,50 +21,50 @@ namespace tbnet {
 class TCPComponent : public IOComponent {
 public:
     /**
-     * ¹¹Ôìº¯Êı£¬ÓÉTransportµ÷ÓÃ¡£
+     * æ„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
      *
-     * @param owner:            ÔËÊä²ã¶ÔÏó
-     * @param host:             ¼àÌıipµØÖ·»òhostname
-     * @param port:             ¼àÌı¶Ë¿Ú
-     * @param streamer:         Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-     * @param serverAdapter:    ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+     * @param owner:            è¿è¾“å±‚å¯¹è±¡
+     * @param host:             ç›‘å¬ipåœ°å€æˆ–hostname
+     * @param port:             ç›‘å¬ç«¯å£
+     * @param streamer:         æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+     * @param serverAdapter:    ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
      */
     TCPComponent(Transport *owner, Socket *socket,
                  IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~TCPComponent();
 
     /*
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool init(bool isServer = false);
 
     /*
-     * ¹Ø±Õ
+     * å…³é—­
      */
     void close();
 
     /*
-     * µ±ÓĞÊı¾İ¿ÉĞ´µ½Ê±±»Transportµ÷ÓÃ
+     * å½“æœ‰æ•°æ®å¯å†™åˆ°æ—¶è¢«Transportè°ƒç”¨
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool handleWriteEvent();
 
     /*
-     * µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
+     * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool handleReadEvent();
 
     /*
-     * µÃµ½connection
+     * å¾—åˆ°connection
      *
      * @return TCPConnection
      */
@@ -73,19 +73,19 @@ public:
     }
 
     /*
-     * ³¬Ê±¼ì²é
+     * è¶…æ—¶æ£€æŸ¥
      *
-     * @param    now µ±Ç°Ê±¼ä(µ¥Î»us)
+     * @param    now å½“å‰æ—¶é—´(å•ä½us)
      */
     void checkTimeout(int64_t now);
 
     /*
-     * Á¬½Óµ½socket
+     * è¿æ¥åˆ°socket
      */
     bool socketConnect();
 
 private:
-    // TCPÁ¬½Ó
+    // TCPè¿æ¥
     TCPConnection *_connection;
     int64_t _startConnectTime;
 };

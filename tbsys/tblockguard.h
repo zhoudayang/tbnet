@@ -19,8 +19,8 @@
 namespace tbsys
 {
     /** 
-     * @brief  CLockGuard是一个模板类，它需要CThreadMutex作为它的模板参数
-     * 构造函数调用传入参数的lock方法,析构函数调用unlock方法
+     * @brief  CLockGuard鏄竴涓ā鏉跨被锛屽畠闇�瑕丆ThreadMutex浣滀负瀹冪殑妯℃澘鍙傛暟
+     * 鏋勯�犲嚱鏁拌皟鐢ㄤ紶鍏ュ弬鏁扮殑lock鏂规硶,鏋愭瀯鍑芥暟璋冪敤unlock鏂规硶
      */
     template <class T>
     class CLockGuard

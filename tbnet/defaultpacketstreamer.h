@@ -22,54 +22,54 @@ class DefaultPacketStreamer : public IPacketStreamer {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     DefaultPacketStreamer();
 
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     DefaultPacketStreamer(IPacketFactory *factory);
 
     /*
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     ~DefaultPacketStreamer();
 
     /**
-     * ÉèÖÃIPacketFactory
+     * è®¾ç½®IPacketFactory
      */
     void setPacketFactory(IPacketFactory *factory);
 
     /*
-     * µÃµ½°üÍ·ĞÅÏ¢
+     * å¾—åˆ°åŒ…å¤´ä¿¡æ¯
      *
-     * @param input  Ô´buffer
-     * @param header ½á¹ûheader
-     * @return ÊÇ·ñ³É¹¦
+     * @param input  æºbuffer
+     * @param header ç»“æœheader
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool getPacketInfo(DataBuffer *input, PacketHeader *header, bool *broken);
 
     /*
-     * ¶Ô°üµÄ½âÂë
+     * å¯¹åŒ…çš„è§£ç 
      *
      * @param input
      * @param header
-     * @return ½âÂëºóµÄÊı¾İ°ü
+     * @return è§£ç åçš„æ•°æ®åŒ…
      */
     Packet *decode(DataBuffer *input, PacketHeader *header);
 
     /*
-     * ¶ÔPacketµÄ×é×°
+     * å¯¹Packetçš„ç»„è£…
      *
-     * @param packet Êı¾İ°ü
-     * @param output ×é×°ºóµÄÊı¾İÁ÷
-     * @return ÊÇ·ñ³É¹¦
+     * @param packet æ•°æ®åŒ…
+     * @param output ç»„è£…åçš„æ•°æ®æµ
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool encode(Packet *packet, DataBuffer *output);
 
     /*
-     * ÉèÖÃpacketµÄflag
+     * è®¾ç½®packetçš„flag
      */
     static void setPacketFlag(int flag);
 

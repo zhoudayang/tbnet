@@ -22,9 +22,9 @@
 namespace tbutil
 {
 /** 
-* @brief HandleBase ÊÇÒ»¸öÄ£°åÀà£¬ËüÓĞÒ»¸öÄ£°å²ÎÊı,Õâ¸öÄ£°å²ÎÊı
-* ¾ÍÊÇ±»¹ÜÀí¶ÔÏó,ËüÌá¹©->£¬½âÒıÓÃµÈ,ËüÊÇHandleµÄ»ùÀà,ËùÒÔ½¨ÒÔ²»Òª
-* Ö±½ÓÓÃ´ËÀà
+* @brief HandleBase æ˜¯ä¸€ä¸ªæ¨¡æ¿ç±»ï¼Œå®ƒæœ‰ä¸€ä¸ªæ¨¡æ¿å‚æ•°,è¿™ä¸ªæ¨¡æ¿å‚æ•°
+* å°±æ˜¯è¢«ç®¡ç†å¯¹è±¡,å®ƒæä¾›->ï¼Œè§£å¼•ç”¨ç­‰,å®ƒæ˜¯Handleçš„åŸºç±»,æ‰€ä»¥å»ºä»¥ä¸è¦
+* ç›´æ¥ç”¨æ­¤ç±»
 */
 template<typename T>
 class HandleBase
@@ -39,7 +39,7 @@ public:
     }
 
     /** 
-     * @brief ÖØÔØ->
+     * @brief é‡è½½->
      * 
      * @return 
      */
@@ -54,7 +54,7 @@ public:
     }
 
     /** 
-     * @brief ½âÒıÓÃ
+     * @brief è§£å¼•ç”¨
      * 
      * @return 
      */
@@ -69,7 +69,7 @@ public:
     }
 
     /** 
-     * @brief ½«SimpleHandle×ª»»³Ébool 
+     * @brief å°†SimpleHandleè½¬æ¢æˆbool 
      * 
      * @return 
      */
@@ -149,8 +149,8 @@ inline bool operator>=(const HandleBase<T>& lhs, const HandleBase<U>& rhs)
     return !(lhs < rhs);
 }
 /** 
- * @brief @brief Handle ÊÇÒ»¸öÄ£°åÀà£¬ËüÓĞÒ»¸öÄ£°å²ÎÊı,Õâ¸öÄ£°å²ÎÊı
- * ¾ÍÊÇ±»¹ÜÀí¶ÔÏó,HandleÊÇÒ»¸ö¹ÜÀíÀà,HandleÖ÷ÒªÓÃÓÚÊµÏÖÖÇÄÜÖ¸Õë
+ * @brief @brief Handle æ˜¯ä¸€ä¸ªæ¨¡æ¿ç±»ï¼Œå®ƒæœ‰ä¸€ä¸ªæ¨¡æ¿å‚æ•°,è¿™ä¸ªæ¨¡æ¿å‚æ•°
+ * å°±æ˜¯è¢«ç®¡ç†å¯¹è±¡,Handleæ˜¯ä¸€ä¸ªç®¡ç†ç±»,Handleä¸»è¦ç”¨äºå®ç°æ™ºèƒ½æŒ‡é’ˆ
  */
 template<typename T>
 class Handle : public HandleBase<T>

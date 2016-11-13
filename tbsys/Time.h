@@ -20,8 +20,8 @@
 namespace tbutil
 {
 /** 
-* @brief TimeÀàÌá¹©¶ÔÊ±¼äµÄ¼òµ¥²Ù×÷,»ñÈ¡µ±Ç°Ê±¼ä,¹¹ÔìÊ±¼ä¼ä¸ô
-* Ê±¼ä¼Ó¼õ£¬Ê±¼ä×ª»»
+* @brief Timeç±»æä¾›å¯¹æ—¶é—´çš„ç®€å•æ“ä½œ,è·å–å½“å‰æ—¶é—´,æ„é€ æ—¶é—´é—´éš”
+* æ—¶é—´åŠ å‡ï¼Œæ—¶é—´è½¬æ¢
 */
 class Time
 {
@@ -31,59 +31,59 @@ public:
 
     enum Clock { Realtime, Monotonic };
     /** 
-     * @brief »ñÈ¡µ±Ç°Ê±¼ä
+     * @brief è·å–å½“å‰æ—¶é—´
      * 
-     * @param clock Realtime: ÏµÍ³rtcÊ±¼ä, Monotonic: ÏµÍ³´ÓboostÆğ¾­¹ıµÄÊ±¼ä
+     * @param clock Realtime: ç³»ç»Ÿrtcæ—¶é—´, Monotonic: ç³»ç»Ÿä»boostèµ·ç»è¿‡çš„æ—¶é—´
      * 
      * @return 
      */
     static Time now(Clock clock= Realtime);
     /** 
-     * @brief ¹¹ÔìÒ»¸öÊ±¼ä¶ÔÏó
+     * @brief æ„é€ ä¸€ä¸ªæ—¶é—´å¯¹è±¡
      * 
-     * @param usec: ¹¹ÔìµÄÊ±¼ä(Ãë)
+     * @param usec: æ„é€ çš„æ—¶é—´(ç§’)
      * 
      * @return 
      */
     static Time seconds(Int64 usec);
     /** 
-     * @brief ¹¹ÔìÒ»¸öÊ±¼ä¶ÔÏó 
+     * @brief æ„é€ ä¸€ä¸ªæ—¶é—´å¯¹è±¡ 
      * 
-     * @param milli : ¹¹ÔìµÄ½ø¼ä(ºÁÃë)
+     * @param milli : æ„é€ çš„è¿›é—´(æ¯«ç§’)
      * 
      * @return 
      */
     static Time milliSeconds(Int64 milli);
     /** 
-     * @brief ¹¹ÔìÒ»¸öÊ±¼ä¶ÔÏó 
+     * @brief æ„é€ ä¸€ä¸ªæ—¶é—´å¯¹è±¡ 
      * 
-     * @param micro : ¹¹ÔìµÄÊ±¼ä(Î¢Ãë)
+     * @param micro : æ„é€ çš„æ—¶é—´(å¾®ç§’)
      * 
      * @return 
      */
     static Time microSeconds(Int64 micro);
     
     /** 
-     * @brief ½«Time×ª»»³Étimeval½á¹¹
+     * @brief å°†Timeè½¬æ¢æˆtimevalç»“æ„
      * 
      * @return 
      */
     operator timeval() const;
 
     /** 
-     * @brief ½«Ê±¼ä×ª»»³ÉÃë
+     * @brief å°†æ—¶é—´è½¬æ¢æˆç§’
      * 
      * @return 
      */
     Int64 toSeconds() const;
     /** 
-     * @brief ½«Ê±¼ä×ª»»³ÉºÁÃë
+     * @brief å°†æ—¶é—´è½¬æ¢æˆæ¯«ç§’
      * 
      * @return 
      */
     Int64 toMilliSeconds() const;
     /** 
-     * @brief ½«Ê±¼ä×ª»»³ÉÎ¢Ãë
+     * @brief å°†æ—¶é—´è½¬æ¢æˆå¾®ç§’
      * 
      * @return 
      */
@@ -94,13 +94,13 @@ public:
     double toMicroSecondsDouble() const;
 
     /** 
-     * @brief ½«Ê±¼ä×ª»»³É×Ö·û´®,ÀıÈç: 2009-10-26 10:47:47.932
+     * @brief å°†æ—¶é—´è½¬æ¢æˆå­—ç¬¦ä¸²,ä¾‹å¦‚: 2009-10-26 10:47:47.932
      * 
      * @return 
      */
     std::string toDateTime() const;
     /** 
-     * @brief ½«Ê±¼ä×ª»»³É×Ö·û´®,ÀıÈç: 14543d 02:47:47.932
+     * @brief å°†æ—¶é—´è½¬æ¢æˆå­—ç¬¦ä¸²,ä¾‹å¦‚: 14543d 02:47:47.932
      * 
      * @return 
      */

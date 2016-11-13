@@ -23,33 +23,33 @@ class ChannelPool {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     ChannelPool();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~ChannelPool();
 
     /*
-     * µÃµ½Ò»¸öĞÂµÄchannel
+     * å¾—åˆ°ä¸€ä¸ªæ–°çš„channel
      *
-     * @return Ò»¸öChannel
+     * @return ä¸€ä¸ªChannel
      */
     Channel *allocChannel();
 
     /*
-     * ÊÍ·ÅÒ»¸öchannel
+     * é‡Šæ”¾ä¸€ä¸ªchannel
      *
-     * @param channel: ÒªÊÍ·ÅµÄchannel
+     * @param channel: è¦é‡Šæ”¾çš„channel
      * @return
      */
     bool freeChannel(Channel *channel);
     bool appendChannel(Channel *channel);
 
     /*
-     * ²éÕÒÒ»ÏÂchannel
+     * æŸ¥æ‰¾ä¸€ä¸‹channel
      *
      * @param id: channel id
      * @return Channel
@@ -57,21 +57,21 @@ public:
     Channel* offerChannel(uint32_t id);
 
     /*
-     * ´ÓuseListÖĞÕÒ³ö³¬Ê±µÄchannelµÄlist,²¢°ÑhashmapÖĞ¶ÔÓ¦µÄÉ¾³ı
+     * ä»useListä¸­æ‰¾å‡ºè¶…æ—¶çš„channelçš„list,å¹¶æŠŠhashmapä¸­å¯¹åº”çš„åˆ é™¤
      *
-     * @param now: µ±Ç°Ê±¼ä
+     * @param now: å½“å‰æ—¶é—´
      */
     Channel* getTimeoutList(int64_t now);
 
     /*
-     * °ÑaddListµÄÁ´±í¼ÓÈëµ½freeListÖĞ
+     * æŠŠaddListçš„é“¾è¡¨åŠ å…¥åˆ°freeListä¸­
      *
-     * @param addList±»¼ÓµÄlist
+     * @param addListè¢«åŠ çš„list
      */
     bool appendFreeList(Channel *addList);
 
     /*
-     * ±»ÓÃÁ´±íµÄ³¤¶È
+     * è¢«ç”¨é“¾è¡¨çš„é•¿åº¦
      */
     int getUseListCount() {
         return static_cast<int32_t>(_useMap.size());
@@ -80,17 +80,17 @@ public:
     void setExpireTime(Channel *channel, int64_t now); 
 
 private:
-    __gnu_cxx::hash_map<uint32_t, Channel*> _useMap; // Ê¹ÓÃµÄmap
+    __gnu_cxx::hash_map<uint32_t, Channel*> _useMap; // ä½¿ç”¨çš„map
     std::list<Channel*> _clusterList;                // cluster list
     tbsys::CThreadMutex _mutex;
 
-    Channel *_freeListHead;             // ¿ÕµÄÁ´±í
+    Channel *_freeListHead;             // ç©ºçš„é“¾è¡¨
     Channel *_freeListTail;
-    Channel *_useListHead;              // ±»Ê¹ÓÃµÄÁ´±í
+    Channel *_useListHead;              // è¢«ä½¿ç”¨çš„é“¾è¡¨
     Channel *_useListTail;
-    int _maxUseCount;                   // ±»ÓÃÁ´±íµÄ³¤¶È
+    int _maxUseCount;                   // è¢«ç”¨é“¾è¡¨çš„é•¿åº¦
 
-    static atomic_t _globalChannelId;   // Éú³ÉÍ³Ò»µÄid
+    static atomic_t _globalChannelId;   // ç”Ÿæˆç»Ÿä¸€çš„id
     static atomic_t _globalTotalCount;
 };
 

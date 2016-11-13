@@ -21,14 +21,14 @@ namespace tbsys {
     static CConfig _config;
 
     /**
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     CConfig::CConfig()
     {
     }
 
     /**
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     CConfig::~CConfig()
     {
@@ -38,7 +38,7 @@ namespace tbsys {
     }
 
     /**
-     * µÃµ½¾²Ì¬ÊµÀı
+     * å¾—åˆ°é™æ€å®ä¾‹
      */
     CConfig& CConfig::getCConfig()
     {
@@ -46,7 +46,7 @@ namespace tbsys {
     }
 
     /**
-     * ½âÎö×Ö·û´®
+     * è§£æå­—ç¬¦ä¸²
      */
     int CConfig::parseValue(char *str, char *key, char *val)
     {
@@ -56,10 +56,10 @@ namespace tbsys {
             return -1;
     
         p = str;
-        // È¥Ç°ÖÃ¿Õ¸ñ
+        // å»å‰ç½®ç©ºæ ¼
         while ((*p) == ' ' || (*p) == '\t' || (*p) == '\r' || (*p) == '\n') p++;
         p1 = p + strlen(p);
-        // È¥ºóÖÃ¿Õ¸ñ
+        // å»åç½®ç©ºæ ¼
         while(p1 > p) {
             p1 --;
             if (*p1 == ' ' || *p1 == '\t' || *p1 == '\r' || *p1 == '\n') continue;
@@ -67,7 +67,7 @@ namespace tbsys {
             break;
         }
         (*p1) = '\0';
-        // ÊÇ×¢ÊÍĞĞ»ò¿ÕĞĞ
+        // æ˜¯æ³¨é‡Šè¡Œæˆ–ç©ºè¡Œ
         if (*p == '#' || *p == '\0') return -1;
         p1 = strchr(str, '=');
         if (p1 == NULL) return -2;
@@ -90,7 +90,7 @@ namespace tbsys {
         return 0;
     }
 
-    /* ÊÇ¶ÎÃû */
+    /* æ˜¯æ®µå */
     char *CConfig::isSectionName(char *str) {
         if (str == NULL || strlen(str) <= 2 || (*str) != '[') 
             return NULL;
@@ -112,7 +112,7 @@ namespace tbsys {
     }
     
     /**
-     * ¼ÓÔØÎÄ¼ş
+     * åŠ è½½æ–‡ä»¶
      */
     int CConfig::load(const char *filename)
     {
@@ -121,7 +121,7 @@ namespace tbsys {
         int             ret, line = 0;
         
         if ((fp = fopen(filename, "rb")) == NULL) {
-            TBSYS_LOG(ERROR, "²»ÄÜ´ò¿ªÅäÖÃÎÄ¼ş: %s", filename);
+            TBSYS_LOG(ERROR, "ä¸èƒ½æ‰“å¼€é…ç½®æ–‡ä»¶: %s", filename);
             return EXIT_FAILURE;
         }
         
@@ -129,7 +129,7 @@ namespace tbsys {
         while (fgets(data, 4096, fp)) {
             line ++;
             char *sName = isSectionName(data);
-            // ÊÇ¶ÎÃû
+            // æ˜¯æ®µå
             if (sName != NULL) {
                 STR_MAP_ITER it = m_configMap.find(sName);
                 if (it == m_configMap.end()) {
@@ -142,7 +142,7 @@ namespace tbsys {
             }
             ret = parseValue(data, key, value);
             if (ret == -2) {
-                TBSYS_LOG(ERROR, "½âÎö´íÎó, Line: %d, %s", line, data);
+                TBSYS_LOG(ERROR, "è§£æé”™è¯¯, Line: %d, %s", line, data);
                 fclose(fp);
                 return EXIT_FAILURE;
             }
@@ -150,7 +150,7 @@ namespace tbsys {
                 continue;
             }
             if (m == NULL) {
-                TBSYS_LOG(ERROR, "Ã»ÔÚÅäÖÃsection, Line: %d, %s", line, data);
+                TBSYS_LOG(ERROR, "æ²¡åœ¨é…ç½®section, Line: %d, %s", line, data);
                 fclose(fp);
                 return EXIT_FAILURE;
             }            
@@ -168,7 +168,7 @@ namespace tbsys {
     }
 
     /**
-     * È¡Ò»¸östring
+     * å–ä¸€ä¸ªstring
      */
     const char *CConfig::getString(const char *section, const string& key, const char *d)
     {
@@ -184,7 +184,7 @@ namespace tbsys {
     }
     
     /**
-     * È¡Ò»stringÁĞ±í
+     * å–ä¸€stringåˆ—è¡¨
      */
     vector<const char*> CConfig::getStringList(const char *section, const string& key) {
         vector<const char*> ret;
@@ -209,7 +209,7 @@ namespace tbsys {
     }
 
     /**
-     * È¡Ò»ÕûĞÍ
+     * å–ä¸€æ•´å‹
      */
     int CConfig::getInt(const char *section, const string& key, int d)
     {
@@ -218,7 +218,7 @@ namespace tbsys {
     }
     
     /**
-     * È¡Ò»int list
+     * å–ä¸€int list
      */
     vector<int> CConfig::getIntList(const char *section, const string& key) {
         vector<int> ret;
@@ -242,7 +242,7 @@ namespace tbsys {
         return ret;
     }
     
-    // È¡Ò»sectionÏÂËùÓĞµÄkey
+    // å–ä¸€sectionä¸‹æ‰€æœ‰çš„key
     int CConfig::getSectionKey(const char *section, vector<string> &keys)
     {
         STR_MAP_ITER it = m_configMap.find(section);
@@ -256,7 +256,7 @@ namespace tbsys {
         return (int)keys.size();
     }
              
-    // µÃµ½ËùÓĞsectionµÄÃû×Ö
+    // å¾—åˆ°æ‰€æœ‰sectionçš„åå­—
     int CConfig::getSectionName(vector<string> &sections)
     {
         STR_MAP_ITER it;

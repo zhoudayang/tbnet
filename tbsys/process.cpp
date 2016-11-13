@@ -18,7 +18,7 @@
 namespace tbsys {
     
     /**
-     * ÆğÒ»¸öÊØ»¤½ø³Ì, ·µ»ØÊØ»¤½ø³ÌID
+     * èµ·ä¸€ä¸ªå®ˆæŠ¤è¿›ç¨‹, è¿”å›å®ˆæŠ¤è¿›ç¨‹ID
      */
     int CProcess::startDaemon(const char *szPidFile, const char *szLogFile)
     {
@@ -44,7 +44,7 @@ namespace tbsys {
     }
     
     /**
-     * Ğ´pidÎÄ¼ş
+     * å†™pidæ–‡ä»¶
      */
     void CProcess::writePidFile(const char *szPidFile)
     {
@@ -66,10 +66,10 @@ namespace tbsys {
     }
         
     /**
-     * ÅĞ¶Ï½ø³ÌÊÇ·ñ»¹»î×Å
+     * åˆ¤æ–­è¿›ç¨‹æ˜¯å¦è¿˜æ´»ç€
      * 
-     * »î×Å: ·Ç0
-     * ËÀµô: 0
+     * æ´»ç€: é0
+     * æ­»æ‰: 0
      */
     int CProcess::existPid(const char *szPidFile)
     {

@@ -29,15 +29,15 @@ namespace tbsys {
     #endif
     
    /** 
-    * @brief ¶ÔÎÄ¼şÄ¿Â¼µÄ»ù±¾²Ù×÷ 
+    * @brief å¯¹æ–‡ä»¶ç›®å½•çš„åŸºæœ¬æ“ä½œ 
     */
     class CFileUtil {
         public:
-            /** ´´½¨¶à¼¶Ä¿Â¼ */
+            /** åˆ›å»ºå¤šçº§ç›®å½• */
             static bool mkdirs(char *szDirPath);
-            /** ÊÇ·ñÎªÄ¿Â¼ */
+            /** æ˜¯å¦ä¸ºç›®å½• */
             static bool isDirectory(const char *szDirPath);
-            /** ÊÇ·ñÎªSymLinkÎÄ¼ş */
+            /** æ˜¯å¦ä¸ºSymLinkæ–‡ä»¶ */
             static bool isSymLink(const char *szDirPath);
     };
 }

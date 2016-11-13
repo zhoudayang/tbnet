@@ -22,48 +22,48 @@ class UDPComponent : public IOComponent {
 
 public:
     /**
-     * ¹¹Ôìº¯Êı£¬ÓÉTransportµ÷ÓÃ¡£
+     * æ„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
      *
      * @param owner:      Transport
      * @param socket:     Socket
-     * @param streamer:   Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-     * @param serverAdapter:  ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+     * @param streamer:   æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+     * @param serverAdapter:  ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
      */
     UDPComponent(Transport *owner, Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~UDPComponent();
 
     /*
-        * ³õÊ¼»¯
+        * åˆå§‹åŒ–
         *
-        * @return ÊÇ·ñ³É¹¦
+        * @return æ˜¯å¦æˆåŠŸ
         */
     bool init(bool isServer = false);
 
     /*
-     * ¹Ø±Õ
+     * å…³é—­
      */
     void close();
 
     /*
-        * µ±ÓĞÊı¾İ¿ÉĞ´µ½Ê±±»Transportµ÷ÓÃ
+        * å½“æœ‰æ•°æ®å¯å†™åˆ°æ—¶è¢«Transportè°ƒç”¨
         *
-        * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+        * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
         */
     bool handleWriteEvent();
 
     /*
-     * µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
+     * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
      *
-     * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+     * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
      */
     bool handleReadEvent();
 
 private:
-    __gnu_cxx::hash_map<int, UDPConnection*> _connections;  // UDPÁ¬½Ó¼¯ºÏ
+    __gnu_cxx::hash_map<int, UDPConnection*> _connections;  // UDPè¿æ¥é›†åˆ
     IPacketStreamer *_streamer;                             // streamer
     IServerAdapter *_serverAdapter;                         // serveradapter
 };

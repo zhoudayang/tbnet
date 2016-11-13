@@ -23,56 +23,56 @@ class Channel {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     Channel();
 
     /*
-     * ÉèÖÃ
+     * è®¾ç½®
      *
      * @param   chid    ChannelID
      */
     void setId(uint32_t id);
 
     /*
-     * µÃµ½Channel ID
+     * å¾—åˆ°Channel ID
      */
     uint32_t getId();
 
     /*
-     * ÉèÖÃ»Ø´«²ÎÊı
+     * è®¾ç½®å›ä¼ å‚æ•°
      */
     void setArgs(void *args);
 
     /*
-     * È¡µ½»Ø´«²ÎÊı
+     * å–åˆ°å›ä¼ å‚æ•°
      */
     void *getArgs();
 
     /*
-     * ÉèÖÃpackethandlerµÄ¾ä±ú
+     * è®¾ç½®packethandlerçš„å¥æŸ„
      */
     void setHandler(IPacketHandler *handler);
 
     /*
-     * µÃµ½¾ä±ú
+     * å¾—åˆ°å¥æŸ„
      */
     IPacketHandler *getHandler();
 
     /*
-     * ÉèÖÃ¹ıÆÚÊ±¼ä, ¾ø¶ÔÊ±¼ä
+     * è®¾ç½®è¿‡æœŸæ—¶é—´, ç»å¯¹æ—¶é—´
      *
      * @param   expireTime
      */
     void setExpireTime(int64_t expireTime);
 
-    /* ¹ıÆÚÊ±¼ä */
+    /* è¿‡æœŸæ—¶é—´ */
     int64_t getExpireTime() {
         return _expireTime;
     }
 
     /*
-     * ÏÂÒ»¸ö
+     * ä¸‹ä¸€ä¸ª
      */
     Channel *getNext() {
         return _next;
@@ -80,12 +80,12 @@ public:
 
 private:
     uint32_t _id;      // channel id
-    void *_args;    // »Ø´«²ÎÊı
+    void *_args;    // å›ä¼ å‚æ•°
     IPacketHandler *_handler;
-    int64_t _expireTime; // µ½ÆÚÊ±¼ä
+    int64_t _expireTime; // åˆ°æœŸæ—¶é—´
 
 private:
-    Channel *_prev;     // ÓÃÔÚÁ´±í
+    Channel *_prev;     // ç”¨åœ¨é“¾è¡¨
     Channel *_next;
 };
 }

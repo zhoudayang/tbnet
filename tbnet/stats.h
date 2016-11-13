@@ -32,7 +32,7 @@ public:
     uint64_t _dataWriteCnt;   // # bytes written
 
 public:
-    static StatCounter _gStatCounter; // ȫ��
+    static StatCounter _gStatCounter; // È«¾Ö
 
 };
 

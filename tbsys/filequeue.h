@@ -32,7 +32,7 @@ namespace tbsys {
     #define TBFQ_FILE_QUEUE_FLAG  0x31765166     // fQv1
     
 	/** 
-	 * @brief ¶ÓÁĞÕıÔÚ´¦ÀíµÄÎ»ÖÃ
+	 * @brief é˜Ÿåˆ—æ­£åœ¨å¤„ç†çš„ä½ç½®
 	 */
     typedef struct unsettle {
         uint32_t seqno;
@@ -40,7 +40,7 @@ namespace tbsys {
     } unsettle;
     
     /** 
-     * @brief ¶ÓÁĞ½Úµã
+     * @brief é˜Ÿåˆ—èŠ‚ç‚¹
      */
     typedef struct queue_item {
         unsettle pos;
@@ -50,64 +50,64 @@ namespace tbsys {
     } queue_item;
     
     /** 
-     * @brief ¶ÓÁĞÏà¹ØĞÅÏ¢
+     * @brief é˜Ÿåˆ—ç›¸å…³ä¿¡æ¯
      */
     typedef struct qinfo_head {
-        uint32_t read_seqno;    // ¶ÁÎÄ¼şµÄseqno
-        int read_offset;        // ¶ÁÎÄ¼şµÄoffset
-        uint32_t write_seqno;        // Ğ´ÎÄ¼şµÄseqno
-        int write_filesize;     // Ğ´ÎÄ¼şµÄ´óĞ¡
-        int queue_size;         // ¶ÓÁĞ³¤¶È
-        int exit_status;        // ÍË³ö×´Ì¬
+        uint32_t read_seqno;    // è¯»æ–‡ä»¶çš„seqno
+        int read_offset;        // è¯»æ–‡ä»¶çš„offset
+        uint32_t write_seqno;        // å†™æ–‡ä»¶çš„seqno
+        int write_filesize;     // å†™æ–‡ä»¶çš„å¤§å°
+        int queue_size;         // é˜Ÿåˆ—é•¿åº¦
+        int exit_status;        // é€€å‡ºçŠ¶æ€
         int reserve[2];            
-        unsettle pos[TBFQ_MAX_THREAD_COUNT]; // ÕıÔÚ´¦ÀíµÄÎ»ÖÃ
+        unsettle pos[TBFQ_MAX_THREAD_COUNT]; // æ­£åœ¨å¤„ç†çš„ä½ç½®
     } qinfo_head;
     
     class CFileUtil;
     /** 
-     * @brief ½«Êı¾İĞ´ÈëÎÄ¼şÖĞ£¬ÔÚÎÄ¼şÖĞÊı¾İÊÇ°´¶ÓÁĞµÄ·½·¨´æ´¢
-     * ²¢Ìá¹©²Ù×÷¶ÓÁĞµÄ·½·¨£¬²Ù×÷ÎÄ¼ş 
+     * @brief å°†æ•°æ®å†™å…¥æ–‡ä»¶ä¸­ï¼Œåœ¨æ–‡ä»¶ä¸­æ•°æ®æ˜¯æŒ‰é˜Ÿåˆ—çš„æ–¹æ³•å­˜å‚¨
+     * å¹¶æä¾›æ“ä½œé˜Ÿåˆ—çš„æ–¹æ³•ï¼Œæ“ä½œæ–‡ä»¶ 
      */
     class CFileQueue {
         public:
             CFileQueue(char *rootPath, char *queueName, int maxFileSize = TBFQ_MAX_FILE_SIZE);
             ~CFileQueue(void);
-            // Ğ´ÈëÒ»Êı¾İ
+            // å†™å…¥ä¸€æ•°æ®
             int push(void *data, int len);
-            // È¡³öÒ»Êı¾İ
+            // å–å‡ºä¸€æ•°æ®
             queue_item *pop(uint32_t index = 0);
-            // É¾³ıÒ»Êı¾İ
+            // åˆ é™¤ä¸€æ•°æ®
             int clear();
-            // ÊÇ·ñ¿ÕÁË
+            // æ˜¯å¦ç©ºäº†
             int isEmpty();
-            // ¼º´¦ÀíÍêÁË
+            // å·±å¤„ç†å®Œäº†
             void finish(uint32_t index = 0);
             void backup(uint32_t index = 0);
         
         private:
-            // Êı¾İÎÄ¼ş¾ä±ú(¶Á)
+            // æ•°æ®æ–‡ä»¶å¥æŸ„(è¯»)
             int m_readFd;
-            // Êı¾İÎÄ¼ş¾ä±ú(Ğ´)
+            // æ•°æ®æ–‡ä»¶å¥æŸ„(å†™)
             int m_writeFd;
-            // Í·ÎÄ¼ş¾ä±ú
+            // å¤´æ–‡ä»¶å¥æŸ„
             int m_infoFd;
-            // queueµÄÍ·ĞÅÏ¢
+            // queueçš„å¤´ä¿¡æ¯
             qinfo_head m_head;
-            // ±£´æµÄÂ·¾¶
+            // ä¿å­˜çš„è·¯å¾„
             char *m_queuePath;
-            // ×î´óÎÄ¼ş¶à´ó¾ÍĞÂĞ´Ò»¸öÎÄ¼ş
+            // æœ€å¤§æ–‡ä»¶å¤šå¤§å°±æ–°å†™ä¸€ä¸ªæ–‡ä»¶
             int m_maxFileSize;
 
         private:
-            // ´ò¿ªÊı¾İÎÄ¼şĞ´
+            // æ‰“å¼€æ•°æ®æ–‡ä»¶å†™
             inline int openWriteFile();  
-            // ´ò¿ªÊı¾İÎÄ¼ş¶Á
+            // æ‰“å¼€æ•°æ®æ–‡ä»¶è¯»
             inline int openReadFile(); 
-            //É¾³ı´¦ÀíÍêµÄÎÄ¼ş
+            //åˆ é™¤å¤„ç†å®Œçš„æ–‡ä»¶
             inline int deleteReadFile();            
-            // Ğ´header
+            // å†™header
             inline int writeHead();
-            // »Ö¸´Êı¾İ
+            // æ¢å¤æ•°æ®
             void recoverRecord();               
     };
 }

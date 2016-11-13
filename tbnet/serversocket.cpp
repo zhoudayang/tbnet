@@ -18,16 +18,16 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 ServerSocket::ServerSocket() {
     _backLog = 256;
 }
 
 /*
- * acceptÒ»¸öĞÂµÄÁ¬½Ó
+ * acceptä¸€ä¸ªæ–°çš„è¿æ¥
  *
- * @return Ò»¸öSocket
+ * @return ä¸€ä¸ªSocket
  */
 Socket *ServerSocket::accept() {
     Socket *handleSocket = NULL;
@@ -51,16 +51,16 @@ Socket *ServerSocket::accept() {
 }
 
 /*
- * ´ò¿ª¼àÌı
+ * æ‰“å¼€ç›‘å¬
  *
- * @return ÊÇ·ñ³É¹¦
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool ServerSocket::listen() {
     if (!checkSocketHandle()) {
         return false;
     }
 
-    // µØÖ·¿ÉÖØÓÃ
+    // åœ°å€å¯é‡ç”¨
     setSoLinger(false, 0);
     setReuseAddress(true);
     setIntOption(SO_KEEPALIVE, 1);

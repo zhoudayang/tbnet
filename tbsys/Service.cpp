@@ -248,7 +248,7 @@ int Service::main(int argc,char*argv[])
             if (p != NULL)
                 *p = '\0';
             otherpid = atoi(buffer);
-            unlink(_pidFile.c_str());//ɾ��pidfile
+            unlink(_pidFile.c_str());//Éžłýpidfile
         }
         else
         {

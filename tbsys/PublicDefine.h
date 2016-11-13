@@ -119,8 +119,8 @@ labelException:
 
 // return without running clear code
 /**
- * Ìø×ªµ½Ö±½Ó·µ»Ø´íÎó²¿·Ö
- * @param ErrorCond: Ö´ĞĞÌø×ªËù±ØĞèÂú×ãµÄÌõ¼ş
+ * è·³è½¬åˆ°ç›´æ¥è¿”å›é”™è¯¯éƒ¨åˆ†
+ * @param ErrorCond: æ‰§è¡Œè·³è½¬æ‰€å¿…éœ€æ»¡è¶³çš„æ¡ä»¶
  * @see 
  * @return void
  */
@@ -129,8 +129,8 @@ labelException:
         goto labelClearEnd
 // return with running clear code
 /**
- * Ìø×ªµ½ĞèÒªÖ´ĞĞÇåÀí´¦Àí²¿·Ö£¬Ö´ĞĞÇåÀíÍê²¢ÍË³ö
- * @param ErrorCond: Ö´ĞĞÌø×ªËù±ØĞèÂú×ãµÄÌõ¼ş
+ * è·³è½¬åˆ°éœ€è¦æ‰§è¡Œæ¸…ç†å¤„ç†éƒ¨åˆ†ï¼Œæ‰§è¡Œæ¸…ç†å®Œå¹¶é€€å‡º
+ * @param ErrorCond: æ‰§è¡Œè·³è½¬æ‰€å¿…éœ€æ»¡è¶³çš„æ¡ä»¶
  * @see 
  * @return 
  */
@@ -138,11 +138,11 @@ labelException:
     if (ErrorCond) \
         goto labelClearBegin
 /**
- * Ìø×ªµ½Ö±½Ó·µ»Ø´íÎó²¿·Ö²¢´òÓ¡ÈÕÖ¾
- * @param ErrorCond: Ö´ĞĞÌø×ªËù±ØĞèÂú×ãµÄÌõ¼ş
- * @param Module: ²úÉúµ±Ç°´íÎóµÄÄ£¿é
- * @param Level: ´íÎóÈÕÖ¾µÄµÈ¼¶
- * @param ...: print¸ñÊ½µÄÊä³ö
+ * è·³è½¬åˆ°ç›´æ¥è¿”å›é”™è¯¯éƒ¨åˆ†å¹¶æ‰“å°æ—¥å¿—
+ * @param ErrorCond: æ‰§è¡Œè·³è½¬æ‰€å¿…éœ€æ»¡è¶³çš„æ¡ä»¶
+ * @param Module: äº§ç”Ÿå½“å‰é”™è¯¯çš„æ¨¡å—
+ * @param Level: é”™è¯¯æ—¥å¿—çš„ç­‰çº§
+ * @param ...: printæ ¼å¼çš„è¾“å‡º
  * @see 
  * @return void
  */
@@ -157,11 +157,11 @@ labelException:
     } \
     while (0)
 /**
- * Ìø×ªµ½Ö±½Ó·µ»Ø´íÎó²¿·Ö²¢´òÓ¡ÈÕÖ¾¡¢Ö´ĞĞÇåÀí¶¯×÷
- * @param ErrorCond: Ö´ĞĞÌø×ªËù±ØĞèÂú×ãµÄÌõ¼ş
- * @param Module: ²úÉúµ±Ç°´íÎóµÄÄ£¿é
- * @param Level: ´íÎóÈÕÖ¾µÄµÈ¼¶
- * @param ...: print¸ñÊ½µÄÊä³ö
+ * è·³è½¬åˆ°ç›´æ¥è¿”å›é”™è¯¯éƒ¨åˆ†å¹¶æ‰“å°æ—¥å¿—ã€æ‰§è¡Œæ¸…ç†åŠ¨ä½œ
+ * @param ErrorCond: æ‰§è¡Œè·³è½¬æ‰€å¿…éœ€æ»¡è¶³çš„æ¡ä»¶
+ * @param Module: äº§ç”Ÿå½“å‰é”™è¯¯çš„æ¨¡å—
+ * @param Level: é”™è¯¯æ—¥å¿—çš„ç­‰çº§
+ * @param ...: printæ ¼å¼çš„è¾“å‡º
  * @see 
  * @return void
  */
@@ -176,7 +176,7 @@ labelException:
     } \
     while (0)
 /**
- * ÇåÀí¶¯×÷µÄ¿ªÊ¼Î»ÖÃ
+ * æ¸…ç†åŠ¨ä½œçš„å¼€å§‹ä½ç½®
  * @param void
  * @see 
  * @return void
@@ -188,7 +188,7 @@ labelException:
         goto labelClearBegin; \
 labelClearBegin:
 /**
- * ÇåÀí¶¯×÷µÄ½áÊøÎ»ÖÃ
+ * æ¸…ç†åŠ¨ä½œçš„ç»“æŸä½ç½®
  * @param 
  * @see 
  * @return 

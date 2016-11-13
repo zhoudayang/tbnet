@@ -17,13 +17,13 @@
 
 namespace tbnet {
 /**
- * ¹¹Ôìº¯Êı£¬ÓÉTransportµ÷ÓÃ¡£
+ * æ„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
  *
- * @param  owner:    ÔËÊä²ã¶ÔÏó
- * @param  host:   ¼àÌıipµØÖ·»òhostname
- * @param port:   ¼àÌı¶Ë¿Ú
- * @param streamer:   Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
- * @param serverAdapter:  ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+ * @param  owner:    è¿è¾“å±‚å¯¹è±¡
+ * @param  host:   ç›‘å¬ipåœ°å€æˆ–hostname
+ * @param port:   ç›‘å¬ç«¯å£
+ * @param streamer:   æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+ * @param serverAdapter:  ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
  */
 TCPAcceptor::TCPAcceptor(Transport *owner, Socket *socket,
                          IPacketStreamer *streamer, IServerAdapter *serverAdapter) : IOComponent(owner, socket) {
@@ -32,7 +32,7 @@ TCPAcceptor::TCPAcceptor(Transport *owner, Socket *socket,
 }
 
 /*
- * ³õÊ¼»¯, ¿ªÊ¼¼àÌı
+ * åˆå§‹åŒ–, å¼€å§‹ç›‘å¬
  */
 bool TCPAcceptor::init(bool isServer) {
     _socket->setSoBlocking(false);
@@ -40,15 +40,15 @@ bool TCPAcceptor::init(bool isServer) {
 }
 
 /**
-* µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
+* å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
 *
-* @return ÊÇ·ñ³É¹¦
+* @return æ˜¯å¦æˆåŠŸ
 */
 bool TCPAcceptor::handleReadEvent() {
     Socket *socket;
     while ((socket = ((ServerSocket*)_socket)->accept()) != NULL) {
-        //TBSYS_LOG(INFO, "ÓĞĞÂÁ¬½Ó½øÀ´, fd: %d", socket->getSocketHandle());
-        // TCPComponent, ÔÚ·şÎñÆ÷¶Ë
+        //TBSYS_LOG(INFO, "æœ‰æ–°è¿æ¥è¿›æ¥, fd: %d", socket->getSocketHandle());
+        // TCPComponent, åœ¨æœåŠ¡å™¨ç«¯
         TCPComponent *component = new TCPComponent(_owner, socket, _streamer, _serverAdapter);
 
         if (!component->init(true)) {
@@ -56,7 +56,7 @@ bool TCPAcceptor::handleReadEvent() {
             return true;
         }
 
-        // ¼ÓÈëµ½iocomponentsÖĞ£¬¼°×¢²á¿É¶Áµ½socketeventÖĞ
+        // åŠ å…¥åˆ°iocomponentsä¸­ï¼ŒåŠæ³¨å†Œå¯è¯»åˆ°socketeventä¸­
         _owner->addComponent(component, true, false);
     }
 
@@ -64,9 +64,9 @@ bool TCPAcceptor::handleReadEvent() {
 }
 
 /*
- * ³¬Ê±¼ì²é
+ * è¶…æ—¶æ£€æŸ¥
  *
- * @param    now µ±Ç°Ê±¼ä(µ¥Î»us)
+ * @param    now å½“å‰æ—¶é—´(å•ä½us)
  */
 void TCPAcceptor::checkTimeout(int64_t now) {}
 }

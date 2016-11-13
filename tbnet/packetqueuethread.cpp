@@ -17,7 +17,7 @@
 
 namespace tbnet {
 
-// ¹¹Ôì
+// æž„é€ 
 PacketQueueThread::PacketQueueThread() : tbsys::CDefaultRunnable() {
     _stop = 0;
     _waitFinish = false;
@@ -30,7 +30,7 @@ PacketQueueThread::PacketQueueThread() : tbsys::CDefaultRunnable() {
     _overage = 0;
 }
 
-// ¹¹Ôì
+// æž„é€ 
 PacketQueueThread::PacketQueueThread(int threadCount, IPacketQueueHandler *handler, void *args)
         : tbsys::CDefaultRunnable(threadCount) {
     _stop = 0;
@@ -44,12 +44,12 @@ PacketQueueThread::PacketQueueThread(int threadCount, IPacketQueueHandler *handl
     _overage = 0;
 }
 
-// Îö¹¹
+// æžæž„
 PacketQueueThread::~PacketQueueThread() {
     stop();
 }
 
-// Ïß³Ì²ÎÊýÉèÖÃ
+// çº¿ç¨‹å‚æ•°è®¾ç½®
 void PacketQueueThread::setThreadParameter(int threadCount, IPacketQueueHandler *handler, void *args) {
     setThreadCount(threadCount);
     _handler = handler;
@@ -95,7 +95,7 @@ bool PacketQueueThread::push(Packet *packet, int maxQueueLen, bool block) {
         }
     }
 
-    // ¼ÓËøÐ´Èë¶ÓÁÐ
+    // åŠ é”å†™å…¥é˜Ÿåˆ—
     _cond.lock();
     _queue.push(packet);
     _cond.unlock();
@@ -105,12 +105,12 @@ bool PacketQueueThread::push(Packet *packet, int maxQueueLen, bool block) {
 
 // pushQueue
 void PacketQueueThread::pushQueue(PacketQueue &packetQueue, int maxQueueLen) {
-    // ÊÇÍ£Ö¹¾Í²»ÔÊÐí·ÅÁË
+    // æ˜¯åœæ­¢å°±ä¸å…è®¸æ”¾äº†
     if (_stop) {
         return;
     }
 
-    // ÊÇ·ñÒªÏÞÖÆpush³¤¶È
+    // æ˜¯å¦è¦é™åˆ¶pushé•¿åº¦
     if (maxQueueLen>0 && _queue._size >= maxQueueLen) {
         _pushcond.lock();
         _waiting = true;
@@ -124,14 +124,14 @@ void PacketQueueThread::pushQueue(PacketQueue &packetQueue, int maxQueueLen) {
         }
     }
 
-    // ¼ÓËøÐ´Èë¶ÓÁÐ
+    // åŠ é”å†™å…¥é˜Ÿåˆ—
     _cond.lock();
     packetQueue.moveTo(&_queue);
     _cond.unlock();
     _cond.signal();
 }
 
-// Runnable ½Ó¿Ú
+// Runnable æŽ¥å£
 void PacketQueueThread::run(tbsys::CThread *thread, void *arg) {
     Packet *packet = NULL;
     while (!_stop) {
@@ -144,29 +144,29 @@ void PacketQueueThread::run(tbsys::CThread *thread, void *arg) {
             break;
         }
 
-        // ÏÞËÙ
+        // é™é€Ÿ
         if (_waitTime>0) checkSendSpeed();
-        // È¡³öpacket
+        // å–å‡ºpacket
         packet = _queue.pop();
         _cond.unlock();
 
-        // push ÔÚµÈÂð?
+        // push åœ¨ç­‰å—?
         if (_waiting) {
             _pushcond.lock();
             _pushcond.signal();
             _pushcond.unlock();
         }
 
-        // ¿ÕµÄpacket?
+        // ç©ºçš„packet?
         if (packet == NULL) continue;
         bool ret = true;
         if (_handler) {
             ret = _handler->handlePacketQueue(packet, _args);
         }
-        // Èç¹û·µ»Øfalse, ²»É¾³ý
+        // å¦‚æžœè¿”å›žfalse, ä¸åˆ é™¤
         if (ret) delete packet;
     }
-    if (_waitFinish) { // °ÑqueueÖÐËùÓÐµÄtask×öÍê
+    if (_waitFinish) { // æŠŠqueueä¸­æ‰€æœ‰çš„taskåšå®Œ
       bool ret = true;
         _cond.lock();
         while (_queue.size() > 0) {
@@ -181,7 +181,7 @@ void PacketQueueThread::run(tbsys::CThread *thread, void *arg) {
             _cond.lock();
         }
         _cond.unlock();
-    } else {   // °ÑqueueÖÐµÄfreeµô
+    } else {   // æŠŠqueueä¸­çš„freeæŽ‰
         _cond.lock();
         while (_queue.size() > 0) {
             delete _queue.pop();
@@ -190,18 +190,18 @@ void PacketQueueThread::run(tbsys::CThread *thread, void *arg) {
     }
 }
 
-// ÊÇ·ñ¼ÆËã´¦ÀíËÙ¶È
+// æ˜¯å¦è®¡ç®—å¤„ç†é€Ÿåº¦
 void PacketQueueThread::setStatSpeed() {
 }
 
-// ÉèÖÃÏÞËÙ
+// è®¾ç½®é™é€Ÿ
 void PacketQueueThread::setWaitTime(int t) {
     _waitTime = t;
     _speed_t2 = _speed_t1 = tbsys::CTimeUtil::getTime();
     _overage = 0;
 }
 
-// ¼ÆËã·¢ËÍËÙ¶È
+// è®¡ç®—å‘é€é€Ÿåº¦
 void PacketQueueThread::checkSendSpeed() {
     if (_waitTime > _overage) {
         usleep(_waitTime - _overage);

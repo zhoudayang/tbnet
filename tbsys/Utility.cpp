@@ -20,13 +20,13 @@
 namespace tbsys
 {
 /**
- * °ÑÒ»¸öÂ·¾¶×ª»»³É¹æ·¶µÄ¾ø¶ÔÂ·¾¶
- * @param pszPath(const char *): Ô­Ê¼Â·¾¶
- * @param pszBuf(char *): ¾ø¶ÔÂ·¾¶´æ´¢ÄÚ´æµØÖ·
- * @param iBufLen(int): ¾ø¶ÔÂ·¾¶´æ´¢ÄÚ´æ³¤¶È
+ * æŠŠä¸€ä¸ªè·¯å¾„è½¬æ¢æˆè§„èŒƒçš„ç»å¯¹è·¯å¾„
+ * @param pszPath(const char *): åŽŸå§‹è·¯å¾„
+ * @param pszBuf(char *): ç»å¯¹è·¯å¾„å­˜å‚¨å†…å­˜åœ°å€
+ * @param iBufLen(int): ç»å¯¹è·¯å¾„å­˜å‚¨å†…å­˜é•¿åº¦
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int getAbsPath(const char *pszPath, char *pszBuf, int iBufLen)
 {
@@ -176,11 +176,11 @@ int getAbsPath(const char *pszPath, char *pszBuf, int iBufLen)
 }
 
 /**
- * ¼ì²é²¢´´½¨Ò»¸öÄ¿Â¼»òÒ»¸öÎÄ¼þµÄ¸¸Ä¿Â¼
- * @param pszPath(const char *): Òª¼ì²éµÄÂ·¾¶
+ * æ£€æŸ¥å¹¶åˆ›å»ºä¸€ä¸ªç›®å½•æˆ–ä¸€ä¸ªæ–‡ä»¶çš„çˆ¶ç›®å½•
+ * @param pszPath(const char *): è¦æ£€æŸ¥çš„è·¯å¾„
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int checkCreateDir(const char *pszPath)
 {
@@ -209,7 +209,7 @@ int checkCreateDir(const char *pszPath)
     }
 
     /*
-     * ×îºó²»ÒÔÐ±¸Ü½áÎ²£¬ÊÇÎÄ¼þ
+     * æœ€åŽä¸ä»¥æ–œæ ç»“å°¾ï¼Œæ˜¯æ–‡ä»¶
      */
     if (pszPath[iLen - 1] != '/')
     {
@@ -220,14 +220,14 @@ int checkCreateDir(const char *pszPath)
     szFileCopy[MAX_FILENAME_LEN - 1] = '\0';
 
     /*
-     * ½âÎö³ÉÎÄ¼þ¼ÐÃûÊý×é
+     * è§£æžæˆæ–‡ä»¶å¤¹åæ•°ç»„
      */
     pcFieldEnd = szFileCopy;
     iFieldNum = 0;
-    // Èç¹ûÊÇ¾ø¶ÔÂ·¾¶
+    // å¦‚æžœæ˜¯ç»å¯¹è·¯å¾„
     if (pcFieldEnd[0] == '/')
     {
-        // È¥³ýËùÓÐµÄ¶àÓàµÄÐ±¸Ü
+        // åŽ»é™¤æ‰€æœ‰çš„å¤šä½™çš„æ–œæ 
         for (; *pcFieldEnd; ++pcFieldEnd)
         {
             if ('/' == *pcFieldEnd)
@@ -239,7 +239,7 @@ int checkCreateDir(const char *pszPath)
         }
         pcFieldBegin = pcFieldEnd;
         pcFieldEnd = strchr(pcFieldBegin, '/');
-        // Ã»ÓÐÎÄ¼þ¼Ð²¿·Ö£¬Ôò·µ»Ø´íÎó
+        // æ²¡æœ‰æ–‡ä»¶å¤¹éƒ¨åˆ†ï¼Œåˆ™è¿”å›žé”™è¯¯
         if (NULL == pcFieldEnd)
         {
             return -1;
@@ -257,7 +257,7 @@ int checkCreateDir(const char *pszPath)
     {
         if (pcFieldEnd)
         {
-            // È¥³ýËùÓÐµÄ¶àÓàµÄÐ±¸Ü
+            // åŽ»é™¤æ‰€æœ‰çš„å¤šä½™çš„æ–œæ 
             for (; *pcFieldEnd; ++pcFieldEnd)
             {
                 if ('/' == *pcFieldEnd)
@@ -267,7 +267,7 @@ int checkCreateDir(const char *pszPath)
                 }
                 break;
             }
-            // Ã»ÓÐÏÂÒ»¸öÓÐÐ§µÄÎÄ¼þÃû£¬ÔòÌø³ö
+            // æ²¡æœ‰ä¸‹ä¸€ä¸ªæœ‰æ•ˆçš„æ–‡ä»¶åï¼Œåˆ™è·³å‡º
             if ('\0' == *pcFieldEnd)
             {
                 break;
@@ -275,7 +275,7 @@ int checkCreateDir(const char *pszPath)
         }
         else
         {
-            // ²»´æÔÚÏÂÒ»¸öÎÄ¼þÃû£¬ÔòÌø³ö
+            // ä¸å­˜åœ¨ä¸‹ä¸€ä¸ªæ–‡ä»¶åï¼Œåˆ™è·³å‡º
             break;
         }
         pcFieldBegin = pcFieldEnd;
@@ -283,7 +283,7 @@ int checkCreateDir(const char *pszPath)
         pcFieldEnd = strchr(pcFieldBegin, '/');
     }
 
-    // ½áÊø·ûÉèÖÃ£¬Èç¹ûµ±Ç°×Ö¶ÎÌ«¶à£¬ÔòÍË³ö
+    // ç»“æŸç¬¦è®¾ç½®ï¼Œå¦‚æžœå½“å‰å­—æ®µå¤ªå¤šï¼Œåˆ™é€€å‡º
     if (iFieldNum > MAX_STR_FIELD_NUM)
     {
         return -1;
@@ -297,7 +297,7 @@ int checkCreateDir(const char *pszPath)
     for (i = 0; i < iFieldNum; i++)
     {
         /*
-         * Èç¹û´æÔÚµã¿ªÍ·µÄÎÄ¼þ¼Ð£¬ÔòÍË³ö
+         * å¦‚æžœå­˜åœ¨ç‚¹å¼€å¤´çš„æ–‡ä»¶å¤¹ï¼Œåˆ™é€€å‡º
          */
         if (apszField[i][0] == '.')
         {
@@ -305,7 +305,7 @@ int checkCreateDir(const char *pszPath)
         }
 
         /*
-         * ±£Ö¤Ã¿Ò»²ãÄ¿Â¼¶¼´æÔÚ
+         * ä¿è¯æ¯ä¸€å±‚ç›®å½•éƒ½å­˜åœ¨
          */
         if (strJoin(szDir, iDirLen, apszField, i + 1, "/") < 0)
         {
@@ -314,7 +314,7 @@ int checkCreateDir(const char *pszPath)
 
         if (stat(szDir, &statbuf) == -1)
         {
-            // ´íÎó²»ÊÇÎÄ¼þ¼Ð²»´æÔÚ»òÕß´´½¨Ê§°ÜÔò·µ»Ø´íÎó
+            // é”™è¯¯ä¸æ˜¯æ–‡ä»¶å¤¹ä¸å­˜åœ¨æˆ–è€…åˆ›å»ºå¤±è´¥åˆ™è¿”å›žé”™è¯¯
             if ((errno != ENOENT) || (mkdir(szDir, 0755) == -1))
             {
                 return -1;
@@ -360,15 +360,15 @@ int checkCreateLink(const char *pszPath, const char *pszLink, int iRecreate)
 }
 
 /**
- * Á¬½ÓÒ»×é×Ö·û´®
- * @param pszDst(char *): Ä¿µÄ×Ö·û´®´æ´¢ÄÚ´æµØÖ·
- * @param sizeDst(size_t): Ä¿µÄ×Ö·û´®´æ´¢ÄÚ´æ³¤¶È
- * @param ppszField(char **): ÒªÁ´½ÓµÄ×Ö·û´®Êý×é
- * @param sizeField(size_t): ÒªÁ´½ÓµÄ×Ö·û´®ÊýÄ¿
- * @param pszSep(const char *): Á´½Ó×Ö·û´®
+ * è¿žæŽ¥ä¸€ç»„å­—ç¬¦ä¸²
+ * @param pszDst(char *): ç›®çš„å­—ç¬¦ä¸²å­˜å‚¨å†…å­˜åœ°å€
+ * @param sizeDst(size_t): ç›®çš„å­—ç¬¦ä¸²å­˜å‚¨å†…å­˜é•¿åº¦
+ * @param ppszField(char **): è¦é“¾æŽ¥çš„å­—ç¬¦ä¸²æ•°ç»„
+ * @param sizeField(size_t): è¦é“¾æŽ¥çš„å­—ç¬¦ä¸²æ•°ç›®
+ * @param pszSep(const char *): é“¾æŽ¥å­—ç¬¦ä¸²
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int strJoin(char *pszDst, size_t sizeDst, char **ppszField, size_t sizeField, const char *pszSep)
 {
@@ -408,14 +408,14 @@ int strJoin(char *pszDst, size_t sizeDst, char **ppszField, size_t sizeField, co
     return (strlen(pszDst));
 }
 
-// ²»ÄÜ¶àÏß³Ìµ÷ÓÃ
+// ä¸èƒ½å¤šçº¿ç¨‹è°ƒç”¨
 /**
- * »ñÈ¡±¾»úµÄipµØÖ·
- * @param pszAddr(char *): ´æ´¢×Ö·û´®¸ñÊ½ipµØÖ·µÄÄÚ´æµØÖ·
- * @param uiAddrLen(unsigned): ´æ´¢×Ö·û´®¸ñÊ½ipµØÖ·µÄÄÚ´æ³¤¶È
+ * èŽ·å–æœ¬æœºçš„ipåœ°å€
+ * @param pszAddr(char *): å­˜å‚¨å­—ç¬¦ä¸²æ ¼å¼ipåœ°å€çš„å†…å­˜åœ°å€
+ * @param uiAddrLen(unsigned): å­˜å‚¨å­—ç¬¦ä¸²æ ¼å¼ipåœ°å€çš„å†…å­˜é•¿åº¦
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int getHostIP(char *pszAddr, unsigned uiAddrLen)
 {
@@ -446,12 +446,12 @@ int getHostIP(char *pszAddr, unsigned uiAddrLen)
 }
 
 /**
- * »ñÈ¡½ø³ÌµÄ¶þ½øÖÆÎÄ¼þ¾ø¶ÔÂ·¾¶
- * @param pszExe(char *): Â·¾¶´æ·ÅÄÚ´æµØÖ·
- * @param uiExeLen(unsigned): Â·¾¶´æ·ÅÄÚ´æ³¤¶È
+ * èŽ·å–è¿›ç¨‹çš„äºŒè¿›åˆ¶æ–‡ä»¶ç»å¯¹è·¯å¾„
+ * @param pszExe(char *): è·¯å¾„å­˜æ”¾å†…å­˜åœ°å€
+ * @param uiExeLen(unsigned): è·¯å¾„å­˜æ”¾å†…å­˜é•¿åº¦
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int getExe(char *pszExe, unsigned uiExeLen)
 {
@@ -470,12 +470,12 @@ int getExe(char *pszExe, unsigned uiExeLen)
 }
 
 /**
- * »ñÈ¡½ø³ÌµÄ¶þ½øÖÆÎÄ¼þ¾ø¶Ô¸ùÄ¿Â¼
- * @param pszExe(char *): ¸ùÄ¿Â¼´æ·ÅÄÚ´æµØÖ·
- * @param uiExeLen(unsigned): ¸ùÄ¿Â¼´æ·ÅÄÚ´æ³¤¶È
+ * èŽ·å–è¿›ç¨‹çš„äºŒè¿›åˆ¶æ–‡ä»¶ç»å¯¹æ ¹ç›®å½•
+ * @param pszExe(char *): æ ¹ç›®å½•å­˜æ”¾å†…å­˜åœ°å€
+ * @param uiExeLen(unsigned): æ ¹ç›®å½•å­˜æ”¾å†…å­˜é•¿åº¦
  * @see 
- * @return 0(³É¹¦)
- * @return -1(Ê§°Ü)
+ * @return 0(æˆåŠŸ)
+ * @return -1(å¤±è´¥)
  */
 int getExeRoot(char *pszExeRoot, unsigned uiExePathLen)
 {

@@ -22,23 +22,23 @@ class UDPAcceptor : public UDPComponent {
 
 public:
     /**
-    * ¹¹Ôìº¯Êı£¬ÓÉTransportµ÷ÓÃ¡£
-    * ÊäÈë:
-    *  transport:  ÔËÊä²ã¶ÔÏó:::spec: ¸ñÊ½ [upd|tcp]:ip:port
-    *  streamer:  Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-    * serverAdapter: ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+    * æ„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
+    * è¾“å…¥:
+    *  transport:  è¿è¾“å±‚å¯¹è±¡:::spec: æ ¼å¼ [upd|tcp]:ip:port
+    *  streamer:  æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+    * serverAdapter: ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
     */
     UDPAcceptor(Transport *owner, char *spec, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /**
-    * µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
-    * ·µ»Ø
-    * ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+    * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
+    * è¿”å›
+    * æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
     */
     bool handleReadEvent();
 
     /**
-    * ²»ÓÃ
+    * ä¸ç”¨
     */
     bool handleWriteEvent() {
         return false;

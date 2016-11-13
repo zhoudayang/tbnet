@@ -19,32 +19,32 @@ namespace tbnet {
 
 int DefaultPacketStreamer::_nPacketFlag = TBNET_PACKET_FLAG;
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 DefaultPacketStreamer::DefaultPacketStreamer() {}
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 DefaultPacketStreamer::DefaultPacketStreamer(IPacketFactory *factory) : IPacketStreamer(factory) {}
 
 /*
- * ÎöÔìº¯Êı
+ * æé€ å‡½æ•°
  */
 DefaultPacketStreamer::~DefaultPacketStreamer() {}
 
 /**
- * ÉèÖÃIPacketFactory
+ * è®¾ç½®IPacketFactory
  */
 void DefaultPacketStreamer::setPacketFactory(IPacketFactory *factory) {
     _factory = factory;
 }
 
 /*
- * µÃµ½°üÍ·ĞÅÏ¢
+ * å¾—åˆ°åŒ…å¤´ä¿¡æ¯
  *
- * @param input  Ô´buffer
- * @param header ½á¹ûheader
- * @return ÊÇ·ñ³É¹¦
+ * @param input  æºbuffer
+ * @param header ç»“æœheader
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool DefaultPacketStreamer::getPacketInfo(DataBuffer *input, PacketHeader *header, bool *broken) {
     if (_existPacketHeader) {
@@ -66,11 +66,11 @@ bool DefaultPacketStreamer::getPacketInfo(DataBuffer *input, PacketHeader *heade
 }
 
 /*
- * ¶Ô°üµÄ½âÂë
+ * å¯¹åŒ…çš„è§£ç 
  *
  * @param input
  * @param header
- * @return ½âÂëºóµÄÊı¾İ°ü
+ * @return è§£ç åçš„æ•°æ®åŒ…
  */
 Packet *DefaultPacketStreamer::decode(DataBuffer *input, PacketHeader *header) {
     assert(_factory != NULL);
@@ -87,22 +87,22 @@ Packet *DefaultPacketStreamer::decode(DataBuffer *input, PacketHeader *header) {
 }
 
 /*
- * ¶ÔPacketµÄ×é×°
+ * å¯¹Packetçš„ç»„è£…
  *
- * @param packet Êı¾İ°ü
- * @param output ×é×°ºóµÄÊı¾İÁ÷
- * @return ÊÇ·ñ³É¹¦
+ * @param packet æ•°æ®åŒ…
+ * @param output ç»„è£…åçš„æ•°æ®æµ
+ * @return æ˜¯å¦æˆåŠŸ
  */
 bool DefaultPacketStreamer::encode(Packet *packet, DataBuffer *output) {
     PacketHeader *header = packet->getPacketHeader();
 
-    // ÎªÁËµ±encodeÊ§°Ü»Ö¸´Ê±ÓÃ
+    // ä¸ºäº†å½“encodeå¤±è´¥æ¢å¤æ—¶ç”¨
     int oldLen = output->getDataLen();
-    // dataLenµÄÎ»ÖÃ
+    // dataLençš„ä½ç½®
     int dataLenOffset = -1;
     int headerSize = 0;
 
-    // ÔÊĞí´æÔÚÍ·ĞÅÏ¢,Ğ´³öÍ·ĞÅÏ¢
+    // å…è®¸å­˜åœ¨å¤´ä¿¡æ¯,å†™å‡ºå¤´ä¿¡æ¯
     if (_existPacketHeader) {
         output->writeInt32(DefaultPacketStreamer::_nPacketFlag);
         output->writeInt32(header->_chid);
@@ -111,15 +111,15 @@ bool DefaultPacketStreamer::encode(Packet *packet, DataBuffer *output) {
         output->writeInt32(0);
         headerSize = 4 * sizeof(int);
     }
-    // Ğ´Êı¾İ
+    // å†™æ•°æ®
     if (packet->encode(output) == false) {
         TBSYS_LOG(ERROR, "encode error");
         output->stripData(output->getDataLen() - oldLen);
         return false;
     }
-    // ¼ÆËã°ü³¤¶È
+    // è®¡ç®—åŒ…é•¿åº¦
     header->_dataLen = output->getDataLen() - oldLen - headerSize;
-    // ×îÖÕ°Ñ³¤¶È»Øµ½bufferÖĞ
+    // æœ€ç»ˆæŠŠé•¿åº¦å›åˆ°bufferä¸­
     if (dataLenOffset >= 0) {
         unsigned char *ptr = (unsigned char *)(output->getData() + dataLenOffset);
         output->fillInt32(ptr, header->_dataLen);
@@ -129,7 +129,7 @@ bool DefaultPacketStreamer::encode(Packet *packet, DataBuffer *output) {
 }
 
 /*
- * ÉèÖÃpacketµÄflag
+ * è®¾ç½®packetçš„flag
  */
 void DefaultPacketStreamer::setPacketFlag(int flag) {
     DefaultPacketStreamer::_nPacketFlag = flag;

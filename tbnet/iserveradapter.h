@@ -26,26 +26,26 @@ class IServerAdapter {
     friend class Connection;
     friend class TCPConnection;
 public:
-    // µ¥¸öpacket»Øµ÷
+    // å•ä¸ªpacketå›è°ƒ
     virtual IPacketHandler::HPRetCode handlePacket(Connection *connection, Packet *packet) = 0;
-    // ÅúÁ¿packet»Øµ÷
+    // æ‰¹é‡packetå›è°ƒ
     virtual bool handleBatchPacket(Connection *connection, PacketQueue &packetQueue) {
       UNUSED(packetQueue);
       UNUSED(connection);
         return false;
     }
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     IServerAdapter() {
         _batchPushPacket = false;
     }
-    // Îö¹¹º¯Êı
+    // ææ„å‡½æ•°
     virtual ~IServerAdapter() {}
     // setBatch()
     void setBatchPushPacket(bool value) {
         _batchPushPacket = value;
     }
 private:
-    bool _batchPushPacket;          // ÅúÁ¿post packet
+    bool _batchPushPacket;          // æ‰¹é‡post packet
 };
 }
 

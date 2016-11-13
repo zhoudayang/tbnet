@@ -26,43 +26,43 @@ typedef __gnu_cxx::hash_map<uint64_t, Connection*, __gnu_cxx::hash<int> > TBNET_
 class ConnectionManager {
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     ConnectionManager(Transport *transport, IPacketStreamer *streamer, IPacketHandler *packetHandler);
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~ConnectionManager();
 
 
     /**
-     * ´ò¿ªÁ¬½Ó
+     * æ‰“å¼€è¿æ¥
      */
     Connection *connect(uint64_t serverId, IPacketHandler *packetHandler, int queueLimit, int queueTimeout);
 
     /**
-     * ¹Ø±ÕÁ¬½Ó
+     * å…³é—­è¿æ¥
      */
     void disconnect(uint64_t serverId);
 
     /**
-     * ÉèÖÃ _queueLimit
+     * è®¾ç½® _queueLimit
      */
     void setDefaultQueueLimit(uint64_t serverId, int queueLimit);
 
     /**
-     * ÉèÖÃ _queueTimeout
+     * è®¾ç½® _queueTimeout
      */
     void setDefaultQueueTimeout(uint64_t serverId, int queueTimeout);
 
     /**
-     * ÉèÖÃpacketHandler
+     * è®¾ç½®packetHandler
      */
     void setDefaultPacketHandler(uint64_t serverId, IPacketHandler *packetHandler);
 
     /**
-     * ·¢ËÍÊı¾İ°ü
+     * å‘é€æ•°æ®åŒ…
      */
     bool sendPacket(uint64_t serverId, Packet *packet, IPacketHandler *packetHandler = NULL, void *args = NULL, bool noblocking = true);
 
@@ -72,12 +72,12 @@ public:
     void cleanup();
 
     /**
-     * µÃµ½Ò»Á¬½Ó
+     * å¾—åˆ°ä¸€è¿æ¥
      */
     Connection *getConnection(uint64_t serverId);
 
     /**
-     * ÊÇ·ñÄÜ±»Á¬½Ó
+     * æ˜¯å¦èƒ½è¢«è¿æ¥
      */
     static bool isAlive(uint64_t serverId);
 

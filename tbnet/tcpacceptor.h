@@ -22,47 +22,47 @@ class TCPAcceptor : public IOComponent {
 
 public:
     /**
-    * ¹¹Ôìº¯Êı£¬ÓÉTransportµ÷ÓÃ¡£
+    * æ„é€ å‡½æ•°ï¼Œç”±Transportè°ƒç”¨ã€‚
     *
-    * @param  owner:    ÔËÊä²ã¶ÔÏó
-    * @param  socket:   Socket¶ÔÏó
-    * @param streamer:   Êı¾İ°üµÄË«ÏòÁ÷£¬ÓÃpacket´´½¨£¬½â°ü£¬×é°ü¡£
-    * @param serverAdapter:  ÓÃÔÚ·şÎñÆ÷¶Ë£¬µ±Connection³õÊ¼»¯¼°Channel´´½¨Ê±»Øµ÷Ê±ÓÃ
+    * @param  owner:    è¿è¾“å±‚å¯¹è±¡
+    * @param  socket:   Socketå¯¹è±¡
+    * @param streamer:   æ•°æ®åŒ…çš„åŒå‘æµï¼Œç”¨packetåˆ›å»ºï¼Œè§£åŒ…ï¼Œç»„åŒ…ã€‚
+    * @param serverAdapter:  ç”¨åœ¨æœåŠ¡å™¨ç«¯ï¼Œå½“Connectionåˆå§‹åŒ–åŠChannelåˆ›å»ºæ—¶å›è°ƒæ—¶ç”¨
     */
     TCPAcceptor(Transport *owner, Socket *socket,
                 IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
     /*
-     * ³õÊ¼»¯
+     * åˆå§‹åŒ–
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool init(bool isServer = false);
 
     /**
-    * µ±ÓĞÊı¾İ¿É¶ÁÊ±±»Transportµ÷ÓÃ
+    * å½“æœ‰æ•°æ®å¯è¯»æ—¶è¢«Transportè°ƒç”¨
     *
-    * @return ÊÇ·ñ³É¹¦, true - ³É¹¦, false - Ê§°Ü¡£
+    * @return æ˜¯å¦æˆåŠŸ, true - æˆåŠŸ, false - å¤±è´¥ã€‚
     */
     bool handleReadEvent();
 
     /**
-     * ÔÚacceptÖĞÃ»ÓĞĞ´ÊÂ¼ş
+     * åœ¨acceptä¸­æ²¡æœ‰å†™äº‹ä»¶
      */
     bool handleWriteEvent() {
         return true;
     }
 
     /*
-     * ³¬Ê±¼ì²é
+     * è¶…æ—¶æ£€æŸ¥
      *
-     * @param    now µ±Ç°Ê±¼ä(µ¥Î»us)
+     * @param    now å½“å‰æ—¶é—´(å•ä½us)
      */
     void checkTimeout(int64_t now);
 
 private:
-    IPacketStreamer *_streamer;      // Êı¾İ°ü½âÎöÆ÷
-    IServerAdapter  *_serverAdapter; // ·şÎñÆ÷ÊÊÅäÆ÷
+    IPacketStreamer *_streamer;      // æ•°æ®åŒ…è§£æå™¨
+    IServerAdapter  *_serverAdapter; // æœåŠ¡å™¨é€‚é…å™¨
 };
 }
 

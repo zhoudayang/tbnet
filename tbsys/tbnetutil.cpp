@@ -18,7 +18,7 @@
 namespace tbsys {
 
 /**
- * µÃµ½±¾»úip
+ * å¾—åˆ°æœ¬æœºip
  */
 uint32_t CNetUtil::getLocalAddr(const char *dev_name)
 {
@@ -55,7 +55,7 @@ uint32_t CNetUtil::getLocalAddr(const char *dev_name)
     return 0;
 }
 /**
- * ipÊÇ±¾»úipµØÖ·, true - ÊÇ, false - ²»ÊÇ
+ * ipæ˜¯æœ¬æœºipåœ°å€, true - æ˜¯, false - ä¸æ˜¯
  */
 bool CNetUtil::isLocalAddr(uint32_t ip, bool loopSkip)
 {
@@ -95,8 +95,8 @@ bool CNetUtil::isLocalAddr(uint32_t ip, bool loopSkip)
 }
 
 /**
- * °Ñ×Ö·û´®µÄip×ª³Éint
- * Èç 10.0.100.89 => 1499725834
+ * æŠŠå­—ç¬¦ä¸²çš„ipè½¬æˆint
+ * å¦‚ 10.0.100.89 => 1499725834
  */
 uint32_t CNetUtil::getAddr(const char *ip)
 {
@@ -113,7 +113,7 @@ uint32_t CNetUtil::getAddr(const char *ip)
 }
 
 /**
- * °Ñuint64×ª³É×Ö·û´®
+ * æŠŠuint64è½¬æˆå­—ç¬¦ä¸²
  */
 string CNetUtil::addrToString(uint64_t ipport)
 {
@@ -130,7 +130,7 @@ string CNetUtil::addrToString(uint64_t ipport)
 }
 
 /**
- * °Ñip,port×ª³Éuint64_t
+ * æŠŠip,portè½¬æˆuint64_t
  */
 uint64_t CNetUtil::strToAddr(const char *ip, int port)
 {
@@ -157,7 +157,7 @@ uint64_t CNetUtil::strToAddr(const char *ip, int port)
 }
 
 /**
- * °Ñip,port×ª³Éuint64_t
+ * æŠŠip,portè½¬æˆuint64_t
  */
 uint64_t CNetUtil::ipToAddr(uint32_t ip, int port)
 {

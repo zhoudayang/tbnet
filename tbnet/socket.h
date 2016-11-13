@@ -23,86 +23,86 @@ class Socket {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     Socket();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~Socket();
 
     /*
-     * ÉèÖÃµØÖ·
+     * è®¾ç½®åœ°å€
      *
-     * @param address  host»òipµØÖ·
-     * @param port  ¶Ë¿ÚºÅ
-     * @return ÊÇ·ñ³É¹¦
+     * @param address  hostæˆ–ipåœ°å€
+     * @param port  ç«¯å£å·
+     * @return æ˜¯å¦æˆåŠŸ
      */
 
     bool setAddress (const char *address, const int port);
 
     /*
-     * Á¬½Óµ½_addressÉÏ
+     * è¿æ¥åˆ°_addressä¸Š
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool connect();
 
     /**
-     * ¹Ø±ÕÁ¬½Ó
+     * å…³é—­è¿æ¥
      */
     void close();
 
     /*
-     * ¹Ø±Õ¶ÁĞ´
+     * å…³é—­è¯»å†™
      */
     void shutdown();
 
     /**
-     * Ê¹ÓÃUDPµÄsocket
+     * ä½¿ç”¨UDPçš„socket
      *
-     * @return ÊÇ·ñ³É¹¦
+     * @return æ˜¯å¦æˆåŠŸ
      */
     bool createUDP();
 
     /*
-     * °ÑsocketHandle,¼°ipaddressÉèÖÃµ½´ËsocketÖĞ
+     * æŠŠsocketHandle,åŠipaddressè®¾ç½®åˆ°æ­¤socketä¸­
      *
-     * @param  socketHandle: socketµÄÎÄ¼ş¾ä±ú
-     * @param hostAddress: ·şÎñÆ÷µØÖ·
+     * @param  socketHandle: socketçš„æ–‡ä»¶å¥æŸ„
+     * @param hostAddress: æœåŠ¡å™¨åœ°å€
      */
 
     void setUp(int socketHandle, struct sockaddr *hostAddress);
 
     /*
-     * ·µ»ØÎÄ¼ş¾ä±ú
+     * è¿”å›æ–‡ä»¶å¥æŸ„
      *
-     * @return ÎÄ¼ş¾ä±ú
+     * @return æ–‡ä»¶å¥æŸ„
      */
     int getSocketHandle();
 
     /*
-     * ·µ»ØIOComponent
+     * è¿”å›IOComponent
      *
      * @return  IOComponent
      */
     IOComponent *getIOComponent();
 
     /*
-     * ÉèÖÃIOComponent
+     * è®¾ç½®IOComponent
      *
      * @param IOComponent
      */
     void setIOComponent(IOComponent *ioc);
 
     /*
-     * Ğ´Êı¾İ
+     * å†™æ•°æ®
      */
     int write(const void *data, int len);
 
     /*
-     * ¶ÁÊı¾İ
+     * è¯»æ•°æ®
      */
     int read(void *data, int len);
 
@@ -146,49 +146,49 @@ public:
     bool setTimeOption(int option, int milliseconds);
 
     /*
-     * ÊÇ·ñ×èÈû
+     * æ˜¯å¦é˜»å¡
      */
     bool setSoBlocking(bool on);
 
     /*
-     * ¼ì²éSocket¾ä±úÊÇ·ñ´´½¨
+     * æ£€æŸ¥Socketå¥æŸ„æ˜¯å¦åˆ›å»º
      */
     bool checkSocketHandle();
 
     /*
-     * µÃµ½Socket´íÎó
+     * å¾—åˆ°Socketé”™è¯¯
      */
     int getSoError();
 
     /*
-     * µÃµ½ipµØÖ·, Ğ´µ½tmpÉÏ
+     * å¾—åˆ°ipåœ°å€, å†™åˆ°tmpä¸Š
      */
     std::string getAddr();
 
     /*
-     * µÃµ½64Î»Êı×ÖµÄipµØÖ·
+     * å¾—åˆ°64ä½æ•°å­—çš„ipåœ°å€
      */
     uint64_t getId();
     uint64_t getPeerId();
 
     /**
-     * µÃµ½±¾µØ¶Ë¿Ú
+     * å¾—åˆ°æœ¬åœ°ç«¯å£
      */
     int getLocalPort();
 
 
     /*
-     * µÃµ½×îºóµÄ´íÎó
+     * å¾—åˆ°æœ€åçš„é”™è¯¯
      */
     static int getLastError() {
         return errno;
     }
 
 protected:
-    struct sockaddr_in  _address; // µØÖ·
-    int _socketHandle;    // socketÎÄ¼ş¾ä±ú
+    struct sockaddr_in  _address; // åœ°å€
+    int _socketHandle;    // socketæ–‡ä»¶å¥æŸ„
     IOComponent *_iocomponent;
-    static tbsys::CThreadMutex _dnsMutex; //¡¡¶àÊµÀıÓÃÒ»¸ödnsMutex
+    static tbsys::CThreadMutex _dnsMutex; //ã€€å¤šå®ä¾‹ç”¨ä¸€ä¸ªdnsMutex
 };
 }
 

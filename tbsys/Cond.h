@@ -25,7 +25,7 @@ template<class T> class Monitor;
 class Mutex;
 class RecMutex;
 /** 
- * @brief linuxÏß³ÌÌõ¼ş±äÁ¿
+ * @brief linuxçº¿ç¨‹æ¡ä»¶å˜é‡
  */
 class Cond : private noncopyable
 {
@@ -35,17 +35,17 @@ public:
     ~Cond();
 
     /** 
-     * @brief ·¢ĞÅºÅ¸øÏß³Ì
+     * @brief å‘ä¿¡å·ç»™çº¿ç¨‹
      */
     void signal();
 
     /** 
-     * @brief ¹ã²¥ĞÅºÅ¸øÏß³Ì
+     * @brief å¹¿æ’­ä¿¡å·ç»™çº¿ç¨‹
      */
     void broadcast();
 
     /** 
-     * @brief Ïß³Ì×èÈûµÈ´ı 
+     * @brief çº¿ç¨‹é˜»å¡ç­‰å¾… 
      * 
      * @param lock
      * 
@@ -67,7 +67,7 @@ public:
     }
 
     /** 
-     * @brief Ïß³Ì×èÈûµÈ´ı,µ½´ï¶¨Ê±Ê±¼ä×Ô¶¯ÔËĞĞ
+     * @brief çº¿ç¨‹é˜»å¡ç­‰å¾…,åˆ°è¾¾å®šæ—¶æ—¶é—´è‡ªåŠ¨è¿è¡Œ
      * 
      * @param lock
      * @param timeout

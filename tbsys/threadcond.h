@@ -19,35 +19,35 @@
 namespace tbsys {
 
 /** 
- * @brief  LinuxÏß³ÌÌõ¼ş±äÁ¿ 
+ * @brief  Linuxçº¿ç¨‹æ¡ä»¶å˜é‡ 
  */
 class CThreadCond : public CThreadMutex {
 
 public:
 
     /**
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     CThreadCond() {
         pthread_cond_init(&_cond, NULL);
     }
 
     /**
-     * ÎöÔìº¯Êı
+     * æé€ å‡½æ•°
      */
     ~CThreadCond() {
         pthread_cond_destroy(&_cond);
     }
 
     /**
-     * µÈ´ıĞÅºÅ
+     * ç­‰å¾…ä¿¡å·
      *
-     * @param  milliseconds  µÈ´ı³¬Ê±¼ä(µ¥Î»:ms), 0 = ÓÀ¾ÃµÈ´ı£¬
+     * @param  milliseconds  ç­‰å¾…è¶…æ—¶é—´(å•ä½:ms), 0 = æ°¸ä¹…ç­‰å¾…ï¼Œ
      */
     bool wait(int milliseconds = 0) {
         bool ret = true;
 
-        if (milliseconds == 0) { // ÓÀ¾ÃµÈ´ı
+        if (milliseconds == 0) { // æ°¸ä¹…ç­‰å¾…
             pthread_cond_wait(&_cond, &_mutex);
         } else {
 
@@ -71,14 +71,14 @@ public:
     }
 
     /**
-     * »½ĞÑÒ»¸ö
+     * å”¤é†’ä¸€ä¸ª
      */
     void signal() {
         pthread_cond_signal(&_cond);
     }
 
     /**
-     * »½ĞÑËùÓĞ
+     * å”¤é†’æ‰€æœ‰
      */
     void broadcast() {
         pthread_cond_broadcast(&_cond);

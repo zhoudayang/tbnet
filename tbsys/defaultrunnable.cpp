@@ -18,7 +18,7 @@
 namespace tbsys {
 
 /**
- * ¹¹Ôì
+ * æ„é€ 
  */
 CDefaultRunnable::CDefaultRunnable(int threadCount) {
     _stop = false;
@@ -26,7 +26,7 @@ CDefaultRunnable::CDefaultRunnable(int threadCount) {
     _thread = NULL;
 }
 /*
- * Îö¹¹
+ * ææ„
  */
 CDefaultRunnable::~CDefaultRunnable() {
     if (_thread) {
@@ -36,12 +36,12 @@ CDefaultRunnable::~CDefaultRunnable() {
 }
 
 /**
- * ÉèÖÃÏß³ÌÊı
+ * è®¾ç½®çº¿ç¨‹æ•°
  */
 void CDefaultRunnable::setThreadCount(int threadCount)
 {
     if (_thread != NULL) {
-        TBSYS_LOG(ERROR, "ÒÑ¾­ÔÚÔËĞĞÁË²»ÄÜÉèÖÃÏß³ÌÊı");
+        TBSYS_LOG(ERROR, "å·²ç»åœ¨è¿è¡Œäº†ä¸èƒ½è®¾ç½®çº¿ç¨‹æ•°");
         return;
     }
     _threadCount = threadCount;

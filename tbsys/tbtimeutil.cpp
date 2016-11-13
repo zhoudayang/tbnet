@@ -23,7 +23,7 @@
 namespace tbsys {
 
 /*
- * µÃµ½µ±Ç°Ê±¼ä
+ * å¾—åˆ°å½“å‰æ—¶é—´
  */
 int64_t CTimeUtil::getTime() {
     struct timeval t;
@@ -38,7 +38,7 @@ int64_t CTimeUtil::getMonotonicTime() {
 }
 
 /**
- * °Ñint×ª³É20080101101010µÄ¸ñÊ½
+ * æŠŠintè½¬æˆ20080101101010çš„æ ¼å¼
  */ 
 char *CTimeUtil::timeToStr(time_t t, char *dest)
 {
@@ -56,7 +56,7 @@ char *CTimeUtil::timeToStr(time_t t, char *dest)
 }
 
 /**
- * °Ñ×Ö½Ú´®×ª³ÉÊ±¼ä(µ±µØÊ±¼ä)
+ * æŠŠå­—èŠ‚ä¸²è½¬æˆæ—¶é—´(å½“åœ°æ—¶é—´)
  */
 int CTimeUtil::strToTime(char *str)
 {

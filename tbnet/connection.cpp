@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 Connection::Connection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter) {
     _socket = socket;
@@ -32,7 +32,7 @@ Connection::Connection(Socket *socket, IPacketStreamer *streamer, IServerAdapter
 }
 
 /*
- * Îö¹¹º¯Êı
+ * ææ„å‡½æ•°
  */
 Connection::~Connection() {
     disconnect();
@@ -41,7 +41,7 @@ Connection::~Connection() {
 }
 
 /*
- * Á¬½Ó¶Ï¿ª£¬½µËùÓĞ·¢ËÍ¶ÓÁĞÖĞµÄpacketÈ«²¿³¬Ê±
+ * è¿æ¥æ–­å¼€ï¼Œé™æ‰€æœ‰å‘é€é˜Ÿåˆ—ä¸­çš„packetå…¨éƒ¨è¶…æ—¶
  */
 void Connection::disconnect() {
     _outputCond.lock();
@@ -51,7 +51,7 @@ void Connection::disconnect() {
 }
 
 /*
- * ·¢ËÍpacketµ½·¢ËÍ¶ÓÁĞ
+ * å‘é€packetåˆ°å‘é€é˜Ÿåˆ—
  */
 bool Connection::postPacket(Packet *packet, IPacketHandler *packetHandler, void *args, bool noblocking) {
     if (!isConnectState()) {
@@ -70,7 +70,7 @@ bool Connection::postPacket(Packet *packet, IPacketHandler *packetHandler, void 
             if (!ret) return false;
         }
     }
-    // Èç¹ûÊÇclient, ²¢ÇÒÓĞqueue³¤¶ÈµÄÏŞÖÆ
+    // å¦‚æœæ˜¯client, å¹¶ä¸”æœ‰queueé•¿åº¦çš„é™åˆ¶
     _outputCond.lock();
     _queueTotalSize = _outputQueue.size() + _channelPool.getUseListCount() + _myQueue.size();
     if (!_isServer && _queueLimit > 0 && noblocking && _queueTotalSize >= _queueLimit) {
@@ -79,27 +79,27 @@ bool Connection::postPacket(Packet *packet, IPacketHandler *packetHandler, void 
     }
     _outputCond.unlock();
     Channel *channel = NULL;
-    packet->setExpireTime(_queueTimeout);           // ÉèÖÃ³¬Ê±
-    if (_streamer->existPacketHeader()) {           // ´æÔÚ°üÍ·
-        uint32_t chid = packet->getChannelId();     // ´ÓpacketÖĞÈ¡
+    packet->setExpireTime(_queueTimeout);           // è®¾ç½®è¶…æ—¶
+    if (_streamer->existPacketHeader()) {           // å­˜åœ¨åŒ…å¤´
+        uint32_t chid = packet->getChannelId();     // ä»packetä¸­å–
         if (_isServer) {
-            assert(chid != 0);                      // ²»ÄÜÎª¿Õ
+            assert(chid != 0);                      // ä¸èƒ½ä¸ºç©º
         } else {
             channel = _channelPool.allocChannel();
 
-            // channelÃ»ÕÒµ½ÁË
+            // channelæ²¡æ‰¾åˆ°äº†
             if (channel == NULL) {
-                TBSYS_LOG(WARN, "·ÖÅächannel³ö´í, id: %u", chid);
+                TBSYS_LOG(WARN, "åˆ†é…channelå‡ºé”™, id: %u", chid);
                 return false;
             }
 
             channel->setHandler(packetHandler);
             channel->setArgs(args);
-            packet->setChannel(channel);            // ÉèÖÃ»ØÈ¥
+            packet->setChannel(channel);            // è®¾ç½®å›å»
         }
     }
     _outputCond.lock();
-    // Ğ´Èëµ½outputqueueÖĞ
+    // å†™å…¥åˆ°outputqueueä¸­
     _outputQueue.push(packet);
     if (_iocomponent != NULL && _outputQueue.size() == 1U) {
         _iocomponent->enableWrite(true);
@@ -133,7 +133,7 @@ bool Connection::postPacket(Packet *packet, IPacketHandler *packetHandler, void 
 }
 
 /*
- * handlePacket Êı¾İ
+ * handlePacket æ•°æ®
  */
 bool Connection::handlePacket(DataBuffer *input, PacketHeader *header) {
     Packet *packet;
@@ -142,15 +142,15 @@ bool Connection::handlePacket(DataBuffer *input, PacketHeader *header) {
     Channel *channel = NULL;
     IPacketHandler *packetHandler = NULL;
 
-    if (_streamer->existPacketHeader() && !_isServer) { // ´æÔÚ°üÍ·
-        uint32_t chid = header->_chid;    // ´ÓheaderÖĞÈ¡
+    if (_streamer->existPacketHeader() && !_isServer) { // å­˜åœ¨åŒ…å¤´
+        uint32_t chid = header->_chid;    // ä»headerä¸­å–
         chid = (chid & 0xFFFFFFF);
         channel = _channelPool.offerChannel(chid);
 
-        // channelÃ»ÕÒµ½
+        // channelæ²¡æ‰¾åˆ°
         if (channel == NULL) {
             input->drainData(header->_dataLen);
-            TBSYS_LOG(WARN, "Ã»ÕÒµ½channel, id: %u, %s", chid, tbsys::CNetUtil::addrToString(getServerId()).c_str());
+            TBSYS_LOG(WARN, "æ²¡æ‰¾åˆ°channel, id: %u, %s", chid, tbsys::CNetUtil::addrToString(getServerId()).c_str());
             return false;
         }
 
@@ -158,17 +158,17 @@ bool Connection::handlePacket(DataBuffer *input, PacketHeader *header) {
         args = channel->getArgs();
     }
 
-    // ½âÂë
+    // è§£ç 
     packet = _streamer->decode(input, header);
     if (packet == NULL) {
         packet = &ControlPacket::BadPacket;
     } else {
         packet->setPacketHeader(header);
-        // ÊÇÅúÁ¿µ÷ÓÃ, Ö±½Ó·ÅÈëqueue, ·µ»Ø
+        // æ˜¯æ‰¹é‡è°ƒç”¨, ç›´æ¥æ”¾å…¥queue, è¿”å›
         if (_isServer && _serverAdapter->_batchPushPacket) {
             if (_iocomponent) _iocomponent->addRef();
             _inputQueue.push(packet);
-            if (_inputQueue.size() >= 15) { // ´óÓÚ15¸öpacket¾Íµ÷ÓÃÒ»´Î
+            if (_inputQueue.size() >= 15) { // å¤§äº15ä¸ªpacketå°±è°ƒç”¨ä¸€æ¬¡
                 _serverAdapter->handleBatchPacket(this, _inputQueue);
                 _inputQueue.clear();
             }
@@ -176,19 +176,19 @@ bool Connection::handlePacket(DataBuffer *input, PacketHeader *header) {
         }
     }
 
-    // µ÷ÓÃhandler
+    // è°ƒç”¨handler
     if (_isServer) {
         if (_iocomponent) _iocomponent->addRef();
         rc = _serverAdapter->handlePacket(this, packet);
     } else {
-        if (packetHandler == NULL) {    // ÓÃÄ¬ÈÏµÄ
+        if (packetHandler == NULL) {    // ç”¨é»˜è®¤çš„
             packetHandler = _defaultPacketHandler;
         }
         assert(packetHandler != NULL);
 
         rc = packetHandler->handlePacket(packet, args);
         channel->setArgs(NULL);
-        // ½ÓÊÕ»ØÀ´ÊÍ·Åµô
+        // æ¥æ”¶å›æ¥é‡Šæ”¾æ‰
         if (channel) {
             _channelPool.appendChannel(channel);
         }
@@ -198,23 +198,23 @@ bool Connection::handlePacket(DataBuffer *input, PacketHeader *header) {
 }
 
 /*
- * ¼ì²é³¬Ê±
+ * æ£€æŸ¥è¶…æ—¶
  */
 bool Connection::checkTimeout(int64_t now) {
-    // µÃµ½³¬Ê±µÄchannelµÄlist
+    // å¾—åˆ°è¶…æ—¶çš„channelçš„list
     Channel *list = _channelPool.getTimeoutList(now);
     Channel *channel = NULL;
     IPacketHandler *packetHandler = NULL;
 
     if (list != NULL) {
-        if (!_isServer) { // client endpoint, ¸øÃ¿¸öchannel·¢Ò»¸ö³¬Ê±packet, ·şÎñÆ÷¶Ë°Ñchannel»ØÊÕ
+        if (!_isServer) { // client endpoint, ç»™æ¯ä¸ªchannelå‘ä¸€ä¸ªè¶…æ—¶packet, æœåŠ¡å™¨ç«¯æŠŠchannelå›æ”¶
             channel = list;
             while (channel != NULL) {
                 packetHandler = channel->getHandler();
-                if (packetHandler == NULL) {    // ÓÃÄ¬ÈÏµÄ
+                if (packetHandler == NULL) {    // ç”¨é»˜è®¤çš„
                     packetHandler = _defaultPacketHandler;
                 }
-                // »Øµ÷
+                // å›è°ƒ
                 if (packetHandler != NULL) {
                     packetHandler->handlePacket(&ControlPacket::TimeoutPacket, channel->getArgs());
                     channel->setArgs(NULL);
@@ -222,11 +222,11 @@ bool Connection::checkTimeout(int64_t now) {
                 channel = channel->getNext();
             }
         }
-        // ¼Óµ½freelistÖĞ
+        // åŠ åˆ°freelistä¸­
         _channelPool.appendFreeList(list);
     }
 
-    // ¶ÔPacketQueue³¬Ê±¼ì²é
+    // å¯¹PacketQueueè¶…æ—¶æ£€æŸ¥
     _outputCond.lock();
     Packet *packetList = _outputQueue.getTimeoutList(now);
     _outputCond.unlock();
@@ -237,10 +237,10 @@ bool Connection::checkTimeout(int64_t now) {
         packet->free();
         if (channel) {
             packetHandler = channel->getHandler();
-            if (packetHandler == NULL) {    // ÓÃÄ¬ÈÏµÄ
+            if (packetHandler == NULL) {    // ç”¨é»˜è®¤çš„
                 packetHandler = _defaultPacketHandler;
             }
-            // »Øµ÷
+            // å›è°ƒ
             if (packetHandler != NULL) {
                 packetHandler->handlePacket(&ControlPacket::TimeoutPacket, channel->getArgs());
                 channel->setArgs(NULL);
@@ -249,7 +249,7 @@ bool Connection::checkTimeout(int64_t now) {
         }
     }
 
-    // Èç¹ûÊÇclient, ²¢ÇÒÓĞqueue³¤¶ÈµÄÏŞÖÆ
+    // å¦‚æœæ˜¯client, å¹¶ä¸”æœ‰queueé•¿åº¦çš„é™åˆ¶
     if (!_isServer && _queueLimit > 0 &&  _queueTotalSize > _queueLimit) {
         _outputCond.lock();
         _queueTotalSize = _outputQueue.size() + _channelPool.getUseListCount() + _myQueue.size();
@@ -263,7 +263,7 @@ bool Connection::checkTimeout(int64_t now) {
 }
 
 /**
- * Á¬½Ó×´Ì¬
+ * è¿æ¥çŠ¶æ€
  */
 bool Connection::isConnectState() {
     if (_iocomponent != NULL) {

@@ -23,61 +23,62 @@ namespace tbnet {
 class IOEvent {
 
 public:
-    bool _readOccurred;  // ¶Á·¢Éú
-    bool _writeOccurred;  // Ğ´·¢Éú
-    bool _errorOccurred;  // ´íÎó·¢Éú
-    IOComponent *_ioc;  // »Ø´«²ÎÊı
+    bool _readOccurred;  // è¯»å‘ç”Ÿ
+    bool _writeOccurred;  // å†™å‘ç”Ÿ
+    bool _errorOccurred;  // é”™è¯¯å‘ç”Ÿ
+    IOComponent *_ioc;  // å›ä¼ å‚æ•°
 };
 
 class SocketEvent {
 
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     SocketEvent();
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     virtual ~SocketEvent();
     /*
-     * Ôö¼ÓSocketµ½ÊÂ¼şÖĞ
+     * å¢åŠ Socketåˆ°äº‹ä»¶ä¸­
      *
-     * @param socket ±»¼ÓµÄsocket
-     * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
-     * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
-     * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+     * @param socket è¢«åŠ çš„socket
+     * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+     * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+     * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
      */
     virtual bool addEvent(Socket *socket, bool enableRead, bool enableWrite) = 0;
 
     /*
-     * ÉèÖÃÉ¾³ıSocketµ½ÊÂ¼şÖĞ
+     * è®¾ç½®åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
      *
-     * @param socket ±»¼ÓµÄsocket
-     * @param enableRead: ÉèÖÃÊÇ·ñ¿É¶Á
-     * @param enableWrite: ÉèÖÃÊÇ·ñ¿ÉĞ´
-     * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+     * @param socket è¢«åŠ çš„socket
+     * @param enableRead: è®¾ç½®æ˜¯å¦å¯è¯»
+     * @param enableWrite: è®¾ç½®æ˜¯å¦å¯å†™
+     * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
      */
     virtual bool setEvent(Socket *socket, bool enableRead, bool enableWrite) = 0;
 
     /*
-        * É¾³ıSocketµ½ÊÂ¼şÖĞ
+        * åˆ é™¤Socketåˆ°äº‹ä»¶ä¸­
         *
-        * @param socket ±»É¾³ısocket
-        * @return  ²Ù×÷ÊÇ·ñ³É¹¦, true ¨C ³É¹¦, false ¨C Ê§°Ü
+        * @param socket è¢«åˆ é™¤socket
+        * @return  æ“ä½œæ˜¯å¦æˆåŠŸ, true â€“ æˆåŠŸ, false â€“ å¤±è´¥
         */
     virtual bool removeEvent(Socket *socket) = 0;
 
     /*
-     * µÃµ½¶ÁĞ´ÊÂ¼ş¡£
+     * å¾—åˆ°è¯»å†™äº‹ä»¶ã€‚
      *
-    * @param timeout  ³¬Ê±Ê±¼ä(µ¥Î»:ms)
-    * @param events  ÊÂ¼şÊı×é
-    * @param cnt   eventsµÄÊı×é´óĞ¡
-    * @return ÊÂ¼şÊı, 0Îª³¬Ê±
+    * @param timeout  è¶…æ—¶æ—¶é—´(å•ä½:ms)
+    * @param events  äº‹ä»¶æ•°ç»„
+    * @param cnt   eventsçš„æ•°ç»„å¤§å°
+    * @return äº‹ä»¶æ•°, 0ä¸ºè¶…æ—¶
      */
     virtual int getEvents(int timeout, IOEvent *events, int cnt) = 0;
 };
 }
 
 #endif /*SOCKETEVENT_H_*/
+

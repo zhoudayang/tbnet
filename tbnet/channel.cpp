@@ -18,7 +18,7 @@
 namespace tbnet {
 
 /*
- * ¹¹Ôìº¯Êı
+ * æ„é€ å‡½æ•°
  */
 Channel::Channel() {
     _prev = NULL;
@@ -27,7 +27,7 @@ Channel::Channel() {
 }
 
 /*
- * ÉèÖÃ
+ * è®¾ç½®
  *
  * @param   chid    ChannelId
  */
@@ -36,7 +36,7 @@ void Channel::setId(uint32_t id) {
 }
 
 /*
- * µÃµ½ID
+ * å¾—åˆ°ID
  */
 uint32_t Channel::getId() {
     return _id;
@@ -59,9 +59,9 @@ IPacketHandler *Channel::getHandler() {
 }
 
 /*
- * ÉèÖÃ¹ıÆÚÊ±¼ä
+ * è®¾ç½®è¿‡æœŸæ—¶é—´
  *
- * @param milliseconds ºÁÃëÊı, 0ÎªÓÀ²»¹ıÆÚ
+ * @param milliseconds æ¯«ç§’æ•°, 0ä¸ºæ°¸ä¸è¿‡æœŸ
  */
 void Channel::setExpireTime(int64_t expireTime) {
     _expireTime = expireTime;

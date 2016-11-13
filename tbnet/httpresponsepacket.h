@@ -36,57 +36,57 @@ typedef STRING_MAP::iterator STRING_MAP_ITER;
 class HttpResponsePacket : public Packet {
 public:
     /*
-     * ¹¹Ôìº¯Êı
+     * æ„é€ å‡½æ•°
      */
     HttpResponsePacket();
 
     /*
-     * Îö¹¹º¯Êı
+     * ææ„å‡½æ•°
      */
     ~HttpResponsePacket();
 
     /*
-     * ¼ÆËã³öÊı¾İ°üµÄ³¤¶È
+     * è®¡ç®—å‡ºæ•°æ®åŒ…çš„é•¿åº¦
      */
     void countDataLen();
 
     /*
-     * ×é×°
+     * ç»„è£…
      */
     bool encode(DataBuffer *output);
 
     /*
-     * ½â¿ª
+     * è§£å¼€
      */
     bool decode(DataBuffer *input, PacketHeader *header);
 
     /*
-     * ÉèÖÃheader
+     * è®¾ç½®header
      */
     void setHeader(const char *name, const char *value);
 
     /*
-     * ÉèÖÃ×´Ì¬
+     * è®¾ç½®çŠ¶æ€
      */
     void setStatus(bool status, const char *statusMessage = NULL);
 
     /*
-     * ÉèÖÃÄÚÈİ
+     * è®¾ç½®å†…å®¹
      */
     void setBody(const char *body, int len);
 
     /*
-     * ÊÇ·ñkeepalive
+     * æ˜¯å¦keepalive
      */
     void setKeepAlive(bool keepAlive);
 
 private:
-    bool _status;                   // ·µ»ØµÄ×´Ì¬, true => 200, false => 404
-    char *_statusMessage;           // ×´Ì¬
-    char *_body;                    // ·µ»ØµÄÄÚÈİ
-    int _bodyLen;                   // ·µ»ØÄÚÈİÕÒ³¤¶È
-    STRING_MAP _headerMap;          // ·µ»ØÆäËûÍ·ĞÅÏ¢
-    bool _isKeepAlive;              // ÊÇ·ñkeepalive
+    bool _status;                   // è¿”å›çš„çŠ¶æ€, true => 200, false => 404
+    char *_statusMessage;           // çŠ¶æ€
+    char *_body;                    // è¿”å›çš„å†…å®¹
+    int _bodyLen;                   // è¿”å›å†…å®¹æ‰¾é•¿åº¦
+    STRING_MAP _headerMap;          // è¿”å›å…¶ä»–å¤´ä¿¡æ¯
+    bool _isKeepAlive;              // æ˜¯å¦keepalive
 };
 
 }
