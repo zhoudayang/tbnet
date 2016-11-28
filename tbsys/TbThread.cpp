@@ -108,6 +108,7 @@ int Thread::start(size_t stackSize) {
       throw ThreadSyscallException(__FILE__, __LINE__, rt);
     }
 #endif
+    // 首先尝试使用attr属性来创建线程
     rt = pthread_create(&_thread, &attr, startHook, this);
 #ifdef _NO_EXCEPTION
     if ( 0 != rt )
@@ -122,7 +123,9 @@ int Thread::start(size_t stackSize) {
       throw ThreadSyscallException(__FILE__, __LINE__, rt);
     }
 #endif
-  } else {
+  }
+    //创建失败使用默认模式创建线程
+  else {
     const int rt = pthread_create(&_thread, 0, startHook, this);
 #ifdef _NO_EXCEPTION
     if ( 0 != rt )
