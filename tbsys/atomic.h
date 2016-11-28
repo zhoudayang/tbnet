@@ -78,6 +78,7 @@ typedef struct { volatile int counter; } atomic_t;
  */
 static __inline__ void atomic_add(int i, atomic_t *v)
 {
+  //__asm__ __volatile__ 表示后面的代码是内嵌汇编代码，编译器需要使它保持原样
 	__asm__ __volatile__(
 		LOCK "addl %1,%0"
 		:"=m" (v->counter)
