@@ -27,225 +27,203 @@
 #include "PublicDefine.h"
 
 using namespace std;
-namespace tbutil
-{
+namespace tbutil {
 Thread::Thread() :
     _running(false),
     _started(false),
     _detachable(false),
-    _thread(0)
-{
+    _thread(0) {
 }
 
-Thread::~Thread()
-{
+Thread::~Thread() {
 }
 
-extern "C" 
+extern "C"
 {
-static void* startHook(void* arg)
-{
-    ThreadPtr thread;
-    try
-    {
-        Thread* rawThread = static_cast<Thread*>(arg);
-        thread = rawThread;
-        rawThread->__decRef();
-        thread->run();
-    }
-    catch(...)
-    {
-        std::terminate();
-    }
-    thread->_done();
-    return 0;
+static void *startHook(void *arg) {
+  ThreadPtr thread;
+  try {
+    Thread *rawThread = static_cast<Thread *>(arg);
+    thread = rawThread;
+    rawThread->__decRef();
+    thread->run();
+  }
+  catch (...) {
+    //terminate the thread when error occurred
+    std::terminate();
+  }
+  //thread is done now
+  thread->_done();
+  return 0;
 }
 }
 
-int Thread::start(size_t stackSize)
-{
-    ThreadPtr keepMe = this;
-    Mutex::Lock sync(_mutex);
+int Thread::start(size_t stackSize) {
+  ThreadPtr keepMe = this;
+  Mutex::Lock sync(_mutex);
 
-    if(_started)
-    {
+  if (_started) {
 #ifdef _NO_EXCEPTION
-        JUST_RETURN( _started == true , -1 );
-        TBSYS_LOG(ERROR,"%s","ThreadStartedException");
+    JUST_RETURN( _started == true , -1 );
+    TBSYS_LOG(ERROR,"%s","ThreadStartedException");
 #else
-        throw ThreadStartedException(__FILE__, __LINE__);
+    throw ThreadStartedException(__FILE__, __LINE__);
 #endif
-    }
+  }
 
-    __incRef();
+  __incRef();
 
-    if(stackSize > 0)
-    {
-        pthread_attr_t attr;
-        int rt = pthread_attr_init(&attr); 
-#ifdef _NO_EXCEPTION
-        if ( 0 != rt )
-        {
-            __decRef();
-            TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-            return -1;
-        }
-#else
-        if ( 0 != rt )
-        {
-            __decRef();
-            throw ThreadSyscallException(__FILE__, __LINE__, rt);
-        }
-#endif
-
-        if(stackSize < PTHREAD_STACK_MIN)
-        {
-            stackSize = PTHREAD_STACK_MIN;
-        }
-
-        rt = pthread_attr_setstacksize(&attr, stackSize);
-#ifdef _NO_EXCEPTION
-        if ( 0 != rt )
-        {
-            __decRef();
-            TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-            return -1;
-        }
-#else
-        if( 0 != rt )
-        {
-            __decRef();
-            throw ThreadSyscallException(__FILE__, __LINE__, rt);
-        }
-#endif
-        rt = pthread_create(&_thread, &attr, startHook, this);
-#ifdef _NO_EXCEPTION
-        if ( 0 != rt )
-        {
-            __decRef();
-            TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-            return -1;
-        }
-#else
-        if( 0 != rt )
-        {
-            __decRef();
-            throw ThreadSyscallException(__FILE__, __LINE__, rt);
-        }
-#endif
-    }
-    else
-    {
-        const int rt = pthread_create(&_thread, 0, startHook, this);
-#ifdef _NO_EXCEPTION
-        if ( 0 != rt )
-        {
-            __decRef();
-            TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-            return -1;
-        }
-#else
-        if( 0 != rt ) 
-        {
-            __decRef();
-            throw ThreadSyscallException(__FILE__, __LINE__, rt);
-        }
-#endif
-    }
-
-   if ( _detachable )
-   {
-       detach();
-   }
-   _started = true;
-   _running = true;
-   return 0; 
-}
-
-bool Thread::isAlive() const 
-{
-    return _running;
-}
-
-void Thread::_done()
-{
-    Mutex::Lock lock(_mutex);
-    _running = false;
-}
-
-int Thread::join()
-{
-    if(_detachable)
-    {
-#ifdef _NO_EXCEPTION
-        TBSYS_LOG(ERROR,"%s","BadThreadControlException");
-        JUST_RETURN( _detachable==true , -1);
-#else
-        throw BadThreadControlException(__FILE__, __LINE__);
-#endif
-    }
-
-    const int rt = pthread_join(_thread, NULL);
+  if (stackSize > 0) {
+    pthread_attr_t attr;
+    int rt = pthread_attr_init(&attr);
 #ifdef _NO_EXCEPTION
     if ( 0 != rt )
     {
+        __decRef();
         TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
         return -1;
     }
 #else
-    if( 0 != rt )
-    {
-        throw ThreadSyscallException(__FILE__, __LINE__, rt);
+    if (0!=rt) {
+      __decRef();
+      throw ThreadSyscallException(__FILE__, __LINE__, rt);
     }
 #endif
-    return 0;
-}
 
-int Thread::detach()
-{
-    if(!_detachable)
-    {
-#ifdef _NO_EXCEPTION
-        TBSYS_LOG(ERROR,"%s","BadThreadControlException");
-        JUST_RETURN( _detachable==false, -1 );
-#else
-        throw BadThreadControlException(__FILE__, __LINE__);
-#endif
+    if (stackSize < PTHREAD_STACK_MIN) {
+      stackSize = PTHREAD_STACK_MIN;
     }
 
-    const int rt = pthread_detach(_thread);
+    rt = pthread_attr_setstacksize(&attr, stackSize);
 #ifdef _NO_EXCEPTION
     if ( 0 != rt )
     {
+        __decRef();
         TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
         return -1;
     }
 #else
-    if(  0 != rt ) 
-    {
-        throw ThreadSyscallException(__FILE__, __LINE__, rt);
+    if (0!=rt) {
+      __decRef();
+      throw ThreadSyscallException(__FILE__, __LINE__, rt);
     }
 #endif
-    return 0;
+    rt = pthread_create(&_thread, &attr, startHook, this);
+#ifdef _NO_EXCEPTION
+    if ( 0 != rt )
+    {
+        __decRef();
+        TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
+        return -1;
+    }
+#else
+    if (0!=rt) {
+      __decRef();
+      throw ThreadSyscallException(__FILE__, __LINE__, rt);
+    }
+#endif
+  } else {
+    const int rt = pthread_create(&_thread, 0, startHook, this);
+#ifdef _NO_EXCEPTION
+    if ( 0 != rt )
+    {
+        __decRef();
+        TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
+        return -1;
+    }
+#else
+    if (0!=rt) {
+      __decRef();
+      throw ThreadSyscallException(__FILE__, __LINE__, rt);
+    }
+#endif
+  }
+  //if thread is detachable, detatch the thread
+  if (_detachable) {
+    detach();
+  }
+  _started = true;
+  _running = true;
+  return 0;
 }
 
-
-pthread_t Thread::id() const
-{
-    return _thread;;
+bool Thread::isAlive() const {
+  return _running;
 }
 
-void Thread::ssleep(const tbutil::Time& timeout)
-{
-    struct timeval tv = timeout;
-    struct timespec ts;
-    ts.tv_sec = tv.tv_sec;
-    ts.tv_nsec = tv.tv_usec * 1000L;
-    nanosleep(&ts, 0);
+//set mark, thread is done, set _running to false
+void Thread::_done() {
+  Mutex::Lock lock(_mutex);
+  _running = false;
 }
 
-void Thread::yield()
-{
-    sched_yield();
+int Thread::join() {
+  // 线程已经分离, 不能够join
+  if (_detachable) {
+#ifdef _NO_EXCEPTION
+    TBSYS_LOG(ERROR,"%s","BadThreadControlException");
+    JUST_RETURN( _detachable==true , -1);
+#else
+    throw BadThreadControlException(__FILE__, __LINE__);
+#endif
+  }
+  // join the thread
+  const int rt = pthread_join(_thread, NULL);
+#ifdef _NO_EXCEPTION
+  if ( 0 != rt )
+  {
+      TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
+      return -1;
+  }
+#else
+  if (0!=rt) {
+    throw ThreadSyscallException(__FILE__, __LINE__, rt);
+  }
+#endif
+  return 0;
+}
+// 这里使用_NO_EXCEOTION宏定义来判断是否允许exception, 这样就能够实现允许异常和不允许异常的快速切换
+int Thread::detach() {
+  if (!_detachable) {
+#ifdef _NO_EXCEPTION
+    TBSYS_LOG(ERROR,"%s","BadThreadControlException");
+    JUST_RETURN( _detachable==false, -1 );
+#else
+    throw BadThreadControlException(__FILE__, __LINE__);
+#endif
+  }
+  // detatch the thread
+  const int rt = pthread_detach(_thread);
+#ifdef _NO_EXCEPTION
+  if ( 0 != rt )
+  {
+      TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
+      return -1;
+  }
+#else
+  if (0!=rt) {
+    throw ThreadSyscallException(__FILE__, __LINE__, rt);
+  }
+#endif
+  return 0;
+}
+
+// return thread id
+pthread_t Thread::id() const {
+  return _thread;;
+}
+
+void Thread::ssleep(const tbutil::Time &timeout) {
+  struct timeval tv = timeout;
+  struct timespec ts;
+  ts.tv_sec = tv.tv_sec;
+  //convert from us to ns unit
+  ts.tv_nsec = tv.tv_usec*1000L;
+  nanosleep(&ts, 0);
+}
+
+void Thread::yield() {
+  /* Yield the processor.  */
+  sched_yield();
 }
 }//end namespace tbutil

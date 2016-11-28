@@ -1,6 +1,6 @@
 project(tbnet)
 cmake_minimum_required(VERSION 3.5)
-
+add_definitions(-D_NO_EXCEPTION)
 add_definitions(-O2 -Wall -std=c++11 )
 add_subdirectory(tbnet)
 add_subdirectory(tbsys)

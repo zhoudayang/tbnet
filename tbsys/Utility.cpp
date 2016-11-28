@@ -497,17 +497,4 @@ int getExeRoot(char *pszExeRoot, unsigned uiExePathLen)
 }
 
 }//end namespace
-/*
-int main(int argc, char *argv[])
-{
-    if (-1 == checkCreateLink(argv[1], argv[2], (3 == argc)?0:1))
-    {
-        printf("check failed!\n");
-    }
-    else
-    {
-        printf("check OK.\n");
-    }
-    return 0;
-}
-*/
+

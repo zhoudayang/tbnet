@@ -46,7 +46,7 @@ int getExe(char *pszExe, unsigned uiExeLen);
 int getExeRoot(char *pszExeRoot, unsigned uiExePathLen);
 
 /**
- * 获取大于某个值得最小的2的n次方的整数
+ * 获取大于某个值的最小的2的n次方的整数
  * @param uiValue(uint32_t): 要求的值的下限
  * @see 
  * @return result
