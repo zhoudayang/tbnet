@@ -23,12 +23,12 @@ class ThreadPool;
  * @brief ThreadPoolWorkItem 线程任务队列Item基类,它拥有execute纯虚方法
  * 要实例化ThreadPoolWorkItem类，必须继承并实现execute方法
  */
-class ThreadPoolWorkItem 
+class ThreadPoolWorkItem
 {
-public:
-      virtual ~ThreadPoolWorkItem(){}
-      virtual void destroy( )=0;
-      virtual void execute( const ThreadPool* ) = 0;
+ public:
+  virtual ~ThreadPoolWorkItem() {}
+  virtual void destroy()=0;
+  virtual void execute(const ThreadPool *) = 0;
 };
 }
 #endif

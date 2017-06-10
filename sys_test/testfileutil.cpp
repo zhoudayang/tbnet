@@ -19,12 +19,12 @@ using namespace tbsys;
 
 int main(int argc, char *argv[])
 {
-    char str[1024];
-    strcpy(str, "/tmp/src/lcp/.svn/text-base");
-    printf("ret: %d\n", tbsys::CFileUtil::mkdirs(str));
-    
-    strcpy(str, "/tmp/lcp/ltmain.sh");
-    printf("is sym: ret: %d\n", tbsys::CFileUtil::isSymLink(str));
-    return 0;
+  char str[1024];
+  strcpy(str, "/tmp/src/lcp/.svn/text-base");
+  printf("ret: %d\n", tbsys::CFileUtil::mkdirs(str));
+
+  strcpy(str, "/tmp/lcp/ltmain.sh");
+  printf("is sym: ret: %d\n", tbsys::CFileUtil::isSymLink(str));
+  return 0;
 }
 

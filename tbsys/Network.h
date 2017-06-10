@@ -30,15 +30,15 @@
 #define INVALID_SOCKET -1
 
 #ifndef SHUT_RD
-    #define SHUT_RD 0
+#define SHUT_RD 0
 #endif
 
 #ifndef SHUT_WR
-    #define SHUT_WR 1
+#define SHUT_WR 1
 #endif
 
 #ifndef SHUT_RDWR
-    #define SHUT_RDWR 2
+#define SHUT_RDWR 2
 #endif
 
 namespace tbutilInternal
@@ -46,10 +46,10 @@ namespace tbutilInternal
 
 bool interrupted();
 
-int setBlock( SOCKET fd , bool block );
+int setBlock(SOCKET fd, bool block);
 
 int createPipe(SOCKET fds[2]);
 
-int closeSocketNoThrow( SOCKET fd );
+int closeSocketNoThrow(SOCKET fd);
 }
 #endif

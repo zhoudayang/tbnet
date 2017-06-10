@@ -34,7 +34,7 @@ void check_init_state(WarningBuffer &buffer)
 void tsi_basic_check()
 {
   uint32_t i = 0;
-  WarningBuffer * buffer = get_tsi_warning_buffer();
+  WarningBuffer *buffer = get_tsi_warning_buffer();
   assert(NULL != buffer);
   check_init_state(*buffer);
   // over write string test
@@ -57,15 +57,15 @@ void tsi_basic_check()
 
 WarningBuffer *bug_buffer;
 
-void* thread( void* para )
+void *thread(void *para)
 {
   para = NULL;
   pthread_t t = pthread_self();
   WarningBuffer *b1 = get_tsi_warning_buffer();
-  fprintf(stderr, "thread %lu buf: %p\n", (uint64_t)t, b1);
+  fprintf(stderr, "thread %lu buf: %p\n", (uint64_t) t, b1);
   sleep(1);
   WarningBuffer *b2 = get_tsi_warning_buffer();
-  fprintf(stderr, "thread %lu buf: %p\n", (uint64_t)t, b2);
+  fprintf(stderr, "thread %lu buf: %p\n", (uint64_t) t, b2);
   assert(b1 == b2);
   sleep(1);
   bug_buffer = b2;
@@ -74,12 +74,12 @@ void* thread( void* para )
 
 void tsi_multi_thread_check()
 {
-  pthread_t t1,t2;
+  pthread_t t1, t2;
   void *st1, *st2;
-  pthread_create( &t1, NULL, thread, NULL );
-  pthread_create( &t2, NULL, thread, NULL );
-  pthread_join( t1, &st1 );
-  pthread_join( t2, &st2 );
+  pthread_create(&t1, NULL, thread, NULL);
+  pthread_create(&t2, NULL, thread, NULL);
+  pthread_join(t1, &st1);
+  pthread_join(t2, &st2);
   fprintf(stderr, "multi_thread_check ok\n");
 }
 
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
   // basic random test
   uint32_t i = 0;
   WarningBuffer buffer;
-  check_init_state(buffer); 
+  check_init_state(buffer);
   for (i = 0; i < buffer.get_buffer_size(); i++)
   {
     char buf[1024];
@@ -99,18 +99,18 @@ int main(int argc, char *argv[])
     assert(i == buffer.get_readable_warning_count());
     assert(i == buffer.get_total_warning_count());
     assert(0 == buffer.append_warning(buf));
-    assert(i+1 == buffer.get_readable_warning_count());
-    assert(i+1 == buffer.get_total_warning_count());
+    assert(i + 1 == buffer.get_readable_warning_count());
+    assert(i + 1 == buffer.get_total_warning_count());
     assert(NULL != buffer.get_warning(i));
   }
-  
+
   for (i = 0; i < buffer.get_buffer_size() * 2; i++)
   {
     char buf[1024];
     sprintf(buf, "hello%d", i);
     assert(buffer.get_buffer_size() + i == buffer.get_total_warning_count());
     assert(0 == buffer.append_warning(buf));
-    assert(buffer.get_buffer_size()  == buffer.get_readable_warning_count());
+    assert(buffer.get_buffer_size() == buffer.get_readable_warning_count());
     assert(buffer.get_buffer_size() + i + 1 == buffer.get_total_warning_count());
     if (i < buffer.get_buffer_size())
     {
@@ -165,11 +165,11 @@ int main(int argc, char *argv[])
   buffer.reset();
   check_init_state(buffer);
   {
-    char buf[1024*2];
-    memset(buf, 'A', 1024*2);
+    char buf[1024 * 2];
+    memset(buf, 'A', 1024 * 2);
     assert(0 == buffer.append_warning(buf));
     assert(0 != strcmp(buffer.get_warning(0), buf));
-    assert(0 == strncmp(buffer.get_warning(0), buf, buffer.get_max_warn_len()-1));
+    assert(0 == strncmp(buffer.get_warning(0), buf, buffer.get_max_warn_len() - 1));
   }
   fprintf(stderr, "pass truncate test\n");
   fprintf(stderr, "ok\n");

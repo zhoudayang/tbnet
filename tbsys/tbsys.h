@@ -31,8 +31,8 @@
 #define UNUSED(v) ((void)(v))
 #endif
 
-
-namespace tbsys {
+namespace tbsys
+{
 class CConfig;
 class CFileUtil;
 class CStringUtil;
@@ -42,7 +42,7 @@ class CProcess;
 class CLogger;
 class CThread;
 class CThreadMutex;
-class CThreadCond; 
+class CThreadCond;
 class Runnable;
 class CDefaultRunnable;
 class CFileQueue;
@@ -57,53 +57,53 @@ namespace tbutil
 {
 class noncopyable
 {
-protected:
- 
-    noncopyable() { }
-    ~noncopyable() { }
-private:
- 
-    noncopyable(const noncopyable&);
-    const noncopyable& operator=(const noncopyable&);
+ protected:
+
+  noncopyable() {}
+  ~noncopyable() {}
+ private:
+
+  noncopyable(const noncopyable &);
+  const noncopyable &operator=(const noncopyable &);
 };
 
 #if defined(__BCPLUSPLUS__) || defined(_MSC_VER)
-    typedef __int64 Int64;
-    #define T_INT64(n) n##i64
+typedef __int64 Int64;
+#define T_INT64(n) n##i64
 #elif defined(TNET_64)
-    typedef long Int64;
-    #define T_INT64(n) n##L
+typedef long Int64;
+#define T_INT64(n) n##L
 #else
-    typedef long long Int64;
-    #define T_INT64(n) n##LL
+typedef long long Int64;
+#define T_INT64(n) n##LL
 #endif
- 
+
 typedef unsigned char Byte;
 typedef short Short;
 typedef int Int;
 typedef Int64 Long;
 typedef float Float;
 typedef double Double;
- 
+
 typedef ::std::vector<bool> BoolSeq;
- 
-typedef ::std::vector< Byte> ByteSeq;
- 
-typedef ::std::vector< Short> ShortSeq;
- 
-typedef ::std::vector< Int> IntSeq;
- 
-typedef ::std::vector< Long> LongSeq;
- 
-typedef ::std::vector< Float> FloatSeq;
- 
-typedef ::std::vector< Double> DoubleSeq;
- 
-typedef ::std::vector< ::std::string> StringSeq;
- 
+
+typedef ::std::vector<Byte> ByteSeq;
+
+typedef ::std::vector<Short> ShortSeq;
+
+typedef ::std::vector<Int> IntSeq;
+
+typedef ::std::vector<Long> LongSeq;
+
+typedef ::std::vector<Float> FloatSeq;
+
+typedef ::std::vector<Double> DoubleSeq;
+
+typedef ::std::vector<::std::string> StringSeq;
+
 inline int getSystemErrno()
 {
-    return errno;
+  return errno;
 }
 }//end namespace tbutil
 

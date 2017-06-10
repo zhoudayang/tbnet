@@ -16,31 +16,33 @@
 #ifndef TBNET_SERVERSOCKET_H_
 #define TBNET_SERVERSOCKET_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class ServerSocket : public Socket {
+class ServerSocket : public Socket
+{
 
-public:
-    /*
-     * 构造函数
-     */
-    ServerSocket();
-    /*
-     * accept一个新的连接
-     *
-     * @return 一个Socket
-     */
-    Socket *accept();
+ public:
+  /*
+   * 构造函数
+   */
+  ServerSocket();
+  /*
+   * accept一个新的连接
+   *
+   * @return 一个Socket
+   */
+  Socket *accept();
 
-    /*
-     * 打开监听
-     *
-     * @return 是否成功
-     */
-    bool listen();
+  /*
+   * 打开监听
+   *
+   * @return 是否成功
+   */
+  bool listen();
 
-private:
-    int _backLog; // backlog
+ private:
+  int _backLog; // backlog
 };
 
 }

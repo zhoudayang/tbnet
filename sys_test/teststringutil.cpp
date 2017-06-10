@@ -20,17 +20,19 @@ using namespace tbsys;
 int main(int argc, char *argv[])
 {
 
-    char s[100];
-    for(int i=0; i<10; i++) {
-	int len = sprintf(s, "˛âĘÔ_test_%d", i);
-	fprintf(stderr, "%s => %u\n", s, CStringUtil::murMurHash(s, len));
-    }
-    uint64_t x = 1;
-    for(int i=0; i<7; i++) {
-	fprintf(stderr, "%ld => %s\n", x, CStringUtil::formatByteSize(x).c_str());
-	x *= 1022;
-    }
+  char s[100];
+  for (int i = 0; i < 10; i++)
+  {
+    int len = sprintf(s, "˛âĘÔ_test_%d", i);
+    fprintf(stderr, "%s => %u\n", s, CStringUtil::murMurHash(s, len));
+  }
+  uint64_t x = 1;
+  for (int i = 0; i < 7; i++)
+  {
+    fprintf(stderr, "%ld => %s\n", x, CStringUtil::formatByteSize(x).c_str());
+    x *= 1022;
+  }
 
-    return 0;
+  return 0;
 }
 

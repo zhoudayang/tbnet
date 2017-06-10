@@ -16,12 +16,14 @@
 #ifndef TBNET_IPACKET_FACTORY_H_
 #define TBNET_IPACKET_FACTORY_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class IPacketFactory {
-public:
-    virtual ~IPacketFactory() {};
-    virtual Packet *createPacket(int pcode) = 0;
+class IPacketFactory
+{
+ public:
+  virtual ~IPacketFactory() {};
+  virtual Packet *createPacket(int pcode) = 0;
 };
 }
 

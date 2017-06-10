@@ -24,22 +24,23 @@ namespace tbsys
  * @see 
  * @return 新创建的Type类的对象(成功)/NULL(失败)
  */
-template <typename Type> inline Type *gNew()
+template<typename Type>
+inline Type *gNew()
 {
-    Type *Pointer = NULL;
+  Type *Pointer = NULL;
 #ifdef _NO_EXCEPTION
-    Pointer = new Type;
+  Pointer = new Type;
 #else
-    try
-    {
-        Pointer = new Type;
-    }
-    catch (...)
-    {
-        Pointer = NULL;
-    }
+  try
+  {
+      Pointer = new Type;
+  }
+  catch (...)
+  {
+      Pointer = NULL;
+  }
 #endif // _NO_EXCEPTION
-    return Pointer;
+  return Pointer;
 }
 
 /**
@@ -48,22 +49,23 @@ template <typename Type> inline Type *gNew()
  * @see 
  * @return 包含uiItemNum个类对象的对象数组(成功)/NULL(失败)
  */
-template <typename Type> inline Type *gNewA(unsigned uiItemNum)
+template<typename Type>
+inline Type *gNewA(unsigned uiItemNum)
 {
-    Type *Pointer = NULL;
+  Type *Pointer = NULL;
 #ifdef _NO_EXCEPTION
-        Pointer = new Type[uiItemNum];
+  Pointer = new Type[uiItemNum];
 #else
-    try
-    {
-        Pointer = new Type[uiItemNum];
-    }
-    catch (...)
-    {
-        Pointer = NULL;
-    }
+  try
+  {
+      Pointer = new Type[uiItemNum];
+  }
+  catch (...)
+  {
+      Pointer = NULL;
+  }
 #endif // _NO_EXCEPTION
-    return Pointer;
+  return Pointer;
 }
 
 // if not use the default construct, please use this macro, but is can't reference
@@ -104,22 +106,23 @@ template <typename Type> inline Type *gNewA(unsigned uiItemNum)
  * @see 
  * @return Type类型对象(成功)/NULL(失败)
  */
-template <typename Type> inline Type *gConstruct(void *p)
+template<typename Type>
+inline Type *gConstruct(void *p)
 {
-    Type *Pointer = NULL;
+  Type *Pointer = NULL;
 #ifdef _NO_EXCEPTION
-    Pointer = new (p) Type;
+  Pointer = new(p) Type;
 #else
-    try
-    {
-        Pointer = new (p) Type;
-    }
-    catch (...)
-    {
-        Pointer = NULL;
-    }
+  try
+  {
+      Pointer = new (p) Type;
+  }
+  catch (...)
+  {
+      Pointer = NULL;
+  }
 #endif // _NO_EXCEPTION
-    return Pointer;
+  return Pointer;
 }
 
 /*
@@ -224,26 +227,27 @@ template <typename Type> inline Type *gConstruct(void *p)
  * @see 
  * @return void
  */
-template <typename Type> inline void gDelete(Type *&rp)
+template<typename Type>
+inline void gDelete(Type *&rp)
 {
-    if (rp != NULL)
-    {
+  if (rp != NULL)
+  {
 #ifdef _NO_EXCEPTION
+    delete rp;
+    rp = NULL;
+#else
+    try
+    {
         delete rp;
         rp = NULL;
-#else
-        try
-        {
-            delete rp;
-            rp = NULL;
-        }
-        catch (...)
-        {
-
-        }
-#endif // _NO_EXCEPTION
-        rp = NULL;
     }
+    catch (...)
+    {
+
+    }
+#endif // _NO_EXCEPTION
+    rp = NULL;
+  }
 }
 
 /**
@@ -252,26 +256,27 @@ template <typename Type> inline void gDelete(Type *&rp)
  * @see 
  * @return void
  */
-template <typename Type> inline void gDeleteA(Type *&rp)
+template<typename Type>
+inline void gDeleteA(Type *&rp)
 {
-    if (rp != NULL)
-    {
+  if (rp != NULL)
+  {
 #ifdef _NO_EXCEPTION
+    delete[] rp;
+    rp = NULL;
+#else
+    try
+    {
         delete [] rp;
         rp = NULL;
-#else
-        try
-        {
-            delete [] rp;
-            rp = NULL;
-        }
-        catch (...)
-        {
-
-        }
-#endif // _NO_EXCEPTION
-        rp = NULL;
     }
+    catch (...)
+    {
+
+    }
+#endif // _NO_EXCEPTION
+    rp = NULL;
+  }
 }
 
 /**
@@ -280,19 +285,20 @@ template <typename Type> inline void gDeleteA(Type *&rp)
  * @see 
  * @return void
  */
-template <typename Type> inline void gDestruct(Type *p)
+template<typename Type>
+inline void gDestruct(Type *p)
 {
 #ifdef _NO_EXCEPTION
-    p->~Type();
+  p->~Type();
 #else
-    try
-    {
-        p->~Type();
-    }
-    catch (...)
-    {
+  try
+  {
+      p->~Type();
+  }
+  catch (...)
+  {
 
-    }
+  }
 #endif // _NO_EXCEPTION
 }
 
@@ -302,13 +308,14 @@ template <typename Type> inline void gDestruct(Type *p)
  * @see 
  * @return void
  */
-template <typename Type> inline void gFree(Type *&rp)
+template<typename Type>
+inline void gFree(Type *&rp)
 {
-    if (rp != NULL)
-    {
-        free(rp);
-        rp = NULL;
-    }
+  if (rp != NULL)
+  {
+    free(rp);
+    rp = NULL;
+  }
 }
 
 #ifdef _NO_EXCEPTION

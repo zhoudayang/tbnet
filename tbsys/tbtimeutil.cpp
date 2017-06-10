@@ -20,38 +20,42 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-namespace tbsys {
+namespace tbsys
+{
 
 /*
  * 得到当前时间
  */
-int64_t CTimeUtil::getTime() {
-    struct timeval t;
-    gettimeofday(&t, NULL);
-    return (static_cast<int64_t>(t.tv_sec) * static_cast<int64_t>(1000000) + static_cast<int64_t>(t.tv_usec));
+int64_t CTimeUtil::getTime()
+{
+  struct timeval t;
+  gettimeofday(&t, NULL);
+  return (static_cast<int64_t>(t.tv_sec) * static_cast<int64_t>(1000000) + static_cast<int64_t>(t.tv_usec));
 }
 
-int64_t CTimeUtil::getMonotonicTime() {
+int64_t CTimeUtil::getMonotonicTime()
+{
   timespec t;
   clock_gettime(CLOCK_MONOTONIC, &t);
-  return (static_cast<int64_t>(t.tv_sec) * static_cast<int64_t>(1000000) + static_cast<int64_t>(t.tv_nsec/1000));
+  return (static_cast<int64_t>(t.tv_sec) * static_cast<int64_t>(1000000) + static_cast<int64_t>(t.tv_nsec / 1000));
 }
 
 /**
  * 把int转成20080101101010的格式
- */ 
+ */
 char *CTimeUtil::timeToStr(time_t t, char *dest)
 {
   struct tm r;
   memset(&r, 0, sizeof(r));
-  if (localtime_r((const time_t*)&t, &r) == NULL) {
+  if (localtime_r((const time_t *) &t, &r) == NULL)
+  {
     fprintf(stderr, "TIME: %s (%d)\n", strerror(errno), errno);
     dest[0] = '\0';
     return dest;
   }
   sprintf(dest, "%04d%02d%02d%02d%02d%02d",
-      r.tm_year+1900, r.tm_mon+1, r.tm_mday,
-      r.tm_hour, r.tm_min, r.tm_sec);
+          r.tm_year + 1900, r.tm_mon + 1, r.tm_mday,
+          r.tm_hour, r.tm_min, r.tm_sec);
   return dest;
 }
 
@@ -60,13 +64,18 @@ char *CTimeUtil::timeToStr(time_t t, char *dest)
  */
 int CTimeUtil::strToTime(char *str)
 {
-  if (str == NULL || strlen(str) != 14) {
+  if (str == NULL || strlen(str) != 14)
+  {
     return 0;
   }
   char *p = str;
-  while((*p)) {
-    if ((*p) < '0' || (*p) > '9') return 0;
-    p ++;
+  while ((*p))
+  {
+    if ((*p) < '0' || (*p) > '9')
+    {
+      return 0;
+    }
+    p++;
   }
 
   struct tm t;

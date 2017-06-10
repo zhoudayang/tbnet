@@ -38,7 +38,8 @@
 #include <ext/hash_map>
 #include "tbsys.h"
 
-namespace tbnet {
+namespace tbnet
+{
 
 class TimeUtil;
 class Thread;

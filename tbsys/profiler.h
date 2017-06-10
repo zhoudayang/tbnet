@@ -56,23 +56,28 @@
  * PROFILER_SET_STATUS(status); // 设置计数器的状态，如果不是1，则禁用计数器所有功能，此时不会产生任何开销，默认为1
  * PROFILER_SET_THRESHOLD(threshold); // 设置dump的阀值，当一个计数实例的总计时超过这个阀值时才会dump信息，单位为us，默认为10000us(10ms)
  */
-namespace tbsys { namespace util {
+namespace tbsys
+{
+namespace util
+{
 
 /** 
  * @brief 线程特定数据的创建，获取，设置
  */
 template<class T>
-class ThreadLocal {
-public:
-	ThreadLocal () {
-	    pthread_key_create(&key, NULL);
-	}
-	virtual ~ThreadLocal () {}
-	T get() { return (T)pthread_getspecific(key); }
-	void set(T data) { pthread_setspecific(key, (void *)data); }
+class ThreadLocal
+{
+ public:
+  ThreadLocal()
+  {
+    pthread_key_create(&key, NULL);
+  }
+  virtual ~ThreadLocal() {}
+  T get() { return (T) pthread_getspecific(key); }
+  void set(T data) { pthread_setspecific(key, (void *) data); }
 
-private:
-	pthread_key_t key;
+ private:
+  pthread_key_t key;
 };
 
 /** 
@@ -80,190 +85,258 @@ private:
  */
 class Entry
 {
-    public:
-	Entry(const std::string& message, Entry *parent, Entry *first) {
-	    this->message = message;
-	    this->parent = parent;
-	    this->first = (first == NULL) ? this : first;
-	    btime = (first == NULL) ? 0 : first->stime;
-	    stime = Entry::getTime();
-	    etime = 0;
-	}
+ public:
+  Entry(const std::string &message, Entry *parent, Entry *first)
+  {
+    this->message = message;
+    this->parent = parent;
+    this->first = (first == NULL) ? this : first;
+    btime = (first == NULL) ? 0 : first->stime;
+    stime = Entry::getTime();
+    etime = 0;
+  }
 
-	~Entry() {
-	    if (!subEntries.empty())
-		for (size_t i=0; i<subEntries.size(); i++) 
-		    delete subEntries[i];
-	}
+  ~Entry()
+  {
+    if (!subEntries.empty())
+    {
+      for (size_t i = 0; i < subEntries.size(); i++)
+      {
+        delete subEntries[i];
+      }
+    }
+  }
 
-	long getStartTime() {
-	    return (btime > 0) ? (stime - btime) : 0;
-	}
+  long getStartTime()
+  {
+    return (btime > 0) ? (stime - btime) : 0;
+  }
 
-	long getDuration() {
-	    if (etime >= stime)
-		return (etime - stime);
-	    else
-		return -1;
-	}
+  long getDuration()
+  {
+    if (etime >= stime)
+    {
+      return (etime - stime);
+    }
+    else
+    {
+      return -1;
+    }
+  }
 
-	long getEndTime() {
-	    if (etime >= btime)
-		return (etime - btime);
-	    else
-		return -1;
-	}
+  long getEndTime()
+  {
+    if (etime >= btime)
+    {
+      return (etime - btime);
+    }
+    else
+    {
+      return -1;
+    }
+  }
 
-	long getMyDuration() {
-	    long td = getDuration();
+  long getMyDuration()
+  {
+    long td = getDuration();
 
-	    if (td < 0)
-		return -1;
-	    else if (subEntries.empty())
-		return td;
-	    else {
-		for (size_t i=0; i<subEntries.size(); i++)
-		    td -= subEntries[i]->getDuration();
-		return (td < 0) ? -1 : td;
-	    }
-	}
+    if (td < 0)
+    {
+      return -1;
+    }
+    else if (subEntries.empty())
+    {
+      return td;
+    }
+    else
+    {
+      for (size_t i = 0; i < subEntries.size(); i++)
+      {
+        td -= subEntries[i]->getDuration();
+      }
+      return (td < 0) ? -1 : td;
+    }
+  }
 
-	double getPercentage() {
-	    double pd = 0;
-	    double d = getMyDuration();
+  double getPercentage()
+  {
+    double pd = 0;
+    double d = getMyDuration();
 
-	    if (!subEntries.empty())
-		pd = getDuration();
-	    else if (parent && parent->isReleased())
-		pd = static_cast<double>(parent->getDuration());
+    if (!subEntries.empty())
+    {
+      pd = getDuration();
+    }
+    else if (parent && parent->isReleased())
+    {
+      pd = static_cast<double>(parent->getDuration());
+    }
 
-	    if (pd > 0 && d > 0)
-		return d / pd;
+    if (pd > 0 && d > 0)
+    {
+      return d / pd;
+    }
 
-	    return 0;
-	}
+    return 0;
+  }
 
-	double getPercentageOfTotal() {
-	    double fd = 0;
-	    double d = getDuration();
+  double getPercentageOfTotal()
+  {
+    double fd = 0;
+    double d = getDuration();
 
-	    if (first && first->isReleased())
-		fd = static_cast<double>(first->getDuration());
+    if (first && first->isReleased())
+    {
+      fd = static_cast<double>(first->getDuration());
+    }
 
-	    if (fd > 0 && d > 0)
-		return d / fd;
+    if (fd > 0 && d > 0)
+    {
+      return d / fd;
+    }
 
-	    return 0;
-	}
+    return 0;
+  }
 
-	void release() {
-	    etime = Entry::getTime();
-	}
+  void release()
+  {
+    etime = Entry::getTime();
+  }
 
-	bool isReleased() {
-	    return etime > 0;
-	}
+  bool isReleased()
+  {
+    return etime > 0;
+  }
 
-	void doSubEntry(const std::string& message) {
-	    Entry *entry = new Entry(message, this, first);
-	    subEntries.push_back(entry);
-	}
+  void doSubEntry(const std::string &message)
+  {
+    Entry *entry = new Entry(message, this, first);
+    subEntries.push_back(entry);
+  }
 
-	Entry *getUnreleasedEntry() {
-	    if(subEntries.empty()) 
-		return NULL;
+  Entry *getUnreleasedEntry()
+  {
+    if (subEntries.empty())
+    {
+      return NULL;
+    }
 
-	    Entry *se = subEntries.back();
-	    if(se->isReleased())
-		return NULL;
-	    else
-		return se;
-	}
+    Entry *se = subEntries.back();
+    if (se->isReleased())
+    {
+      return NULL;
+    }
+    else
+    {
+      return se;
+    }
+  }
 
-  std::string toString() {
-	    return toString("", "");
-	}
-  std::string toString(const std::string& pre1, const std::string& pre2) {
+  std::string toString()
+  {
+    return toString("", "");
+  }
+  std::string toString(const std::string &pre1, const std::string &pre2)
+  {
     std::ostringstream ss;
-	    toString(pre1, pre2, ss);
-	    return ss.str();
-	}
+    toString(pre1, pre2, ss);
+    return ss.str();
+  }
 
-  std::string toString(const std::string& pre1, const std::string& pre2, std::ostringstream &ss) {
-	    ss<<pre1;
+  std::string toString(const std::string &pre1, const std::string &pre2, std::ostringstream &ss)
+  {
+    ss << pre1;
 
-	    if (isReleased()) {
-		char temp[256];
-		sprintf(temp, "%lu [%lu(us), %lu(us), %.2f%%, %.2f%%] - %s", getStartTime(), getDuration(), getMyDuration(), getPercentage() * 100, getPercentageOfTotal() * 100, message.c_str());
-		ss<<temp;
-	    } else {
-		ss<<"[UNRELEASED]";
-	    }
+    if (isReleased())
+    {
+      char temp[256];
+      sprintf(temp,
+              "%lu [%lu(us), %lu(us), %.2f%%, %.2f%%] - %s",
+              getStartTime(),
+              getDuration(),
+              getMyDuration(),
+              getPercentage() * 100,
+              getPercentageOfTotal() * 100,
+              message.c_str());
+      ss << temp;
+    }
+    else
+    {
+      ss << "[UNRELEASED]";
+    }
 
-	    for (size_t i=0; i<subEntries.size(); i++) {
-		Entry *ent = subEntries[i];
-		ss<<std::endl;
+    for (size_t i = 0; i < subEntries.size(); i++)
+    {
+      Entry *ent = subEntries[i];
+      ss << std::endl;
 
-		if (i == 0)
-		    ss<<ent->toString(pre2 + "+---", pre2 + "|  ");
-		else if (i == (subEntries.size() - 1))
-		    ss<<ent->toString(pre2 + "`---", pre2 + "    ");
-		else
-		    ss<<ent->toString(pre2 + "+---", pre2 + "|   ");
-	    }
+      if (i == 0)
+      {
+        ss << ent->toString(pre2 + "+---", pre2 + "|  ");
+      }
+      else if (i == (subEntries.size() - 1))
+      {
+        ss << ent->toString(pre2 + "`---", pre2 + "    ");
+      }
+      else
+      {
+        ss << ent->toString(pre2 + "+---", pre2 + "|   ");
+      }
+    }
 
-	    return ss.str();
-	}
+    return ss.str();
+  }
 
-	static uint64_t getTime() {
-	    timeval time;
-	    gettimeofday(&time, NULL);
-	    return time.tv_sec * 1000000 + time.tv_usec;
-	}
+  static uint64_t getTime()
+  {
+    timeval time;
+    gettimeofday(&time, NULL);
+    return time.tv_sec * 1000000 + time.tv_usec;
+  }
 
   std::string message;
-    private:
+ private:
   std::vector<Entry *> subEntries;
-	Entry *parent;
-	Entry *first;
-	uint64_t stime;
-	uint64_t btime;
-	uint64_t etime;
+  Entry *parent;
+  Entry *first;
+  uint64_t stime;
+  uint64_t btime;
+  uint64_t etime;
 };
 
-
-/** 
+/**
  * @brief 多线程性能统计工具
  */
 class Profiler
 {
-    public:
-	Profiler();
+ public:
+  Profiler();
 
-	void start(const std::string& description);
+  void start(const std::string &description);
 
-	void stop();
+  void stop();
 
-	void reset();
+  void reset();
 
-	void begin(const std::string& description);
+  void begin(const std::string &description);
 
-	void end();
+  void end();
 
-	long getDuration();
+  long getDuration();
 
-	Entry *getCurrentEntry();
+  Entry *getCurrentEntry();
 
-	void dump();
+  void dump();
 
-    private:
-	ThreadLocal<Entry*> entry;
-    public:
-	int threshold;
-	int status;
-	static Profiler m_profiler;
+ private:
+  ThreadLocal<Entry *> entry;
+ public:
+  int threshold;
+  int status;
+  static Profiler m_profiler;
 };
 
-} } // end of namespace
+}
+} // end of namespace
 
 #endif /* end of include guard: PROFILER_H */

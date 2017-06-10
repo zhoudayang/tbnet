@@ -18,98 +18,97 @@
 
 #include "ThreadException.h"
 
-namespace tbutil 
+namespace tbutil
 {
 /**
  * @brief LockT是简单的模板类，由构造器和析构器构成
  * 构造器针对它的参数调用lock,析构器调用unlock,
  * 通过实例化类型为Lock的局部变量,可以完全解决死锁问题
  */
-template <typename T>
+template<typename T>
 class LockT
 {
-public:
-    
-    LockT(const T& mutex) :
-        _mutex(mutex)
-    {
-        _mutex.lock();
-        _acquired = true;
-    }
+ public:
 
-    ~LockT()
+  LockT(const T &mutex) :
+      _mutex(mutex)
+  {
+    _mutex.lock();
+    _acquired = true;
+  }
+
+  ~LockT()
+  {
+    if (_acquired)
     {
-        if (_acquired)
-        {
-            _mutex.unlock();
-        }
+      _mutex.unlock();
     }
-    
-    void acquire() const
+  }
+
+  void acquire() const
+  {
+    if (_acquired)
     {
-        if (_acquired)
-        {
 #ifdef _NO_EXCEPTION
-           assert(!"ThreadLockedException");
+      assert(!"ThreadLockedException");
 #else
-           throw ThreadLockedException(__FILE__, __LINE__);
+      throw ThreadLockedException(__FILE__, __LINE__);
 #endif
-        }
-        _mutex.lock();
-        _acquired = true;
     }
+    _mutex.lock();
+    _acquired = true;
+  }
 
-
-    bool tryAcquire() const
+  bool tryAcquire() const
+  {
+    if (_acquired)
     {
-        if (_acquired)
-        {
 #ifdef _NO_EXCEPTION
-            assert(!"ThreadLockedException");
+      assert(!"ThreadLockedException");
 #else
-            throw ThreadLockedException(__FILE__, __LINE__);
+      throw ThreadLockedException(__FILE__, __LINE__);
 #endif
-        }
-        _acquired = _mutex.tryLock();
-        return _acquired;
     }
+    _acquired = _mutex.tryLock();
+    return _acquired;
+  }
 
-    void release() const
+  void release() const
+  {
+    if (!_acquired)
     {
-        if (!_acquired)
-        {
 #ifdef _NO_EXCEPTION
-            assert(!"ThreadLockedException");
+      assert(!"ThreadLockedException");
 #else
-            throw ThreadLockedException(__FILE__, __LINE__);
+      throw ThreadLockedException(__FILE__, __LINE__);
 #endif
-        }
-        _mutex.unlock();
-        _acquired = false;
     }
+    _mutex.unlock();
+    _acquired = false;
+  }
 
-    bool acquired() const
-    {
-        return _acquired;
-    }
-   
-protected:
-    
-    LockT(const T& mutex, bool) :
-        _mutex(mutex)
-    {
-        _acquired = _mutex.tryLock();
-    }
+  bool acquired() const
+  {
+    return _acquired;
+  }
 
-private:
-    
-    LockT(const LockT&);
-    LockT& operator=(const LockT&);
+ protected:
 
-    const T& _mutex;
-    mutable bool _acquired;
+  LockT(const T &mutex, bool) :
+      _mutex(mutex)
+  {
+    _acquired = _mutex.tryLock();
+  }
 
-    friend class Cond;
+ private:
+
+  LockT(const LockT &);
+  LockT &operator=(const LockT &);
+
+  const T &_mutex;
+  mutable bool _acquired;
+
+  friend class Cond;
 };
 
 /** 
@@ -117,15 +116,14 @@ private:
  * 构造器针对它的参数调用lock,析构器调用unlock,
  * 通过实例化类型为TryLock的局部变量,可以完全解决死锁问题
  */
-template <typename T>
+template<typename T>
 class TryLockT : public LockT<T>
 {
-public:
+ public:
 
-    TryLockT(const T& mutex) :
-        LockT<T>(mutex, true)
-    {}
+  TryLockT(const T &mutex) :
+      LockT<T>(mutex, true) {}
 };
-}  
+}
 
 #endif

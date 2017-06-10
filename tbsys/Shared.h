@@ -13,8 +13,8 @@
  *
  */
 
-#ifndef TBSYS_SHARED_H 
-#define TBSYS_SHARED_H 
+#ifndef TBSYS_SHARED_H
+#define TBSYS_SHARED_H
 #include "Mutex.h"
 namespace tbutil
 {
@@ -23,53 +23,53 @@ namespace tbutil
 */
 class SimpleShared
 {
-public:
+ public:
 
-    SimpleShared();
-    SimpleShared(const SimpleShared&);
+  SimpleShared();
+  SimpleShared(const SimpleShared &);
 
-    virtual ~SimpleShared()
+  virtual ~SimpleShared()
+  {
+  }
+
+  SimpleShared &operator=(const SimpleShared &)
+  {
+    return *this;
+  }
+
+  void __incRef()
+  {
+    assert(_ref >= 0);
+    ++_ref;
+  }
+
+  void __decRef()
+  {
+    assert(_ref > 0);
+    if (--_ref == 0)
     {
+      if (!_noDelete)
+      {
+        _noDelete = true;
+        delete this;
+      }
     }
+  }
 
-    SimpleShared& operator=(const SimpleShared&)
-    {
-        return *this;
-    }
+  int __getRef() const
+  {
+    return _ref;
+  }
 
-    void __incRef()
-    {
-        assert(_ref >= 0);
-        ++_ref;
-    }
+  void __setNoDelete(bool b)
+  {
+    _noDelete = b;
+  }
 
-    void __decRef()
-    {
-        assert(_ref > 0);
-        if(--_ref == 0)
-        {
-            if(!_noDelete)
-            {
-                _noDelete = true;
-                delete this;
-            }
-        }
-    }
+ private:
 
-    int __getRef() const
-    {
-        return _ref;
-    }
-
-    void __setNoDelete(bool b)
-    {
-        _noDelete = b;
-    }
-
-private:
-
-    int _ref;
-    bool _noDelete;
+  int _ref;
+  bool _noDelete;
 };
 
 /** 
@@ -78,46 +78,46 @@ private:
  */
 class Shared
 {
-public:
+ public:
 
-    Shared();
-    Shared(const Shared&);
+  Shared();
+  Shared(const Shared &);
 
-    virtual ~Shared()
-    {
-    }
+  virtual ~Shared()
+  {
+  }
 
-    Shared& operator=(const Shared&)
-    {
-        return *this;
-    }
+  Shared &operator=(const Shared &)
+  {
+    return *this;
+  }
 
-    /** 
-     * @brief 增加引用计数
-     */
-    virtual void __incRef();
-    /** 
-     * @brief 减少引用计数
-     */
-    virtual void __decRef();
-    /** 
-     * @brief 获取当前引用计数
-     * 
-     * @return 
-     */
-    virtual int __getRef() const;
-    /** 
-     * @brief 设置__noDelete标志
-     * true: 当引用计数为0时不删除它管理的对象
-     * false: 当引用计数为0时删除它管理的对象 
-     * @param bool
-     */
-    virtual void __setNoDelete(bool);
+  /**
+   * @brief 增加引用计数
+   */
+  virtual void __incRef();
+  /**
+   * @brief 减少引用计数
+   */
+  virtual void __decRef();
+  /**
+   * @brief 获取当前引用计数
+   *
+   * @return
+   */
+  virtual int __getRef() const;
+  /**
+   * @brief 设置__noDelete标志
+   * true: 当引用计数为0时不删除它管理的对象
+   * false: 当引用计数为0时删除它管理的对象
+   * @param bool
+   */
+  virtual void __setNoDelete(bool);
 
-protected:
-    int _ref;
-    bool _noDelete;
-    Mutex _mutex;
+ protected:
+  int _ref;
+  bool _noDelete;
+  Mutex _mutex;
 };
 }//end namespace
 #endif

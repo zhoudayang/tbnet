@@ -20,40 +20,43 @@
 
 //using namespace std;
 
-namespace tbsys {
-        
-	/** 
-	 * @brief Queue 运行线程池
-	 */
-    class CQueueThread : public CDefaultRunnable {
-        public:
-            /* 构造函数 */
-            CQueueThread(int threadCount, IQueueHandler *handler, void *args);
-            /* 析构函数 */
-            ~CQueueThread(void);
-            /* 写入数据 */
-            int writeData(void *data, int len);
-            /* 停止 */
-            void stop();
-            /* 运行入口函数 */
-            void run(CThread *thread, void *args);
-                   
-        private:
-            typedef struct data_pair {
-                char *data;
-                int len;
-            } data_pair;
-            // queue
-            std::queue<data_pair*> _queue;            
-            
-        protected:
-            // 线程锁
-            CThreadCond _mutex;
-            // 处理函数
-            IQueueHandler *_handler;
-            // 函数参数
-            void *_args;
-    };
+namespace tbsys
+{
+
+/**
+ * @brief Queue 运行线程池
+ */
+class CQueueThread : public CDefaultRunnable
+{
+ public:
+  /* 构造函数 */
+  CQueueThread(int threadCount, IQueueHandler *handler, void *args);
+  /* 析构函数 */
+  ~CQueueThread(void);
+  /* 写入数据 */
+  int writeData(void *data, int len);
+  /* 停止 */
+  void stop();
+  /* 运行入口函数 */
+  void run(CThread *thread, void *args);
+
+ private:
+  typedef struct data_pair
+  {
+    char *data;
+    int len;
+  } data_pair;
+  // queue
+  std::queue<data_pair *> _queue;
+
+ protected:
+  // 线程锁
+  CThreadCond _mutex;
+  // 处理函数
+  IQueueHandler *_handler;
+  // 函数参数
+  void *_args;
+};
 }
 
 #endif

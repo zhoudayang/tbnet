@@ -26,22 +26,24 @@
 #include <stdlib.h>
 #include "tblog.h"
 
-namespace tbsys {
-    
-	/** 
-	 * @brief 进程以daemon方法启动时简单封装
-	 */
-    class CProcess {
+namespace tbsys
+{
 
-    public:
-        // 起一个daemon
-        static int startDaemon(const char *szPidFile, const char *szLogFile);
-        // 进程是不是存在
-        static int existPid(const char *szPidFile);
-        // 写PID文件
-        static void writePidFile(const char *szPidFile);
-    };
+/**
+ * @brief 进程以daemon方法启动时简单封装
+ */
+class CProcess
+{
+
+ public:
+  // 起一个daemon
+  static int startDaemon(const char *szPidFile, const char *szLogFile);
+  // 进程是不是存在
+  static int existPid(const char *szPidFile);
+  // 写PID文件
+  static void writePidFile(const char *szPidFile);
+};
 }
-#endif 
+#endif
 
 /*END*/

@@ -15,7 +15,8 @@
 
 #include "tbnet.h"
 
-namespace tbnet {
+namespace tbnet
+{
 /**
   * 构造函数，由Transport调用。
   *
@@ -25,9 +26,10 @@ namespace tbnet {
   * @param serverAdapter:  用在服务器端，当Connection初始化及Channel创建时回调时用
   */
 UDPComponent::UDPComponent(Transport *owner, Socket *socket, IPacketStreamer *streamer,
-                           IServerAdapter *serverAdapter) : IOComponent(owner, socket) {
-    _streamer = streamer;
-    _serverAdapter = serverAdapter;
+                           IServerAdapter *serverAdapter) : IOComponent(owner, socket)
+{
+  _streamer = streamer;
+  _serverAdapter = serverAdapter;
 }
 
 /*
@@ -41,15 +43,18 @@ UDPComponent::~UDPComponent() {}
  * @param  isServer: 是否初始化一个服务器的Connection
  * @return 是否成功
  */
-bool UDPComponent::init(bool isServer) {
-    if (!isServer) { // 不要connect, 是accept产生的
+bool UDPComponent::init(bool isServer)
+{
+  if (!isServer)
+  { // 不要connect, 是accept产生的
 
-        if (!_socket->connect()) {
-            return false;
-        }
+    if (!_socket->connect())
+    {
+      return false;
     }
-    _isServer = isServer;
-    return true;
+  }
+  _isServer = isServer;
+  return true;
 }
 
 /*
@@ -62,8 +67,9 @@ void UDPComponent::close() {}
    *
    * @return 是否成功, true - 成功, false - 失败。
    */
-bool UDPComponent::handleWriteEvent() {
-    return true;
+bool UDPComponent::handleWriteEvent()
+{
+  return true;
 }
 
 /**
@@ -71,9 +77,9 @@ bool UDPComponent::handleWriteEvent() {
  *
  * @return 是否成功, true - 成功, false - 失败。
  */
-bool UDPComponent::handleReadEvent() {
-    return true;
+bool UDPComponent::handleReadEvent()
+{
+  return true;
 }
-
 
 }

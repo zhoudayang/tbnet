@@ -21,14 +21,14 @@ using namespace tbsys;
 
 int main(int argc, char *argv[])
 {
-    int i=0;
-    printf("i:%d\n", i);
-    i = CTimeUtil::strToTime("20090101121212");
-    i = CTimeUtil::strToTime("20090101121212");
-    i = CTimeUtil::strToTime("20090101121212");
-    i = CTimeUtil::strToTime("20090101121212");
-    i = CTimeUtil::strToTime("20090101121212");
-    printf("i:%d\n", i);
-    return 0;
+  int i = 0;
+  printf("i:%d\n", i);
+  i = CTimeUtil::strToTime("20090101121212");
+  i = CTimeUtil::strToTime("20090101121212");
+  i = CTimeUtil::strToTime("20090101121212");
+  i = CTimeUtil::strToTime("20090101121212");
+  i = CTimeUtil::strToTime("20090101121212");
+  printf("i:%d\n", i);
+  return 0;
 }
 

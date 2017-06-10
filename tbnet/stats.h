@@ -16,23 +16,25 @@
 #ifndef TBNET_STATS_H_
 #define TBNET_STATS_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class StatCounter {
-public:
-    StatCounter();
-    ~StatCounter();
-    void log();
-    void clear();
+class StatCounter
+{
+ public:
+  StatCounter();
+  ~StatCounter();
+  void log();
+  void clear();
 
-public:
-    uint64_t _packetReadCnt;  // # packets read
-    uint64_t _packetWriteCnt; // # packets written
-    uint64_t _dataReadCnt;    // # bytes read
-    uint64_t _dataWriteCnt;   // # bytes written
+ public:
+  uint64_t _packetReadCnt;  // # packets read
+  uint64_t _packetWriteCnt; // # packets written
+  uint64_t _dataReadCnt;    // # bytes read
+  uint64_t _dataWriteCnt;   // # bytes written
 
-public:
-    static StatCounter _gStatCounter; // È«¾Ö
+ public:
+  static StatCounter _gStatCounter; // È«¾Ö
 
 };
 

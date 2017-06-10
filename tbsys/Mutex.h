@@ -14,7 +14,7 @@
  */
 
 #ifndef TBSYS_MUTEX_H
-#define TBSYS_MUTEX_H 
+#define TBSYS_MUTEX_H
 
 #include <pthread.h>
 #include "Lock.h"
@@ -30,56 +30,56 @@ namespace tbutil
 */
 class Mutex
 {
-public:
+ public:
 
-    typedef LockT<Mutex> Lock;
-    typedef TryLockT<Mutex> TryLock;
+  typedef LockT<Mutex> Lock;
+  typedef TryLockT<Mutex> TryLock;
 
-    Mutex();
-    ~Mutex();
+  Mutex();
+  ~Mutex();
 
-    /** 
-     * @brief lock 函数尝试获取互斥体。如果互斥体已经锁住，它就会挂起发出
-     * 调用的线程（calling thread），直到互斥体变得可用为止。一旦发出调
-     * 用的线程获得了互斥体，调用就会立即返回
-     */
-    void lock() const;
+  /**
+   * @brief lock 函数尝试获取互斥体。如果互斥体已经锁住，它就会挂起发出
+   * 调用的线程（calling thread），直到互斥体变得可用为止。一旦发出调
+   * 用的线程获得了互斥体，调用就会立即返回
+   */
+  void lock() const;
 
-    /** 
-     * @brief tryLock 函数尝试获取互斥体。如果互斥体可用，互斥体就会锁
-     * 住，而调用就会返回true。如果其他线程锁住了互斥体，调用返回false
-     * 
-     * @return 
-     */
-    bool tryLock() const;
+  /**
+   * @brief tryLock 函数尝试获取互斥体。如果互斥体可用，互斥体就会锁
+   * 住，而调用就会返回true。如果其他线程锁住了互斥体，调用返回false
+   *
+   * @return
+   */
+  bool tryLock() const;
 
-    /** 
-     * @brief unlock 函数解除互斥体的加锁
-     */
-    void unlock() const;
+  /**
+   * @brief unlock 函数解除互斥体的加锁
+   */
+  void unlock() const;
 
-    /** 
-     * @brief 是否已经加锁标记
-     * 
-     * @return 
-     */
-    bool willUnlock() const;
+  /**
+   * @brief 是否已经加锁标记
+   *
+   * @return
+   */
+  bool willUnlock() const;
 
-private:
+ private:
 
-    Mutex(const Mutex&);
-    Mutex& operator=(const Mutex&);
+  Mutex(const Mutex &);
+  Mutex &operator=(const Mutex &);
 
-    struct LockState
-    {
-        pthread_mutex_t* mutex;
-    };
+  struct LockState
+  {
+    pthread_mutex_t *mutex;
+  };
 
-    void unlock(LockState&) const;
-    void lock(LockState&) const;
-    mutable pthread_mutex_t _mutex;
+  void unlock(LockState &) const;
+  void lock(LockState &) const;
+  mutable pthread_mutex_t _mutex;
 
-    friend class Cond;
+  friend class Cond;
 };
 }//end namespace
 #endif

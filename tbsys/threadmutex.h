@@ -18,7 +18,8 @@
 
 #include <assert.h>
 
-namespace tbsys {
+namespace tbsys
+{
 
 /*
  * author cjxrobot
@@ -29,52 +30,58 @@ namespace tbsys {
 /** 
 * @brief linux线程锁互斥锁简单封装 
 */
-class CThreadMutex {
+class CThreadMutex
+{
 
-public:
-    /*
-     * 构造函数
-     */
-    CThreadMutex() {
-        //assert(pthread_mutex_init(&_mutex, NULL) == 0);
-        const int iRet = pthread_mutex_init(&_mutex, NULL);
-        (void) iRet;
-        assert( iRet == 0 );
-    }
+ public:
+  /*
+   * 构造函数
+   */
+  CThreadMutex()
+  {
+    //assert(pthread_mutex_init(&_mutex, NULL) == 0);
+    const int iRet = pthread_mutex_init(&_mutex, NULL);
+    (void) iRet;
+    assert(iRet == 0);
+  }
 
-    /*
-     * 析造函数
-     */
-    ~CThreadMutex() {
-        pthread_mutex_destroy(&_mutex);
-    }
+  /*
+   * 析造函数
+   */
+  ~CThreadMutex()
+  {
+    pthread_mutex_destroy(&_mutex);
+  }
 
-    /**
-     * 加锁
-     */
+  /**
+   * 加锁
+   */
 
-    void lock () {
-        pthread_mutex_lock(&_mutex);
-    }
+  void lock()
+  {
+    pthread_mutex_lock(&_mutex);
+  }
 
-    /**
-     * trylock加锁
-     */
+  /**
+   * trylock加锁
+   */
 
-    int trylock () {
-        return pthread_mutex_trylock(&_mutex);
-    }    
+  int trylock()
+  {
+    return pthread_mutex_trylock(&_mutex);
+  }
 
-    /**
-     * 解锁
-     */
-    void unlock() {
-        pthread_mutex_unlock(&_mutex);
-    }
+  /**
+   * 解锁
+   */
+  void unlock()
+  {
+    pthread_mutex_unlock(&_mutex);
+  }
 
-protected:
+ protected:
 
-    pthread_mutex_t _mutex;
+  pthread_mutex_t _mutex;
 };
 
 /** 
@@ -82,23 +89,25 @@ protected:
  */
 class CThreadGuard
 {
-public:
-    CThreadGuard(CThreadMutex *mutex)
+ public:
+  CThreadGuard(CThreadMutex *mutex)
+  {
+    _mutex = NULL;
+    if (mutex)
     {
-      _mutex = NULL;
-        if (mutex) {
-            _mutex = mutex;
-            _mutex->lock();
-        }
+      _mutex = mutex;
+      _mutex->lock();
     }
-    ~CThreadGuard()
+  }
+  ~CThreadGuard()
+  {
+    if (_mutex)
     {
-        if (_mutex) {
-            _mutex->unlock();
-        }
+      _mutex->unlock();
     }
-private:
-    CThreadMutex *_mutex;
+  }
+ private:
+  CThreadMutex *_mutex;
 };
 
 }

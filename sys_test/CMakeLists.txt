@@ -30,9 +30,11 @@ target_link_libraries(testwarningbuffer tbsys)
 add_executable(testService testService.cpp)
 target_link_libraries(testService tbsys)
 
-
 add_executable(teststringutil teststringutil.cpp)
 target_link_libraries(teststringutil tbsys)
 
 add_executable(testqueuethread testqueuethread.cpp)
 target_link_libraries(testqueuethread tbsys)
+
+add_executable(testfileutil testfileutil.cpp)
+target_link_libraries(testfileutil tbsys)

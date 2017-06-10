@@ -22,24 +22,26 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-namespace tbsys {
+namespace tbsys
+{
 
-    #ifndef S_IRWXUGO
-    # define S_IRWXUGO (S_IRWXU | S_IRWXG | S_IRWXO)
-    #endif
-    
-   /** 
-    * @brief 对文件目录的基本操作 
-    */
-    class CFileUtil {
-        public:
-            /** 创建多级目录 */
-            static bool mkdirs(char *szDirPath);
-            /** 是否为目录 */
-            static bool isDirectory(const char *szDirPath);
-            /** 是否为SymLink文件 */
-            static bool isSymLink(const char *szDirPath);
-    };
+#ifndef S_IRWXUGO
+# define S_IRWXUGO (S_IRWXU | S_IRWXG | S_IRWXO)
+#endif
+
+/**
+ * @brief 对文件目录的基本操作
+ */
+class CFileUtil
+{
+ public:
+  /** 创建多级目录 */
+  static bool mkdirs(char *szDirPath);
+  /** 是否为目录 */
+  static bool isDirectory(const char *szDirPath);
+  /** 是否为SymLink文件 */
+  static bool isSymLink(const char *szDirPath);
+};
 }
 
 #endif

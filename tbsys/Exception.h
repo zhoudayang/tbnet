@@ -30,44 +30,44 @@ namespace tbutil
 */
 class Exception : public std::exception
 {
-public:
+ public:
 
-    Exception();
-    Exception(const char*, int);
-    virtual ~Exception() throw();
-    virtual std::string name() const;
-    virtual void print(std::ostream&) const;
-    virtual const char* what() const throw();
-    virtual Exception* clone() const;
-    virtual void _throw() const;
-    const char* file() const;
-    int line() const;
-    
-private:
-    
-    const char* _file;
-    int _line;
-    static const char* _name;
-    mutable ::std::string _str; 
+  Exception();
+  Exception(const char *, int);
+  virtual ~Exception() throw();
+  virtual std::string name() const;
+  virtual void print(std::ostream &) const;
+  virtual const char *what() const throw();
+  virtual Exception *clone() const;
+  virtual void _throw() const;
+  const char *file() const;
+  int line() const;
+
+ private:
+
+  const char *_file;
+  int _line;
+  static const char *_name;
+  mutable ::std::string _str;
 };
 
-std::ostream& operator << (std::ostream& out, const Exception& ex);
+std::ostream &operator<<(std::ostream &out, const Exception &ex);
 
 /** 
  * @brief Handle为空异常类
  */
 class NullHandleException : public Exception
 {
-public:
-    
-    NullHandleException(const char*, int);
-    virtual ~NullHandleException() throw();
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+ public:
 
-private:
-    static const char* _name;
+  NullHandleException(const char *, int);
+  virtual ~NullHandleException() throw();
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
+
+ private:
+  static const char *_name;
 };
 
 /** 
@@ -75,22 +75,22 @@ private:
  */
 class IllegalArgumentException : public Exception
 {
-public:
-    
-    IllegalArgumentException(const char*, int);
-    IllegalArgumentException(const char*, int, const std::string&);
-    virtual ~IllegalArgumentException() throw();
-    virtual std::string name() const;
-    virtual void print(std::ostream&) const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+ public:
 
-    std::string reason() const;
+  IllegalArgumentException(const char *, int);
+  IllegalArgumentException(const char *, int, const std::string &);
+  virtual ~IllegalArgumentException() throw();
+  virtual std::string name() const;
+  virtual void print(std::ostream &) const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+  std::string reason() const;
 
-    static const char* _name;
-    std::string _reason;
+ private:
+
+  static const char *_name;
+  std::string _reason;
 };
 
 /** 
@@ -98,18 +98,18 @@ private:
  */
 class SyscallException : public Exception
 {
-public:
-    SyscallException( const char* , int );
-    SyscallException(const char*, int, int);
-    virtual std::string name() const;
-    virtual void print(std::ostream&) const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+ public:
+  SyscallException(const char *, int);
+  SyscallException(const char *, int, int);
+  virtual std::string name() const;
+  virtual void print(std::ostream &) const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-    int error() ;
+  int error();
 
-    int _error;
-    static const char* _name;
+  int _error;
+  static const char *_name;
 };
 }//end namespace
 #endif

@@ -21,12 +21,14 @@
 #include "Cond.h"
 #include "Time.h"
 
-namespace tbutil {
+namespace tbutil
+{
 /** 
 * @brief Thread类是一个抽象类，它有一个run纯虚方法，如果要实例化Thread类
 * 用户必须继承并实现run方法
 */
-class Thread : virtual public tbutil::Shared {
+class Thread : virtual public tbutil::Shared
+{
  public:
 
   Thread();

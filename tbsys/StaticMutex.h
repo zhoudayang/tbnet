@@ -29,140 +29,138 @@ class Cond;
  */
 class StaticMutex
 {
-public:
+ public:
 
-    typedef LockT<StaticMutex> Lock;
-    typedef TryLockT<StaticMutex> TryLock;
+  typedef LockT<StaticMutex> Lock;
+  typedef TryLockT<StaticMutex> TryLock;
 
-    /** 
-     * @brief lock 函数尝试获取互斥体。如果互斥体已经锁住，它就会挂起发出
-     * 调用的线程（calling thread），直到互斥体变得可用为止。一旦发出调
-     * 用的线程获得了互斥体，调用就会立即返回
-     */
-    void lock() const;
+  /**
+   * @brief lock 函数尝试获取互斥体。如果互斥体已经锁住，它就会挂起发出
+   * 调用的线程（calling thread），直到互斥体变得可用为止。一旦发出调
+   * 用的线程获得了互斥体，调用就会立即返回
+   */
+  void lock() const;
 
-    /** 
-     * @brief tryLock 函数尝试获取互斥体。如果互斥体可用，互斥体就会锁
-     住，而调用就会返回true。如果其他线程锁住了互斥体，调用返回false
-     * 
-     * @return 
-     */
-    bool tryLock() const;
+  /**
+   * @brief tryLock 函数尝试获取互斥体。如果互斥体可用，互斥体就会锁
+   住，而调用就会返回true。如果其他线程锁住了互斥体，调用返回false
+   *
+   * @return
+   */
+  bool tryLock() const;
 
-    /** 
-     * @brief unlock 函数解除互斥体的加锁
-     */
-    void unlock() const;
+  /**
+   * @brief unlock 函数解除互斥体的加锁
+   */
+  void unlock() const;
 
+  mutable pthread_mutex_t _mutex;
 
-    mutable pthread_mutex_t _mutex;
+  friend class Cond;
+ private:
+  struct LockState
+  {
+    pthread_mutex_t *mutex;
+  };
 
-    friend class Cond;
-private:
-    struct LockState
-    {
-        pthread_mutex_t* mutex;
-    };
-
-    void unlock(LockState&) const;
-    void lock(LockState&) const;
+  void unlock(LockState &) const;
+  void lock(LockState &) const;
 };
 
 #define TNET_STATIC_MUTEX_INITIALIZER { PTHREAD_MUTEX_INITIALIZER }
-
 
 extern StaticMutex globalMutex;
 
 inline void StaticMutex::lock() const
 {
-    const int rt = pthread_mutex_lock(&_mutex);
-    if( 0 != rt)
+  const int rt = pthread_mutex_lock(&_mutex);
+  if (0 != rt)
+  {
+    if (rt == EDEADLK)
     {
-        if(rt == EDEADLK)
-        {
 #ifdef _NO_EXCEPTION
-            if ( rt != 0 )
-            {
-                assert(!"ThreadLockedException");
-                TBSYS_LOG(ERROR,"%s","ThreadLockedException");
-            }
+      if (rt != 0)
+      {
+        assert(!"ThreadLockedException");
+        TBSYS_LOG(ERROR, "%s", "ThreadLockedException");
+      }
 #else
-            throw ThreadLockedException(__FILE__, __LINE__);
+      throw ThreadLockedException(__FILE__, __LINE__);
 #endif
-        }
-        else
-        {
-#ifdef _NO_EXCEPTION
-            if ( rt != 0 )
-            { 
-                assert(!"ThreadSyscallException");
-                TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-            }
-#else
-            throw ThreadSyscallException(__FILE__, __LINE__, rt);
-#endif
-        }
     }
+    else
+    {
+#ifdef _NO_EXCEPTION
+      if (rt != 0)
+      {
+        assert(!"ThreadSyscallException");
+        TBSYS_LOG(ERROR, "%s", "ThreadSyscallException");
+      }
+#else
+      throw ThreadSyscallException(__FILE__, __LINE__, rt);
+#endif
+    }
+  }
 }
 
 inline bool StaticMutex::tryLock() const
 {
-    const int rc = pthread_mutex_trylock(&_mutex);
-    if(rc != 0 && rc != EBUSY)
+  const int rc = pthread_mutex_trylock(&_mutex);
+  if (rc != 0 && rc != EBUSY)
+  {
+    if (rc == EDEADLK)
     {
-        if(rc == EDEADLK)
-        {
 #ifdef _NO_EXCEPTION
-           if ( rc != 0 )
-           {
-               assert(!"ThreadLockedException");
-               TBSYS_LOG(ERROR,"%s","ThreadLockedException");
-           }
+      if (rc != 0)
+      {
+        assert(!"ThreadLockedException");
+        TBSYS_LOG(ERROR, "%s", "ThreadLockedException");
+      }
 #else
-            throw ThreadLockedException(__FILE__, __LINE__);
+      throw ThreadLockedException(__FILE__, __LINE__);
 #endif
-        }
-        else
-        {
-#ifdef _NO_EXCEPTION
-           if ( rc != 0 )
-           {
-               assert(!"ThreadSyscallException");
-               TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-           }
-#else
-            throw ThreadSyscallException(__FILE__, __LINE__,rc);
-#endif
-        }
     }
-    return (rc == 0);
+    else
+    {
+#ifdef _NO_EXCEPTION
+      if (rc != 0)
+      {
+        assert(!"ThreadSyscallException");
+        TBSYS_LOG(ERROR, "%s", "ThreadSyscallException");
+      }
+#else
+      throw ThreadSyscallException(__FILE__, __LINE__,rc);
+#endif
+    }
+  }
+  return (rc == 0);
 }
 
 inline void StaticMutex::unlock() const
 {
-    const int rc = pthread_mutex_unlock(&_mutex);
+  const int rc = pthread_mutex_unlock(&_mutex);
 #ifdef _NO_EXCEPTION
-    if ( rc != 0 )
-    {
-        assert(!"ThreadSyscallException");
-        TBSYS_LOG(ERROR,"%s","ThreadSyscallException");
-    }
+  if (rc != 0)
+  {
+    assert(!"ThreadSyscallException");
+    TBSYS_LOG(ERROR, "%s", "ThreadSyscallException");
+  }
 #else
-    if(rc != 0)
-    {
-        throw ThreadSyscallException(__FILE__, __LINE__, rc);
-    }
+  if(rc != 0)
+  {
+      throw ThreadSyscallException(__FILE__, __LINE__, rc);
+  }
 #endif
 }
 
 inline void
-StaticMutex::unlock(LockState& state) const
+StaticMutex::unlock(LockState &state) const
 {
-    state.mutex = &_mutex;
+  state.mutex = &_mutex;
 }
 
 inline void
-StaticMutex::lock(LockState&) const
+StaticMutex::lock(LockState &) const
 {
 }
 

@@ -33,55 +33,55 @@ class Cond;
  */
 class RecMutex
 {
-public:
+ public:
 
-    typedef LockT<RecMutex> Lock;
-    typedef TryLockT<RecMutex> TryLock;
+  typedef LockT<RecMutex> Lock;
+  typedef TryLockT<RecMutex> TryLock;
 
-    RecMutex();
-    ~RecMutex();
+  RecMutex();
+  ~RecMutex();
 
-    /** 
-     * @brief lock 函数尝试获取互斥体。如果互斥体已被另一个线程锁住，它就
-     * 会挂起发出调用的线程，直到互斥体变得可用为止。如果互斥体可用、
-     * 或者已经被发出调用的线程锁住，这个调用就会锁住互斥体，并立即返回
-     */
-    void lock() const;
+  /**
+   * @brief lock 函数尝试获取互斥体。如果互斥体已被另一个线程锁住，它就
+   * 会挂起发出调用的线程，直到互斥体变得可用为止。如果互斥体可用、
+   * 或者已经被发出调用的线程锁住，这个调用就会锁住互斥体，并立即返回
+   */
+  void lock() const;
 
-    /** 
-     * @brief tryLock函数的功能与lock类似，但如果互斥体已被另一个线程锁住,
-     * 它不会阻塞调用者，而会返回false。否则返回值是true
-     * @return 
-     */
-    bool tryLock() const;
+  /**
+   * @brief tryLock函数的功能与lock类似，但如果互斥体已被另一个线程锁住,
+   * 它不会阻塞调用者，而会返回false。否则返回值是true
+   * @return
+   */
+  bool tryLock() const;
 
-    /** 
-     * @brief unlock 函数解除互斥体的加锁
-     */
-    void unlock() const;
+  /**
+   * @brief unlock 函数解除互斥体的加锁
+   */
+  void unlock() const;
 
-    bool willUnlock() const;
+  bool willUnlock() const;
 
-private:
+ private:
 
-    // noncopyable
-    RecMutex(const RecMutex&);
-    RecMutex& operator=(const RecMutex&);
+  // noncopyable
+  RecMutex(const RecMutex &);
+  RecMutex &operator=(const RecMutex &);
 
-    struct LockState
-    {
-        pthread_mutex_t* mutex;
-        int count;
-    };
+  struct LockState
+  {
+    pthread_mutex_t *mutex;
+    int count;
+  };
 
-    void unlock(LockState&) const;
-    void lock(LockState&) const;
+  void unlock(LockState &) const;
+  void lock(LockState &) const;
 
-    friend class Cond;
+  friend class Cond;
 
-    mutable pthread_mutex_t _mutex;
+  mutable pthread_mutex_t _mutex;
 
-    mutable int _count;
+  mutable int _count;
 };
 }//end namespace 
 #endif

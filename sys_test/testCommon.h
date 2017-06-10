@@ -17,11 +17,11 @@
 #define TEST_COMMON_H
 #include<iostream>
 
-void inline testFailed(const char* expr, const char* file, unsigned int line)
+void inline testFailed(const char *expr, const char *file, unsigned int line)
 {
-    std::cout << "failed!" << std::endl;
-    std::cout<<file<< ':' << line << ": assertion `" << expr << "' failed" << std::endl;
-    abort();
+  std::cout << "failed!" << std::endl;
+  std::cout << file << ':' << line << ": assertion `" << expr << "' failed" << std::endl;
+  abort();
 }
 
 #define test(ex) ((ex) ? ((void)0) : testFailed(#ex, __FILE__, __LINE__))

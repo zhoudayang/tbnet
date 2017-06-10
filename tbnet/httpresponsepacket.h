@@ -16,12 +16,15 @@
 #ifndef TBNET_HTTP_RESPONSE_PACKET_H
 #define TBNET_HTTP_RESPONSE_PACKET_H
 
-namespace tbnet {
+namespace tbnet
+{
 
-struct str_hash {
-    size_t operator()(const std::string& str) const {
-        return __gnu_cxx::__stl_hash_string(str.c_str());
-    }
+struct str_hash
+{
+  size_t operator()(const std::string &str) const
+  {
+    return __gnu_cxx::__stl_hash_string(str.c_str());
+  }
 };
 typedef __gnu_cxx::hash_map<std::string, std::string, str_hash> STRING_MAP;
 typedef STRING_MAP::iterator STRING_MAP_ITER;
@@ -33,60 +36,61 @@ typedef STRING_MAP::iterator STRING_MAP_ITER;
 #define TBNET_HTTP_CONTENT_TYPE "Content-Type: text/html\r\n"
 #define TBNET_HTTP_CONTENT_LENGTH "Content-Length: %d\r\n"
 
-class HttpResponsePacket : public Packet {
-public:
-    /*
-     * 构造函数
-     */
-    HttpResponsePacket();
+class HttpResponsePacket : public Packet
+{
+ public:
+  /*
+   * 构造函数
+   */
+  HttpResponsePacket();
 
-    /*
-     * 析构函数
-     */
-    ~HttpResponsePacket();
+  /*
+   * 析构函数
+   */
+  ~HttpResponsePacket();
 
-    /*
-     * 计算出数据包的长度
-     */
-    void countDataLen();
+  /*
+   * 计算出数据包的长度
+   */
+  void countDataLen();
 
-    /*
-     * 组装
-     */
-    bool encode(DataBuffer *output);
+  /*
+   * 组装
+   */
+  bool encode(DataBuffer *output);
 
-    /*
-     * 解开
-     */
-    bool decode(DataBuffer *input, PacketHeader *header);
+  /*
+   * 解开
+   */
+  bool decode(DataBuffer *input, PacketHeader *header);
 
-    /*
-     * 设置header
-     */
-    void setHeader(const char *name, const char *value);
+  /*
+   * 设置header
+   */
+  void setHeader(const char *name, const char *value);
 
-    /*
-     * 设置状态
-     */
-    void setStatus(bool status, const char *statusMessage = NULL);
+  /*
+   * 设置状态
+   */
+  void setStatus(bool status, const char *statusMessage = NULL);
 
-    /*
-     * 设置内容
-     */
-    void setBody(const char *body, int len);
+  /*
+   * 设置内容
+   */
+  void setBody(const char *body, int len);
 
-    /*
-     * 是否keepalive
-     */
-    void setKeepAlive(bool keepAlive);
+  /*
+   * 是否keepalive
+   */
+  void setKeepAlive(bool keepAlive);
 
-private:
-    bool _status;                   // 返回的状态, true => 200, false => 404
-    char *_statusMessage;           // 状态
-    char *_body;                    // 返回的内容
-    int _bodyLen;                   // 返回内容找长度
-    STRING_MAP _headerMap;          // 返回其他头信息
-    bool _isKeepAlive;              // 是否keepalive
+ private:
+  bool _status;                   // 返回的状态, true => 200, false => 404
+  char *_statusMessage;           // 状态
+  char *_body;                    // 返回的内容
+  int _bodyLen;                   // 返回内容找长度
+  STRING_MAP _headerMap;          // 返回其他头信息
+  bool _isKeepAlive;              // 是否keepalive
 };
 
 }

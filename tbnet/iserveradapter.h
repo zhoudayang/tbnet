@@ -20,32 +20,37 @@
 #define UNUSED(v) ((void)(v))
 #endif
 
-namespace tbnet {
+namespace tbnet
+{
 
-class IServerAdapter {
-    friend class Connection;
-    friend class TCPConnection;
-public:
-    // 单个packet回调
-    virtual IPacketHandler::HPRetCode handlePacket(Connection *connection, Packet *packet) = 0;
-    // 批量packet回调
-    virtual bool handleBatchPacket(Connection *connection, PacketQueue &packetQueue) {
-      UNUSED(packetQueue);
-      UNUSED(connection);
-        return false;
-    }
-    // 构造函数
-    IServerAdapter() {
-        _batchPushPacket = false;
-    }
-    // 析构函数
-    virtual ~IServerAdapter() {}
-    // setBatch()
-    void setBatchPushPacket(bool value) {
-        _batchPushPacket = value;
-    }
-private:
-    bool _batchPushPacket;          // 批量post packet
+class IServerAdapter
+{
+  friend class Connection;
+  friend class TCPConnection;
+ public:
+  // 单个packet回调
+  virtual IPacketHandler::HPRetCode handlePacket(Connection *connection, Packet *packet) = 0;
+  // 批量packet回调
+  virtual bool handleBatchPacket(Connection *connection, PacketQueue &packetQueue)
+  {
+    UNUSED(packetQueue);
+    UNUSED(connection);
+    return false;
+  }
+  // 构造函数
+  IServerAdapter()
+  {
+    _batchPushPacket = false;
+  }
+  // 析构函数
+  virtual ~IServerAdapter() {}
+  // setBatch()
+  void setBatchPushPacket(bool value)
+  {
+    _batchPushPacket = value;
+  }
+ private:
+  bool _batchPushPacket;          // 批量post packet
 };
 }
 

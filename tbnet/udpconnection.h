@@ -16,32 +16,34 @@
 #ifndef TBNET_UDPCONNECTION_H_
 #define TBNET_UDPCONNECTION_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class UDPConnection : public Connection {
-    /*
-     * 构造函数
-     */
-    UDPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
+class UDPConnection : public Connection
+{
+  /*
+   * 构造函数
+   */
+  UDPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
-    /*
-     * 析造函数
-     */
-    ~UDPConnection();
+  /*
+   * 析造函数
+   */
+  ~UDPConnection();
 
-    /*
-     * 写出数据
-     *
-     * @return 是否成功
-     */
-    bool writeData();
+  /*
+   * 写出数据
+   *
+   * @return 是否成功
+   */
+  bool writeData();
 
-    /*
-     * 读入数据
-     *
-     * @return 读入数据
-     */
-    bool readData();
+  /*
+   * 读入数据
+   *
+   * @return 读入数据
+   */
+  bool readData();
 
 };
 

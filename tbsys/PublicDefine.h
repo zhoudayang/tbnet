@@ -74,7 +74,7 @@ namespace tbsys
     } \
     while (0)
 
-#define OUTPUT_RETURN(RetCond,Ret,output,value)\
+#define OUTPUT_RETURN(RetCond, Ret, output, value)\
     do\
     {\
         if (RetCond )\
@@ -85,7 +85,7 @@ namespace tbsys
     }\
     while(0);
 
-#define OUTPUTPRINT_RETURN(RetCond,Ret,output,value,Module,Level,...)\
+#define OUTPUTPRINT_RETURN(RetCond, Ret, output, value, Module, Level, ...)\
     do\
     {\
          if ( RetCond )\
@@ -95,7 +95,6 @@ namespace tbsys
              return Ret;\
          }\
     }while(0);
-
 
 #define C_TRY(ExceptionCond) \
     if (ExceptionCond) \

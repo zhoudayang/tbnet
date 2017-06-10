@@ -202,16 +202,3 @@ namespace tbutil {
 } // end namespace tfs
 
 #endif //__BYTEBUFFER_H__
-
-
-
-
-
-
-
-
-
-
-
-
-

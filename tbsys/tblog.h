@@ -48,14 +48,16 @@
                                                             pthread_self(), tbsys::CLogger::get_cur_tv().tv_sec, \
                                                             tbsys::CLogger::get_cur_tv().tv_usec, ##args))
 
-namespace tbsys {
+namespace tbsys
+{
 using std::deque;
 using std::string;
 
 /**
 * @brief ¼òµ¥µÄÈÕÖ¾ÏµÍ³
 */
-class           CLogger {
+class CLogger
+{
  public:
 
   static const mode_t LOG_FILE_MODE = 0644;
@@ -78,7 +80,13 @@ class           CLogger {
    * @param fmt
    * @param ...
    */
-  void logMessage(int level, const char *file, int line, const char *function, pthread_t tid, const char *fmt, ...) __attribute__ ((format (printf, 7, 8)));
+  void logMessage(int level,
+                  const char *file,
+                  int line,
+                  const char *function,
+                  pthread_t tid,
+                  const char *fmt,
+                  ...) __attribute__ ((format (printf, 7, 8)));
   /**
    * @brief set log putout level
    *
@@ -101,21 +109,21 @@ class           CLogger {
    * @brief ¼ì²âÎÄ¼þÊÇ·ñÒÑ¾­´ò¿ª,±ê×¼Êä³ö,´íÎóÊä³öÖØ¶¨Ïò
    */
   void checkFile();
-  void setCheck(int v) {_check = v;}
+  void setCheck(int v) { _check = v; }
   /**
    * @brief ÉèÖÃÈÕÖ¾ÎÄ¼þÎÄ¼þµÄ´óÐ¡,´ïµ½maxFileSize¾ÍÐÂ´ò¿ªÒ»¸öÎÄ¼þ
    * Èç¹û²»ÉèÖÃ´ËÏî£¬ÈÕÖ¾ÏµÍ³»áºöÂÔÈÕÖ¾¹ö¶¯
    *
    * @param maxFileSize ÈÕÖ¾ÎÄ¼þµÄ´óÐ¡
    */
-  void setMaxFileSize( int64_t maxFileSize=0x40000000);
+  void setMaxFileSize(int64_t maxFileSize = 0x40000000);
   /**
    * @brief ±£Áô×î½ümaxFileIndex¸öÈÕÖ¾ÎÄ¼þ£¬³¬³ömaxFileIndex¸öÈÕÖ¾ÎÄ¼þ
    * »á°´Ê±¼äÏÈºóÉ¾³ý,µ«½ø³ÌÖØÆôºóÈÕÖ¾ÏµÍ³»á°´Ê±¼äÏÈºóÖØÐÂÍ³¼Æ
    *
    * @param maxFileIndex ±£ÁôÎÄ¼þµÄ×î´ó¸öÊý
    */
-  void setMaxFileIndex( int maxFileIndex= 0x0F);
+  void setMaxFileIndex(int maxFileIndex = 0x0F);
 
   static inline struct timeval get_cur_tv()
   {
@@ -124,7 +132,7 @@ class           CLogger {
     return tv;
   };
 
-  static CLogger& getLogger();
+  static CLogger &getLogger();
 
  private:
   int _fd;

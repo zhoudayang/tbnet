@@ -25,16 +25,16 @@ namespace tbutil
 */
 class ThreadSyscallException : public SyscallException
 {
-public:
+ public:
 
-    ThreadSyscallException(const char*, int, int);
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  ThreadSyscallException(const char *, int, int);
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+ private:
 
-    static const char* _name;
+  static const char *_name;
 };
 
 /** 
@@ -42,16 +42,16 @@ private:
  */
 class ThreadLockedException : public Exception
 {
-public:
+ public:
 
-    ThreadLockedException(const char*, int);
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  ThreadLockedException(const char *, int);
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+ private:
 
-    static const char* _name;
+  static const char *_name;
 };
 
 /** 
@@ -59,16 +59,16 @@ private:
  */
 class ThreadStartedException : public Exception
 {
-public:
+ public:
 
-    ThreadStartedException(const char*, int);
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  ThreadStartedException(const char *, int);
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+ private:
 
-    static const char* _name;
+  static const char *_name;
 };
 
 /** 
@@ -76,16 +76,16 @@ private:
  */
 class ThreadNotStartedException : public Exception
 {
-public:
+ public:
 
-    ThreadNotStartedException(const char*, int);
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  ThreadNotStartedException(const char *, int);
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+ private:
 
-    static const char* _name;
+  static const char *_name;
 };
 
 /** 
@@ -93,16 +93,16 @@ private:
  */
 class BadThreadControlException : public Exception
 {
-public:
+ public:
 
-    BadThreadControlException(const char*, int);
-    virtual std::string name() const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  BadThreadControlException(const char *, int);
+  virtual std::string name() const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
+ private:
 
-    static const char* _name;
+  static const char *_name;
 };
 
 /** 
@@ -110,33 +110,33 @@ private:
  */
 class InvalidTimeoutException : public Exception
 {
-public:
+ public:
 
-    InvalidTimeoutException(const char*, int, const Time&);
-    virtual std::string name() const;
-    virtual void print(std::ostream&) const;
-    virtual Exception* clone() const;
-    virtual void _throw() const;
+  InvalidTimeoutException(const char *, int, const Time &);
+  virtual std::string name() const;
+  virtual void print(std::ostream &) const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
 
-private:
-    
-    Time _timeout;
-    static const char* _name;
+ private:
+
+  Time _timeout;
+  static const char *_name;
 };
 
 /** 
  * @brief 创建线程异常
  */
-class ThreadCreateException: public Exception
+class ThreadCreateException : public Exception
 {
-public:
-      ThreadCreateException( const char* , int );
-      virtual std::string name() const;
-      virtual void print(std::ostream&) const;
-      virtual Exception* clone() const;
-      virtual void _throw() const;
-private: 
-      static const char* _name;
+ public:
+  ThreadCreateException(const char *, int);
+  virtual std::string name() const;
+  virtual void print(std::ostream &) const;
+  virtual Exception *clone() const;
+  virtual void _throw() const;
+ private:
+  static const char *_name;
 };
 }//end namespace
 #endif

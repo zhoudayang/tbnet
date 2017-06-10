@@ -28,42 +28,41 @@ typedef void (*CtrlCHandlerCallback)(int);
  */
 class CtrlCHandler
 {
-public:
+ public:
 
 /** 
 * @brief 用一个回调函数构造一个实例
 * 
 * @param CtrlCHandlerCallback
 */
-    CtrlCHandler(CtrlCHandlerCallback = 0);
-    ~CtrlCHandler();
+  CtrlCHandler(CtrlCHandlerCallback = 0);
+  ~CtrlCHandler();
 
-    /** 
-     * @brief 设置新的回调函数
-     * 
-     * @param callback 
-     */
-    void setCallback(CtrlCHandlerCallback callback);
-    /** 
-     * @brief 获得当前回调函数
-     * 
-     * @return 
-     */
-    CtrlCHandlerCallback getCallback() const;
+  /**
+   * @brief 设置新的回调函数
+   *
+   * @param callback
+   */
+  void setCallback(CtrlCHandlerCallback callback);
+  /**
+   * @brief 获得当前回调函数
+   *
+   * @return
+   */
+  CtrlCHandlerCallback getCallback() const;
 };
 
-
-/** 
+/**
  * @brief CtrlCHandler实例如果已经存在就会抛出异常
  */
 class CtrlCHandlerException : public Exception
-{ 
-public:
- 
-    CtrlCHandlerException(const char*, int);
-    virtual std::string _name() const;
-    virtual Exception* _clone() const;
-    virtual void _throw() const;
+{
+ public:
+
+  CtrlCHandlerException(const char *, int);
+  virtual std::string _name() const;
+  virtual Exception *_clone() const;
+  virtual void _throw() const;
 };
 }//end namespace
 #endif

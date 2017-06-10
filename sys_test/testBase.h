@@ -24,21 +24,21 @@ using namespace tbutil;
 
 class testFailed
 {
-public:
-    testFailed( const std::string&);
-  
-     const std::string _name;
+ public:
+  testFailed(const std::string &);
+
+  const std::string _name;
 };
 
 class testBase : public Shared
 {
-public:
-    testBase( const std::string&);
-    std::string name() const;
-    void start();
-protected:
-    virtual void run()=0;
-    const std::string _name;    
+ public:
+  testBase(const std::string &);
+  std::string name() const;
+  void start();
+ protected:
+  virtual void run()=0;
+  const std::string _name;
 };
 
 typedef tbutil::Handle<testBase> testBasePtr;

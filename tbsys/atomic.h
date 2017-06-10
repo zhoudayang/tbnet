@@ -48,17 +48,20 @@
  * on us. We need to use _exactly_ the address the user gave us,
  * not some alias that contains the same information.
  */
-typedef struct { volatile int counter; } atomic_t;
+typedef struct
+{
+  volatile int counter;
+} atomic_t;
 
-#define ATOMIC_INIT(i)	{ (i) }
+#define ATOMIC_INIT(i)    { (i) }
 
 /**
  * atomic_read - read atomic variable
  * @param v pointer of type atomic_t
  * 
  * Atomically reads the value of v.
- */ 
-#define atomic_read(v)		((v)->counter)
+ */
+#define atomic_read(v)        ((v)->counter)
 
 /**
  * atomic_set - set atomic variable
@@ -66,8 +69,8 @@ typedef struct { volatile int counter; } atomic_t;
  * @param i required value
  * 
  * Atomically sets the value of v to i.
- */ 
-#define atomic_set(v,i)		(((v)->counter) = (i))
+ */
+#define atomic_set(v, i)        (((v)->counter) = (i))
 
 /**
  * atomic_add - add integer to atomic variable
@@ -79,10 +82,10 @@ typedef struct { volatile int counter; } atomic_t;
 static __inline__ void atomic_add(int i, atomic_t *v)
 {
   //__asm__ __volatile__ 表示后面的代码是内嵌汇编代码，编译器需要使它保持原样
-	__asm__ __volatile__(
-		LOCK "addl %1,%0"
-		:"=m" (v->counter)
-		:"ir" (i), "m" (v->counter));
+  __asm__ __volatile__(
+  LOCK "addl %1,%0"
+  :"=m" (v->counter)
+  :"ir" (i), "m" (v->counter));
 }
 
 /**
@@ -94,12 +97,11 @@ static __inline__ void atomic_add(int i, atomic_t *v)
  */
 static __inline__ void atomic_sub(int i, atomic_t *v)
 {
-	__asm__ __volatile__(
-		LOCK "subl %1,%0"
-		:"=m" (v->counter)
-		:"ir" (i), "m" (v->counter));
+  __asm__ __volatile__(
+  LOCK "subl %1,%0"
+  :"=m" (v->counter)
+  :"ir" (i), "m" (v->counter));
 }
-
 
 /**
  * atomic_add_return - add and return
@@ -114,17 +116,16 @@ static __inline__ int atomic_add_return(int i, atomic_t *v)
   /* Modern 486+ processor */
   __i = i;
   __asm__ __volatile__(
-                LOCK "xaddl %0, %1"
-                :"+r" (i), "+m" (v->counter)
-                : : "memory");
+  LOCK "xaddl %0, %1"
+  :"+r" (i), "+m" (v->counter)
+  : : "memory");
   return i + __i;
 }
 
 static __inline__ int atomic_sub_return(int i, atomic_t *v)
 {
-  return atomic_add_return(-i,v);
+  return atomic_add_return(-i, v);
 }
-
 
 /**
  * atomic_sub_and_test - subtract value from variable and test result
@@ -137,13 +138,13 @@ static __inline__ int atomic_sub_return(int i, atomic_t *v)
  */
 static __inline__ int atomic_sub_and_test(int i, atomic_t *v)
 {
-	unsigned char c;
+  unsigned char c;
 
-	__asm__ __volatile__(
-		LOCK "subl %2,%0; sete %1"
-		:"=m" (v->counter), "=qm" (c)
-		:"ir" (i), "m" (v->counter) : "memory");
-	return c;
+  __asm__ __volatile__(
+  LOCK "subl %2,%0; sete %1"
+  :"=m" (v->counter), "=qm" (c)
+  :"ir" (i), "m" (v->counter) : "memory");
+  return c;
 }
 
 /**
@@ -151,13 +152,13 @@ static __inline__ int atomic_sub_and_test(int i, atomic_t *v)
  * @param v pointer of type atomic_t
  * 
  * Atomically increments v by 1.
- */ 
+ */
 static __inline__ void atomic_inc(atomic_t *v)
 {
-	__asm__ __volatile__(
-		LOCK "incl %0"
-		:"=m" (v->counter)
-		:"m" (v->counter));
+  __asm__ __volatile__(
+  LOCK "incl %0"
+  :"=m" (v->counter)
+  :"m" (v->counter));
 }
 
 /**
@@ -165,13 +166,13 @@ static __inline__ void atomic_inc(atomic_t *v)
  * @param v pointer of type atomic_t
  * 
  * Atomically decrements v by 1.
- */ 
+ */
 static __inline__ void atomic_dec(atomic_t *v)
 {
-	__asm__ __volatile__(
-		LOCK "decl %0"
-		:"=m" (v->counter)
-		:"m" (v->counter));
+  __asm__ __volatile__(
+  LOCK "decl %0"
+  :"=m" (v->counter)
+  :"m" (v->counter));
 }
 
 /**
@@ -181,16 +182,16 @@ static __inline__ void atomic_dec(atomic_t *v)
  * Atomically decrements v by 1 and
  * returns true if the result is 0, or false for all other
  * cases.
- */ 
+ */
 static __inline__ int atomic_dec_and_test(atomic_t *v)
 {
-	unsigned char c;
+  unsigned char c;
 
-	__asm__ __volatile__(
-		LOCK "decl %0; sete %1"
-		:"=m" (v->counter), "=qm" (c)
-		:"m" (v->counter) : "memory");
-	return c != 0;
+  __asm__ __volatile__(
+  LOCK "decl %0; sete %1"
+  :"=m" (v->counter), "=qm" (c)
+  :"m" (v->counter) : "memory");
+  return c != 0;
 }
 
 /**
@@ -200,16 +201,16 @@ static __inline__ int atomic_dec_and_test(atomic_t *v)
  * Atomically increments v by 1
  * and returns true if the result is zero, or false for all
  * other cases.
- */ 
+ */
 static __inline__ int atomic_inc_and_test(atomic_t *v)
 {
-	unsigned char c;
+  unsigned char c;
 
-	__asm__ __volatile__(
-		LOCK "incl %0; sete %1"
-		:"=m" (v->counter), "=qm" (c)
-		:"m" (v->counter) : "memory");
-	return c != 0;
+  __asm__ __volatile__(
+  LOCK "incl %0; sete %1"
+  :"=m" (v->counter), "=qm" (c)
+  :"m" (v->counter) : "memory");
+  return c != 0;
 }
 
 /**
@@ -220,16 +221,16 @@ static __inline__ int atomic_inc_and_test(atomic_t *v)
  * Atomically adds i to v and returns true
  * if the result is negative, or false when
  * result is greater than or equal to zero.
- */ 
+ */
 static __inline__ int atomic_add_negative(int i, atomic_t *v)
 {
-	unsigned char c;
+  unsigned char c;
 
-	__asm__ __volatile__(
-		LOCK "addl %2,%0; sets %1"
-		:"=m" (v->counter), "=qm" (c)
-		:"ir" (i), "m" (v->counter) : "memory");
-	return c;
+  __asm__ __volatile__(
+  LOCK "addl %2,%0; sets %1"
+  :"=m" (v->counter), "=qm" (c)
+  :"ir" (i), "m" (v->counter) : "memory");
+  return c;
 }
 
 /* These are x86-specific, used by some header files */

@@ -16,9 +16,11 @@
 #ifndef TBNET_EPOLLSOCKETEVENT_H_
 #define TBNET_EPOLLSOCKETEVENT_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class EPollSocketEvent : public SocketEvent {
+class EPollSocketEvent : public SocketEvent
+{
 
  public:
   /*

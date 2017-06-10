@@ -18,35 +18,34 @@
 using namespace std;
 using namespace tbutil;
 
-
-testFailed::testFailed(const std::string& name ):
-   _name( name)
+testFailed::testFailed(const std::string &name) :
+    _name(name)
 {
 
 }
 
-testBase::testBase(const string& name):
-   _name( name )
+testBase::testBase(const string &name) :
+    _name(name)
 {
 
 }
 
 std::string testBase::name() const
 {
-    return _name;
+  return _name;
 }
 
 void testBase::start()
 {
-    cout<<"running "<<_name<<endl;
-    try
-    {
-        run();
-    }
-    catch( const Exception& e )
-    {
-       cout<<e <<" failed" <<endl;
-       throw testFailed(_name);
-    } 
-    cout <<" ok "<<endl;
+  cout << "running " << _name << endl;
+  try
+  {
+    run();
+  }
+  catch (const Exception &e)
+  {
+    cout << e << " failed" << endl;
+    throw testFailed(_name);
+  }
+  cout << " ok " << endl;
 }

@@ -15,13 +15,15 @@
 
 #include "tbnet.h"
 
-namespace tbnet {
+namespace tbnet
+{
 
 /*
  * 构造函数
  */
-ServerSocket::ServerSocket() {
-    _backLog = 256;
+ServerSocket::ServerSocket()
+{
+  _backLog = 256;
 }
 
 /*
@@ -29,25 +31,30 @@ ServerSocket::ServerSocket() {
  *
  * @return 一个Socket
  */
-Socket *ServerSocket::accept() {
-    Socket *handleSocket = NULL;
+Socket *ServerSocket::accept()
+{
+  Socket *handleSocket = NULL;
 
-    struct sockaddr_in addr;
-    int len = sizeof(addr);
+  struct sockaddr_in addr;
+  int len = sizeof(addr);
 
-    int fd = ::accept(_socketHandle, (struct sockaddr *) & addr, (socklen_t*) & len);
+  int fd = ::accept(_socketHandle, (struct sockaddr *) &addr, (socklen_t *) &len);
 
-    if (fd >= 0) {
-        handleSocket = new Socket();
-        handleSocket->setUp(fd, (struct sockaddr *)&addr);
-    } else {
-        int error = getLastError();
-        if (error != EAGAIN) {
-            TBSYS_LOG(ERROR, "%s(%d)", strerror(error), error);
-        }
+  if (fd >= 0)
+  {
+    handleSocket = new Socket();
+    handleSocket->setUp(fd, (struct sockaddr *) &addr);
+  }
+  else
+  {
+    int error = getLastError();
+    if (error != EAGAIN)
+    {
+      TBSYS_LOG(ERROR, "%s(%d)", strerror(error), error);
     }
+  }
 
-    return handleSocket;
+  return handleSocket;
 }
 
 /*
@@ -55,28 +62,32 @@ Socket *ServerSocket::accept() {
  *
  * @return 是否成功
  */
-bool ServerSocket::listen() {
-    if (!checkSocketHandle()) {
-        return false;
-    }
+bool ServerSocket::listen()
+{
+  if (!checkSocketHandle())
+  {
+    return false;
+  }
 
-    // 地址可重用
-    setSoLinger(false, 0);
-    setReuseAddress(true);
-    setIntOption(SO_KEEPALIVE, 1);
-    setIntOption(SO_SNDBUF, 640000);
-    setIntOption(SO_RCVBUF, 640000);
-    setTcpNoDelay(true);
+  // 地址可重用
+  setSoLinger(false, 0);
+  setReuseAddress(true);
+  setIntOption(SO_KEEPALIVE, 1);
+  setIntOption(SO_SNDBUF, 640000);
+  setIntOption(SO_RCVBUF, 640000);
+  setTcpNoDelay(true);
 
-    if (::bind(_socketHandle, (struct sockaddr *)&_address,
-               sizeof(_address)) < 0) {
-        return false;
-    }
+  if (::bind(_socketHandle, (struct sockaddr *) &_address,
+             sizeof(_address)) < 0)
+  {
+    return false;
+  }
 
-    if (::listen(_socketHandle, _backLog) < 0) {
-        return false;
-    }
+  if (::listen(_socketHandle, _backLog) < 0)
+  {
+    return false;
+  }
 
-    return true;
+  return true;
 }
 }

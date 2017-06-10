@@ -16,12 +16,14 @@
 #ifndef TBSYS_QUEUE_HANDLER_H_
 #define TBSYS_QUEUE_HANDLER_H_
 
-namespace tbsys {
+namespace tbsys
+{
 
-class IQueueHandler {
-public:    
-    virtual ~IQueueHandler() {}
-    virtual bool handleQueue(void *data, int len, int threadIndex, void *args) = 0;
+class IQueueHandler
+{
+ public:
+  virtual ~IQueueHandler() {}
+  virtual bool handleQueue(void *data, int len, int threadIndex, void *args) = 0;
 };
 
 }

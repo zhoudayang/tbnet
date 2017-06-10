@@ -15,15 +15,17 @@
 
 #include "tbnet.h"
 
-namespace tbnet {
+namespace tbnet
+{
 
 /*
  * 构造函数
  */
-Channel::Channel() {
-    _prev = NULL;
-    _next = NULL;
-    _expireTime = 0;
+Channel::Channel()
+{
+  _prev = NULL;
+  _next = NULL;
+  _expireTime = 0;
 }
 
 /*
@@ -31,31 +33,37 @@ Channel::Channel() {
  *
  * @param   chid    ChannelId
  */
-void Channel::setId(uint32_t id) {
-    _id = id;
+void Channel::setId(uint32_t id)
+{
+  _id = id;
 }
 
 /*
  * 得到ID
  */
-uint32_t Channel::getId() {
-    return _id;
+uint32_t Channel::getId()
+{
+  return _id;
 }
 
-void Channel::setArgs(void *args) {
-    _args = args;
+void Channel::setArgs(void *args)
+{
+  _args = args;
 }
 
-void *Channel::getArgs() {
-    return _args;
+void *Channel::getArgs()
+{
+  return _args;
 }
 
-void Channel::setHandler(IPacketHandler *handler) {
-    _handler = handler;
+void Channel::setHandler(IPacketHandler *handler)
+{
+  _handler = handler;
 }
 
-IPacketHandler *Channel::getHandler() {
-    return _handler;
+IPacketHandler *Channel::getHandler()
+{
+  return _handler;
 }
 
 /*
@@ -63,7 +71,8 @@ IPacketHandler *Channel::getHandler() {
  *
  * @param milliseconds 毫秒数, 0为永不过期
  */
-void Channel::setExpireTime(int64_t expireTime) {
-    _expireTime = expireTime;
+void Channel::setExpireTime(int64_t expireTime)
+{
+  _expireTime = expireTime;
 }
 }

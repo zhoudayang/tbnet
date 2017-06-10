@@ -15,7 +15,8 @@
 
 #include "tbnet.h"
 
-namespace tbnet {
+namespace tbnet
+{
 
 /*
  * 构造函数
@@ -33,8 +34,9 @@ UDPConnection::~UDPConnection() {}
  *
  * @return 是否成功
  */
-bool UDPConnection::writeData() {
-    return true;
+bool UDPConnection::writeData()
+{
+  return true;
 }
 
 /*
@@ -42,8 +44,9 @@ bool UDPConnection::writeData() {
  *
  * @return 读入数据
  */
-bool UDPConnection::readData() {
-    return true;
+bool UDPConnection::readData()
+{
+  return true;
 }
 
 }

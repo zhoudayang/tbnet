@@ -25,116 +25,116 @@ Exception::Exception() :
     _line(0)
 {
 }
-    
-Exception::Exception(const char* file, int line) :
+
+Exception::Exception(const char *file, int line) :
     _file(file),
     _line(line)
 {
 }
-    
+
 Exception::~Exception() throw()
 {
 }
 
-const char* Exception::_name = "tbutil::Exception";
+const char *Exception::_name = "tbutil::Exception";
 
 string Exception::name() const
 {
-    return _name;
+  return _name;
 }
 
-void Exception::print(ostream& out) const
+void Exception::print(ostream &out) const
 {
-    if(_file && _line > 0)
-    {
-        out << _file << ':' << _line << ": ";
-    }
-    out << name();
+  if (_file && _line > 0)
+  {
+    out << _file << ':' << _line << ": ";
+  }
+  out << name();
 }
 
-const char* Exception::what() const throw()
+const char *Exception::what() const throw()
 {
-    try
+  try
+  {
+    StaticMutex::Lock lock(globalMutex);
     {
-        StaticMutex::Lock lock(globalMutex);
-        {
-            if(_str.empty())
-            {
-                stringstream s;
-                print(s);
-                _str = s.str(); // Lazy initialization.
-            }
-        }
-        return _str.c_str();
+      if (_str.empty())
+      {
+        stringstream s;
+        print(s);
+        _str = s.str(); // Lazy initialization.
+      }
     }
-    catch(...)
-    {
-    }
-    return "";
+    return _str.c_str();
+  }
+  catch (...)
+  {
+  }
+  return "";
 }
 
-Exception* Exception::clone() const
+Exception *Exception::clone() const
 {
-    return new Exception(*this);
+  return new Exception(*this);
 }
 
 void Exception::_throw() const
 {
-    throw *this;
+  throw *this;
 }
 
-const char* Exception::file() const
+const char *Exception::file() const
 {
-    return _file;
+  return _file;
 }
 
 int Exception::line() const
 {
-    return _line;
+  return _line;
 }
 
-std::ostream& operator << (std::ostream& out, const Exception& ex)
+std::ostream &operator<<(std::ostream &out, const Exception &ex)
 {
-    ex.print(out);
-    return out;
+  ex.print(out);
+  return out;
 }
 
-NullHandleException::NullHandleException(const char* file, int line) :
+NullHandleException::NullHandleException(const char *file, int line) :
     Exception(file, line)
 {
-    //if(nullHandleAbort)
-    {
-        abort();
-    }
+  //if(nullHandleAbort)
+  {
+    abort();
+  }
 }
 
 NullHandleException::~NullHandleException() throw()
 {
 }
 
-const char* NullHandleException::_name = "NullHandleException";
+const char *NullHandleException::_name = "NullHandleException";
 
 string NullHandleException::name() const
 {
-    return _name;
+  return _name;
 }
 
-Exception* NullHandleException::clone() const
+Exception *NullHandleException::clone() const
 {
-    return new NullHandleException(*this);
+  return new NullHandleException(*this);
 }
 
 void NullHandleException::_throw() const
 {
-    throw *this;
+  throw *this;
 }
 
-IllegalArgumentException::IllegalArgumentException(const char* file, int line) :
+IllegalArgumentException::IllegalArgumentException(const char *file, int line) :
     Exception(file, line)
 {
 }
 
-IllegalArgumentException::IllegalArgumentException(const char* file, int line, const string& r) :
+IllegalArgumentException::IllegalArgumentException(const char *file, int line, const string &r) :
     Exception(file, line),
     _reason(r)
 {
@@ -144,74 +144,74 @@ IllegalArgumentException::~IllegalArgumentException() throw()
 {
 }
 
-const char* IllegalArgumentException::_name = "IllegalArgumentException";
+const char *IllegalArgumentException::_name = "IllegalArgumentException";
 
 string IllegalArgumentException::name() const
 {
-    return _name;
+  return _name;
 }
 
-void IllegalArgumentException::print(ostream& out) const
+void IllegalArgumentException::print(ostream &out) const
 {
-    Exception::print(out);
-    out << ": " << _reason;
+  Exception::print(out);
+  out << ": " << _reason;
 }
 
-Exception* IllegalArgumentException::clone() const
+Exception *IllegalArgumentException::clone() const
 {
-    return new IllegalArgumentException(*this);
+  return new IllegalArgumentException(*this);
 }
 
 void IllegalArgumentException::_throw() const
 {
-    throw *this;
+  throw *this;
 }
 
 string IllegalArgumentException::reason() const
 {
-    return _reason;
+  return _reason;
 }
 
-SyscallException::SyscallException(const char* file, int line):
-    Exception(file,line)
+SyscallException::SyscallException(const char *file, int line) :
+    Exception(file, line)
 {
 
 }
- 
-SyscallException::SyscallException(const char* file, int line, int err ): 
+
+SyscallException::SyscallException(const char *file, int line, int err) :
     Exception(file, line),
     _error(err)
 {
 }
-    
-const char* SyscallException::_name = "SyscallException";
+
+const char *SyscallException::_name = "SyscallException";
 
 string SyscallException::name() const
 {
-    return _name;
+  return _name;
 }
 
-void SyscallException::print(ostream& os) const
+void SyscallException::print(ostream &os) const
 {
-    Exception::print(os);
-    if(_error != 0)
-    {
-    }
+  Exception::print(os);
+  if (_error != 0)
+  {
+  }
 }
 
-Exception* SyscallException::clone() const
+Exception *SyscallException::clone() const
 {
-    return new SyscallException(*this);
+  return new SyscallException(*this);
 }
 
 void SyscallException::_throw() const
 {
-    throw *this;
+  throw *this;
 }
 
-int SyscallException::error() 
+int SyscallException::error()
 {
-    return _error;
+  return _error;
 }
 }//end namespace tbutil
 

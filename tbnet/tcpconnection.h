@@ -16,67 +16,72 @@
 #ifndef TBNET_TCPCONNECTION_H_
 #define TBNET_TCPCONNECTION_H_
 
-namespace tbnet {
+namespace tbnet
+{
 
-class TCPConnection : public Connection {
+class TCPConnection : public Connection
+{
 
-public:
-    /*
-     * 构造函数
-     */
-    TCPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
+ public:
+  /*
+   * 构造函数
+   */
+  TCPConnection(Socket *socket, IPacketStreamer *streamer, IServerAdapter *serverAdapter);
 
-    /*
-     * 析构函数
-     */
-    ~TCPConnection();
+  /*
+   * 析构函数
+   */
+  ~TCPConnection();
 
-    /*
-     * 写出数据
-     *
-     * @return 是否成功
-     */
-    bool writeData();
+  /*
+   * 写出数据
+   *
+   * @return 是否成功
+   */
+  bool writeData();
 
-    /*
-     * 读入数据
-     *
-     * @return 读入数据
-     */
-    bool readData();
+  /*
+   * 读入数据
+   *
+   * @return 读入数据
+   */
+  bool readData();
 
-    /*
-     * 设置写完是否主动关闭
-     */
-    void setWriteFinishClose(bool v) {
-        _writeFinishClose = v;
-    }
+  /*
+   * 设置写完是否主动关闭
+   */
+  void setWriteFinishClose(bool v)
+  {
+    _writeFinishClose = v;
+  }
 
-    /*
-     * 清空output的buffer
-     */
-    void clearOutputBuffer() {
-        _output.clear();
-    }
+  /*
+   * 清空output的buffer
+   */
+  void clearOutputBuffer()
+  {
+    _output.clear();
+  }
 
-    /*
-     * clear input buffer
-     */
-    void clearInputBuffer() {
-        _input.clear();
-    }
+  /*
+   * clear input buffer
+   */
+  void clearInputBuffer()
+  {
+    _input.clear();
+  }
 
-    /**
-     * 发送setDisconnState
-     */
-    void setDisconnState();
+  /**
+   * 发送setDisconnState
+   */
+  void setDisconnState();
 
-private:
-    DataBuffer _output;      // 输出的buffer
-    DataBuffer _input;       // 读入的buffer
-    PacketHeader _packetHeader; // 读入的packet header
-    bool _gotHeader;            // packet header已经取过
-    bool _writeFinishClose;     // 写完断开
+ private:
+  DataBuffer _output;      // 输出的buffer
+  DataBuffer _input;       // 读入的buffer
+  PacketHeader _packetHeader; // 读入的packet header
+  bool _gotHeader;            // packet header已经取过
+  bool _writeFinishClose;     // 写完断开
 };
 
 }

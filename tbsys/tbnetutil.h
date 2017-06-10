@@ -33,50 +33,56 @@
 
 //using namespace std;
 
-namespace tbsys {
+namespace tbsys
+{
 /** 
 * @brief 按ip地址大小比较 
 */
-struct ipaddr_less {
-    bool operator()(const uint64_t a, const uint64_t b) const {
-        uint64_t a1 = ((a & 0xFF) << 24) | ((a & 0xFF00) << 8) | ((a & 0xFF0000) >> 8) | ((a & 0xFF000000) >> 24);
-        a1 <<= 32; a1 |= ((a>>32) & 0xffff);
-        uint64_t b1 = ((b & 0xFF) << 24) | ((b & 0xFF00) << 8) | ((b & 0xFF0000) >> 8) | ((b & 0xFF000000) >> 24);
-        b1 <<= 32; b1 |= ((b>>32) & 0xffff);
-        return (a1<b1);
-    }
+struct ipaddr_less
+{
+  bool operator()(const uint64_t a, const uint64_t b) const
+  {
+    uint64_t a1 = ((a & 0xFF) << 24) | ((a & 0xFF00) << 8) | ((a & 0xFF0000) >> 8) | ((a & 0xFF000000) >> 24);
+    a1 <<= 32;
+    a1 |= ((a >> 32) & 0xffff);
+    uint64_t b1 = ((b & 0xFF) << 24) | ((b & 0xFF00) << 8) | ((b & 0xFF0000) >> 8) | ((b & 0xFF000000) >> 24);
+    b1 <<= 32;
+    b1 |= ((b >> 32) & 0xffff);
+    return (a1 < b1);
+  }
 };
 
 /** 
  * @brief IP地址转换类
  */
-class CNetUtil {
-public:
-    /**
-     * 得到本机ip
-     */
-    static uint32_t getLocalAddr(const char *dev_name);
-    /**
-     * ip是本机ip地址, true - 是, false - 不是
-     */
-    static bool isLocalAddr(uint32_t ip, bool loopSkip = true);
-    /**
-     * 把字符串的ip转成int
-     * 如 10.0.100.89 => 1499725834
-     */
-    static uint32_t getAddr(const char *ip);
-    /**
-     * 把uint64转成字符串
-     */
-    static std::string addrToString(uint64_t ipport);
-    /**
-     * 把ip,port转成uint64_t
-     */
-    static uint64_t strToAddr(const char *ip, int port);
-    /**
-     * 把ip,port转成uint64_t
-     */
-    static uint64_t ipToAddr(uint32_t ip, int port);
+class CNetUtil
+{
+ public:
+  /**
+   * 得到本机ip
+   */
+  static uint32_t getLocalAddr(const char *dev_name);
+  /**
+   * ip是本机ip地址, true - 是, false - 不是
+   */
+  static bool isLocalAddr(uint32_t ip, bool loopSkip = true);
+  /**
+   * 把字符串的ip转成int
+   * 如 10.0.100.89 => 1499725834
+   */
+  static uint32_t getAddr(const char *ip);
+  /**
+   * 把uint64转成字符串
+   */
+  static std::string addrToString(uint64_t ipport);
+  /**
+   * 把ip,port转成uint64_t
+   */
+  static uint64_t strToAddr(const char *ip, int port);
+  /**
+   * 把ip,port转成uint64_t
+   */
+  static uint64_t ipToAddr(uint32_t ip, int port);
 };
 
 }

@@ -15,12 +15,14 @@
 
 #include "tbnet.h"
 
-namespace tbnet {
+namespace tbnet
+{
 
 /*
  * 构造函数
  */
-SocketEvent::SocketEvent() {
+SocketEvent::SocketEvent()
+{
 }
 /*
  * 析构函数

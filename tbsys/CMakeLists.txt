@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
 find_package(Threads)
 set(source
         atomic.h
