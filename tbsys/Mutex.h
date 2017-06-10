@@ -66,7 +66,7 @@ class Mutex
   bool willUnlock() const;
 
  private:
-
+  // no copying
   Mutex(const Mutex &);
   Mutex &operator=(const Mutex &);
 

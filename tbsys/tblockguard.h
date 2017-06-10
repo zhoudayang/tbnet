@@ -16,6 +16,7 @@
 #ifndef TBSYS_LOCK_GUARD_H_
 #define TBSYS_LOCK_GUARD_H_
 
+// simple lock guard, a RAII tool
 namespace tbsys
 {
 /**

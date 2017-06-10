@@ -45,6 +45,7 @@ class LockT
     }
   }
 
+  // 显示上锁
   void acquire() const
   {
     if (_acquired)
@@ -106,11 +107,12 @@ class LockT
   LockT &operator=(const LockT &);
 
   const T &_mutex;
-  mutable bool _acquired;
+  mutable bool _acquired; //  是否已经上锁
 
   friend class Cond;
 };
 
+//  在构造函数中尝试上锁，若上锁成功，则在析构函数之中解锁
 /** 
  * @brief TryLockT是简单的模板类，由构造器和析构器构成
  * 构造器针对它的参数调用lock,析构器调用unlock,
