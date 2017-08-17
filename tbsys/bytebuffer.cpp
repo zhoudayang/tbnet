@@ -20,6 +20,7 @@ using namespace tbutil;
 //---------------------------------------------------------
 //----- exception out_of_range
 //---------------------------------------------------------
+/// 初始化错误信息
 ByteBuffer::out_of_range::out_of_range(uint32_t p, uint32_t l, uint32_t s)
 {
   snprintf(errmsg_, MAX_ERROR_MSG_LEN,
@@ -27,6 +28,7 @@ ByteBuffer::out_of_range::out_of_range(uint32_t p, uint32_t l, uint32_t s)
                "out of range size %u", p, l, s);
 }
 
+/// 返回错误信息
 const char *ByteBuffer::out_of_range::what() const throw()
 {
   return errmsg_;
@@ -44,6 +46,7 @@ const char *ByteBuffer::out_of_range::what() const throw()
  * allocate data buffer only when size > 0
  * in this cases, ByteBuffer manage own buffer's lifecycle.
  */
+/// 分配内存的大小为size，在这种情况下，ByteBuffer负责管理buffer的生命周期
 ByteBuffer::ByteBuffer(uint32_t size)
     : data_(NULL), size_(size), position_(0), own_(true)
 {
@@ -53,6 +56,7 @@ ByteBuffer::ByteBuffer(uint32_t size)
   }
 }
 
+/// default constructor
 ByteBuffer::ByteBuffer()
     : data_(NULL), size_(0), position_(0), own_(true)
 {
@@ -62,6 +66,8 @@ ByteBuffer::ByteBuffer()
  * Constructor use another data buffer
  * @param @see copy
  */
+
+/// 构造函数，从offset偏移开始复制的缓冲大小为size
 ByteBuffer::ByteBuffer(const char *data, uint32_t offset, uint32_t size)
     : data_(NULL), size_(size), position_(0), own_(true)
 {
@@ -140,6 +146,7 @@ ByteBuffer &ByteBuffer::copy(const char *data, uint32_t offset, uint32_t size)
   return *this;
 }
 
+/// 直接调用malloc分配内存
 char *ByteBuffer::allocate(uint32_t size) const
 {
   char *data = (char *) malloc(size);
@@ -149,8 +156,10 @@ char *ByteBuffer::allocate(uint32_t size) const
 
 void ByteBuffer::free()
 {
+  /// 拥有buffer
   if (own_ && data_)
   {
+    // 调用free释放内存
     ::free(data_);
   }
   data_ = NULL;
@@ -163,6 +172,7 @@ void ByteBuffer::free()
  */
 void ByteBuffer::reset()
 {
+  /// 释放内存
   free();
   position_ = 0;
   size_ = 0;
@@ -285,6 +295,7 @@ ByteBuffer &ByteBuffer::getRef(int index, const char *&dst,
 const ByteBuffer &ByteBuffer::rawData(int index, const char *&dst,
                                       uint32_t size) const throw(out_of_range)
 {
+  /// 如果index小于0，指向当前position
   if (index < 0)
   {
     index = position_;
@@ -296,8 +307,3 @@ const ByteBuffer &ByteBuffer::rawData(int index, const char *&dst,
   dst = data_ + index;
   return *this;
 }
-
-
-
-
-

@@ -43,6 +43,7 @@ class LinkList
   void head(NodeT *h) { _head = h; }
   void tail(NodeT *t) { _tail = t; }
 
+  /// 判断list是否为空只需要判断head_和tail_是否为NULL
   bool empty() const { return !(_head && _tail); }
 
  private:
@@ -67,6 +68,7 @@ LinkList<NodeT>::~LinkList()
 {
 }
 
+/// append a node to the list
 template<typename NodeT>
 void LinkList<NodeT>::append(NodeT *node)
 {
@@ -89,6 +91,7 @@ void LinkList<NodeT>::append(NodeT *node)
   _tail = node;
 }
 
+/// 将node从list之中删除
 template<typename NodeT>
 void LinkList<NodeT>::remove(NodeT *node)
 {
@@ -117,6 +120,7 @@ void LinkList<NodeT>::remove(NodeT *node)
 
 }
 
+/// 将list al挂接到list的末尾
 template<typename NodeT>
 void LinkList<NodeT>::combine(const LinkList<NodeT> &al)
 {
@@ -140,4 +144,3 @@ void LinkList<NodeT>::combine(const LinkList<NodeT> &al)
 }
 
 #endif
-

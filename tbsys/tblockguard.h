@@ -27,11 +27,13 @@ template<class T>
 class CLockGuard
 {
  public:
+  /// block 标明是否采用阻塞式加锁方式
   CLockGuard(const T &lock, bool block = true) : _lock(lock)
   {
     _acquired = !(block ? _lock.lock() : _lock.tryLock());
   }
 
+  /// 析构函数，解锁
   ~CLockGuard()
   {
     _lock.unlock();
@@ -44,8 +46,8 @@ class CLockGuard
 
  private:
   const T &_lock;
+  /// 没有获取到锁？
   mutable bool _acquired;
 };
 }
-
 #endif

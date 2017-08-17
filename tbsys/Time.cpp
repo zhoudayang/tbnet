@@ -44,6 +44,7 @@ Time Time::now(Clock clock)
   else // Monotonic
   {
     struct timespec ts;
+    /// 系统启动以来流逝的时间
     if (clock_gettime(CLOCK_MONOTONIC, &ts) < 0)
     {
 #ifdef _NO_EXCEPTION
@@ -127,6 +128,7 @@ std::string Time::toDateTime() const
   os << buf << ".";
   os.fill('0');
   os.width(3);
+  /// ms 部分
   os << static_cast<long>(_usec % 1000000 / 1000);
   return os.str();
 }

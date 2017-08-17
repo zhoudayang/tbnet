@@ -36,6 +36,8 @@
 #ifndef TBSYS_ATOMIC_H
 #define TBSYS_ATOMIC_H
 
+/// 原子变量
+
 /*
  * Atomic operations that C can't guarantee us.  Useful for
  * resource counting etc..
