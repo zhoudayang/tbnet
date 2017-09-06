@@ -134,7 +134,7 @@ int Thread::start(size_t stackSize)
     }
 #endif
   }
-    //创建失败使用默认模式创建线程
+    // 不指定线程的堆栈大小
   else
   {
     const int rt = pthread_create(&_thread, 0, startHook, this);

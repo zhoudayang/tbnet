@@ -31,7 +31,6 @@ namespace tbutil
 class Exception : public std::exception
 {
  public:
-
   Exception();
   Exception(const char *, int);
   virtual ~Exception() throw();

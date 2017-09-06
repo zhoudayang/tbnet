@@ -99,6 +99,7 @@ std::ostream &operator<<(std::ostream &out, const Exception &ex)
   return out;
 }
 
+/// 在构造函数之中调用了abort
 NullHandleException::NullHandleException(const char *file, int line) :
     Exception(file, line)
 {

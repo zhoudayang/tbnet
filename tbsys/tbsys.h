@@ -107,6 +107,7 @@ inline int getSystemErrno()
 }
 }//end namespace tbutil
 
+/// 引入定义的头文件
 #include "atomic.h"
 #include "config.h"
 #include "fileutil.h"
